@@ -1,0 +1,21 @@
+{
+    "titleLogin": "Login",
+    "titleRegister": "Register",
+
+    "loginEmailOrUsernamePlaceholder": "Email or username",
+    "loginPasswordPlaceholder": "Password",
+    "buttonLogin": "Login",
+    "buttonVk": "VKontakte",
+
+    "registerLoginPlaceholder": "Username",
+    "registerEmailPlaceholder": "Email",
+    "registerPasswordPlaceholder": "Password",
+    "registerСonfirmPasswordPlaceholder": "Confirm password",
+    "buttonRegister": "Register",
+
+    "emailOrUsername": "email or username",
+    "password": "password",
+    "username": "username",
+    "email": "Email",
+    "confirmPassword": "confirm password"
+  }

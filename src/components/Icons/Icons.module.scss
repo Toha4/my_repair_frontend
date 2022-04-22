@@ -1,0 +1,29 @@
+.iconButtonLightMode {
+  rect {
+    fill: var(--chakra-colors-blue-400);
+  }
+  path {
+    fill: white;
+  }
+
+  &:hover{ 
+    rect {
+      fill: var(--chakra-colors-blue-500);
+    }
+  }
+}
+
+.iconButtonDarkMode {
+  rect {
+    fill: var(--chakra-colors-blue-200);
+  }
+  path {
+    fill: black;
+  }
+
+  &:hover{ 
+    rect {
+      fill: var(--chakra-colors-blue-300);
+    }
+  }
+}

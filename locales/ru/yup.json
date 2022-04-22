@@ -1,0 +1,7 @@
+{
+    "mixedDefault": "неверный {{path}}",
+    "mixedRequired": "{{path}} обязательное поле",
+    "stringMin": "{{path}} должен быть больше {{min}} символов",
+
+    "oneOfConfirmPassword": "пароли не совпадают"
+}
