@@ -2,6 +2,7 @@
     "mixedDefault": "invalid {{path}}",
     "mixedRequired": "{{path}} is a required field",
     "stringMin": "{{path}} must be at least {{min}} characters",
+    "numberPositive": "{{path}} must be a positive number",
 
     "oneOfConfirmPassword": "passwords don't match"
 }

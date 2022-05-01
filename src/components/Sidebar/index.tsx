@@ -91,6 +91,7 @@ const Sidebar: React.FC = () => {
       <Flex
         className={style.sidebar}
         w={navSize === NavSize.SMALL ? "54px" : "200px"}
+        minW={navSize === NavSize.SMALL ? "54px" : "200px"}
       >
         <Flex className={style.menu} as="nav">
           <Flex className={style.header}>

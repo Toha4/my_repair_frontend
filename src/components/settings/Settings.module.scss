@@ -1,0 +1,12 @@
+.settingBox {
+  background: var(--brandGray);
+  padding: 15px;
+  border-radius: var(--chakra-radii-brand);
+}
+
+.form {
+  & > div {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}

@@ -1,0 +1,41 @@
+{
+    "profile": "Профиль",
+    "homes": "Дома",
+    "rooms": "Комнаты",
+    "shops": "Магазины",
+    "typesCosts": "Типы затрат",
+    
+    "home": "дом",
+    "room": "комнату",
+    "shop": "магазин",
+    "typeCosts": "тип затрат",
+    "apartment": "квартира",
+
+    "actionAdd": "Добавить",
+    "actionSetActive": "Сделать активным",
+    "actionEdit": "Редактировать",
+    "actionDelete": "Удалить",
+    "actionSave": "Сохранить",
+    "actionSelect": "Выберите",
+
+    "profileEmailLabel": "Эл. почта",
+    "profilePasswordLabel": "Пароль",
+    "profileConfirmPasswordLabel": "Повторите пароль",
+    "profileSaveButton": "Сохранить изменения",
+
+    "name": "Наименование",
+    "type": "Тип",
+    "square": "Площадь",
+    "action": "Действие",
+    "dateBegin": "Дата начала",
+    "dateEnd": "Дата окончания",
+
+    "noteHomes": "Вы можете добавить сколько угодно домов, но активным может быть только один. Расходы и планирование будут добавляться и отображаться у активного дома.",
+    "noteRooms": "Комнаты будут добавлены к активному дому. В настоящий момент это “{{name}}”.",
+
+    "placeholderEmpty": "Список {{name}} пуст",
+    "homesEmpty": "домов",
+    "roomsEmpty": "комнат",
+    "shopsEmpty": "магазинов",
+    "typeCostsEmpty": "типов затрат"
+}   

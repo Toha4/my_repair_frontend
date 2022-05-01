@@ -1,7 +1,15 @@
-.form {
+.loginForm {
   & > div {
     margin-top: 15px;
     margin-bottom: 15px;
+  }
+
+  input {
+    height: var(--chakra-sizes-10);
+  }
+
+  button {
+    height: var(--chakra-sizes-10);
   }
 }
 

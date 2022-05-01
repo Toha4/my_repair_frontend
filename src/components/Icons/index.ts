@@ -5,3 +5,7 @@ export { default as BlogIcon } from "./BlogIcon";
 export { default as StatisticsIcon } from "./StatisticsIcon";
 export { default as SettingsIcon } from "./SettingsIcon";
 export { default as LogoutIcon } from "./LogoutIcon";
+export { default as StarIcon } from "./StarIcon";
+export { default as StarFillIcon } from "./StarFillIcon";
+export { default as EditIcon } from "./EditIcon";
+export { default as DeleteIcon } from "./DeleteIcon";

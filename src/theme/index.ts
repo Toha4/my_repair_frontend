@@ -2,7 +2,11 @@ import defaultTheme from '@chakra-ui/theme';
 import { extendTheme } from "@chakra-ui/react";
 import Button from "./components/button";
 import Input from "./components/input";
+import NumberInput from './components/number-input';
 import RadioCard from "./components/radio-card";
+import Tabs from './components/tabs';
+import Table from './components/table';
+import Select from "./components/select";
 import { mode } from "@chakra-ui/theme-tools"
 
 const colors = {
@@ -23,24 +27,18 @@ const overrides = {
     }),
   },
   colors,
-  // colors,
-  //   colors: {
-  //     //   brand: {
-  //     //     100: "#f7fafc",
-  //     //     // ...
-  //     //     900: "#1a202c",
-  //     //   },
-  //   },
   radii: {
     brand: "3px"
   },
   components: {
     Button,
     Input,
-    RadioCard
+    NumberInput,
+    RadioCard,
+    Tabs,
+    Table,
+    Select
   },
 };
-
-
 
 export default extendTheme(overrides);

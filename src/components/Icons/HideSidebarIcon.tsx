@@ -4,7 +4,7 @@ import { NavSize } from '../Sidebar';
 import style from "./Icons.module.scss"
 
 interface IHideSidebarIcon extends IIconProps {
-  navSize: NavSize,
+  navSize: NavSize;
 }
 
 const HideSidebarIcon: React.FC<IHideSidebarIcon> = ({ colorMode, navSize }) => (
