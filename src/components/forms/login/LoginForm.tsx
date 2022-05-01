@@ -48,7 +48,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <Box>
-      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
           <Input
             placeholder={t("loginEmailOrUsernamePlaceholder")}

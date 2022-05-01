@@ -1,5 +1,5 @@
 import type { ComponentStyleConfig } from "@chakra-ui/theme";
-import { mode } from "@chakra-ui/theme-tools"
+import { mode } from "@chakra-ui/theme-tools";
 
 
 const Button: ComponentStyleConfig = {
@@ -39,6 +39,7 @@ const Button: ComponentStyleConfig = {
   },
   defaultProps: {
     variant: 'outline',
+    size: "sm",
   },
 }
 

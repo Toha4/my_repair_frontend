@@ -1,0 +1,11 @@
+.table {
+  border-radius: var(--chakra-radii-brand);
+}
+
+.iconActionRow {
+  position: unset;
+
+  &:hover {
+    color: var(--brandBlue);
+  }
+}

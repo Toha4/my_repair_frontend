@@ -3,6 +3,7 @@
     "defaultLocale": "en",
     "pages": {
       "*": ["common", "yup"],
-      "/login": ["login"]
+      "/login": ["login"],
+      "/settings": ["settings"]
     }
   }

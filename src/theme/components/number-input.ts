@@ -2,7 +2,7 @@ import type { ComponentStyleConfig } from "@chakra-ui/theme";
 import { mode } from "@chakra-ui/theme-tools"
 
 
-const Input: ComponentStyleConfig = {
+const NumberInput: ComponentStyleConfig = {
   variants: {
     brandOutline: props => ({
       field: {
@@ -23,4 +23,4 @@ const Input: ComponentStyleConfig = {
   },
 }
 
-export default Input;
+export default NumberInput;

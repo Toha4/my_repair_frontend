@@ -1,0 +1,9 @@
+
+.modalContent {
+  border-radius: var(--chakra-radii-brand) !important;
+  background: var(--brandGray) !important;
+
+  .closeButton {
+    border-radius: var(--chakra-radii-brand) ;
+  }
+}

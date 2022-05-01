@@ -1,28 +1,19 @@
 import React from "react";
-import style from "../form.module.scss";
 import useTranslation from "next-translate/useTranslation";
-
-import {
-  FormControl,
-  FormHelperText,
-  Input,
-  Box,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
+import style from "./Settings.module.scss";
 import { useForm } from "react-hook-form";
-
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegisterFormSchema } from "../../../utils/validations";
+import { PofileSettingsFormSchema } from "../../utils/validations";
 
 interface IFormInputs {
-  username: string;
   email: string;
-  password: string;
-  confirmPassword: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
-const RegisterForm: React.FC = () => {
-  const { t } = useTranslation("login");
+const ProfileSettings: React.FC = () => {
+  const { t } = useTranslation("settings");
   const {
     register,
     handleSubmit,
@@ -30,7 +21,7 @@ const RegisterForm: React.FC = () => {
   } = useForm<IFormInputs>({
     mode: "onTouched",
     reValidateMode: "onSubmit",
-    resolver: yupResolver(RegisterFormSchema(t)),
+    resolver: yupResolver(PofileSettingsFormSchema(t)),
   });
 
   const onSubmit = (value: IFormInputs) => {
@@ -38,23 +29,11 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <Box>
-      <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
+    <Box className={style.settingBox}>
+      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
+          <FormLabel htmlFor='email'>{t("profileEmailLabel")}</FormLabel>
           <Input
-            placeholder={t("registerLoginPlaceholder")}
-            id="username"
-            {...register("username")}
-          />
-          {errors.username && (
-            <FormHelperText color="red">
-              {errors.username.message && errors.username.message}
-            </FormHelperText>
-          )}
-        </FormControl>
-        <FormControl>
-          <Input
-            placeholder={t("registerEmailPlaceholder")}
             id="email"
             type="email"
             {...register("email")}
@@ -66,8 +45,8 @@ const RegisterForm: React.FC = () => {
           )}
         </FormControl>
         <FormControl>
+          <FormLabel htmlFor='password'>{t("profilePasswordLabel")}</FormLabel>
           <Input
-            placeholder={t("registerPasswordPlaceholder")}
             id="password"
             type="password"
             {...register("password")}
@@ -79,8 +58,8 @@ const RegisterForm: React.FC = () => {
           )}
         </FormControl>
         <FormControl>
+          <FormLabel htmlFor='confirm-password'>{t("profileConfirmPasswordLabel")}</FormLabel>
           <Input
-            placeholder={t("registerСonfirmPasswordPlaceholder")}
             id="confirmPassword"
             type="password"
             {...register("confirmPassword")}
@@ -91,16 +70,18 @@ const RegisterForm: React.FC = () => {
             </FormHelperText>
           )}
         </FormControl>
-        <Button
-          type="submit"
-          variant="brandSolid"
-          isFullWidth
-        >
-          {t("buttonRegister")}
-        </Button>
+        <Flex >
+          <Button
+            marginLeft="auto"
+            type="submit"
+            variant="brandSolid"
+          >
+            {t("profileSaveButton")}
+          </Button>
+        </Flex>
       </form>
     </Box>
   );
 };
 
-export default RegisterForm;
+export default ProfileSettings;

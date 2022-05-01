@@ -5,7 +5,7 @@ import Sidebar from "../Sidebar";
 
 
 interface IMainLayoutProps {
-  children: any,
+  children: React.ReactNode;
   title?: string;
 }
 

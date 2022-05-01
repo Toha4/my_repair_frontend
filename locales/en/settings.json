@@ -1,0 +1,41 @@
+{
+    "profile": "Profile",
+    "homes": "Homes",
+    "rooms": "Rooms",
+    "shops": "Shops",
+    "typesCosts": "Types costs",
+
+    "home": "home",
+    "room": "room",
+    "shop": "shop",
+    "typeCosts": "type costs",
+    "apartment": "apartment",
+
+    "actionAdd": "Add",
+    "actionSetActive": "Set active",
+    "actionEdit": "Edit",
+    "actionDelete": "Delete",
+    "actionSave": "Save",
+    "actionSelect": "Select",
+    
+    "profileEmailLabel": "Email",
+    "profilePasswordLabel": "Password",
+    "profileConfirmPasswordLabel": "Confirm password",
+    "profileSaveButton": "Save changes",
+
+    "name": "Name",
+    "type": "Type",
+    "square": "Square",
+    "action": "Action",
+    "dateBegin": "Date begin",
+    "dateEnd": "Date end",
+    
+    "noteHomes": "You can add as many home as you want, but only one can be active. Expenses and planning will be added and displayed at the active home.",
+    "noteRooms": "Rooms will be added to the active home. At the moment, this is “{{name}}.",
+
+    "placeholderEmpty": "The list of {{name}} is empty",
+    "homesEmpty": "homes",
+    "roomsEmpty": "rooms",
+    "shopsEmpty": "shops",
+    "typeCostsEmpty": "type costs"
+}

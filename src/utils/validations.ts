@@ -1,7 +1,6 @@
 import * as yup from 'yup';
-import getT from "next-translate/getT";
 
-// TODO: translate RegisterFormSchema oneOf error, Перевести форму регистраии
+
 const setYupLocale = (t: Function) => {
   yup.setLocale({
     mixed: {
@@ -11,6 +10,10 @@ const setYupLocale = (t: Function) => {
     },
     string: {
       min: ({ min, path }) => t("yup:stringMin", { path: t(path), min })
+
+    },
+    number: {
+      positive: ({ more, path }) => t("yup:numberPositive", { path: t(path), more })
     }
   })
 };
@@ -44,5 +47,47 @@ export const RegisterFormSchema = (t: Function) => {
             )
           : field
       ),
+  })
+};
+
+
+export const PofileSettingsFormSchema = (t: Function) => {
+  setYupLocale(t);
+
+  return yup.object().shape({
+    email: yup.string().email(),
+    password: yup
+      .string()
+      .nullable()
+      .notRequired()
+      .when("password", {
+        is: (value: string) => value?.length,
+        then: (rule) => rule.min(6),
+      }),
+    confirmPassword: yup
+      .string()
+      .when("password", (password, field) =>
+        password
+          ? field
+            .oneOf(
+              [yup.ref("password")],
+              t("yup:oneOfConfirmPassword")
+            )
+          : field
+      ),
+  },
+    [
+      ['password', 'password'],
+    ])
+};
+
+
+export const HomeFormSchema = (t: Function) => {
+  setYupLocale(t);
+
+  return yup.object().shape({
+    name: yup.string().required(),
+    type: yup.number().required().nullable().transform((v) => (v === '' || Number.isNaN(v) ? null : v)),
+    square: yup.number().positive().nullable().transform((v) => (v === '' || Number.isNaN(v) ? null : v)),
   })
 };

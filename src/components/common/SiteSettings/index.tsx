@@ -4,7 +4,7 @@ import LanguageSwitch from "./LanguageSwitch";
 import ColorModeSwitch from "./ColorModeSwitch";
 
 interface ISiteSettings {
-  hideLanguageSwitch?: boolean,
+  hideLanguageSwitch?: boolean;
 }
 
 const SiteSettings: React.FC<ISiteSettings> = ({ hideLanguageSwitch }) => {
