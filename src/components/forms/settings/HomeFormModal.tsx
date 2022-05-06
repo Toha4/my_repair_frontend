@@ -1,6 +1,7 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { FormProvider, useForm } from "react-hook-form";
+import style from "../form.module.scss";
 import ModalForm from "../../common/ModalForm";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,32 +12,34 @@ import SelectForm from "../elements/SelectForm";
 import { HomeTypesNames } from "../../../constants/home";
 import { capitalizeFirstLetter } from "../../../utils/DataConvert";
 
-interface IModalForm {
-  id: number | null;
-  isOpen: boolean;
-  onClose(): void;
-}
 
 interface IFormHome {
   name: string;
   type: number;
-  square?: number;
+  square?: number | null;
 }
 
 const HomeFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   const { t } = useTranslation("settings");
-
-  React.useEffect(() => {
-    if (id) {
-      console.log(`Loading home [${id}]`);
-    }
-  }, []);
 
   const methodsForm = useForm<IFormHome>({
     mode: "onTouched",
     reValidateMode: "onSubmit",
     resolver: yupResolver(HomeFormSchema(t)),
   });
+
+  const { reset } = methodsForm;
+
+  React.useEffect(() => {
+    if (id) {
+      console.log(`Loading shop [${id}]`);
+      // Simulated loading
+      setTimeout(() => {
+        const test_data = { name: "Мой дом", type: 1, square: null }
+        reset(test_data);
+      }, 100)
+    }
+  }, []);
 
   const handleSave = (value: IFormHome) => {
     if (id) {
@@ -57,7 +60,7 @@ const HomeFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
       onOk={methodsForm.handleSubmit(handleSave)}
     >
       <FormProvider {...methodsForm}>
-        <form>
+        <form className={style.settingForm}>
           <InputForm name={t("name")} keyItem="name" isRequired />
           <SelectForm
             name={t("type")}

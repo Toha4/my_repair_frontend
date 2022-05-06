@@ -7,7 +7,7 @@ import ProfileSettings from "../../components/settings/Profile";
 import HomesSettings from "../../components/settings/Homes";
 import RoomsSettings from "../../components/settings/Rooms";
 import ShopsSettings from "../../components/settings/Shops";
-import TypesCostsSettings from "../../components/settings/TypesCosts";
+import CategoriesSettings from "../../components/settings/Categories";
 
 const SettingsPage: React.FC = () => {
   const { t } = useTranslation("settings");
@@ -20,7 +20,7 @@ const SettingsPage: React.FC = () => {
           <Tab>{t("homes")}</Tab>
           <Tab>{t("rooms")}</Tab>
           <Tab>{t("shops")}</Tab>
-          <Tab>{t("typesCosts")}</Tab>
+          <Tab>{t("сategories")}</Tab>
         </TabList>
 
         <TabPanels>
@@ -37,7 +37,7 @@ const SettingsPage: React.FC = () => {
             <ShopsSettings />
           </TabPanel>
           <TabPanel className={style.tabPanels}>
-            <TypesCostsSettings />
+            <CategoriesSettings />
           </TabPanel>
         </TabPanels>
       </Tabs>

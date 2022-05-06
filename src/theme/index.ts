@@ -7,25 +7,15 @@ import RadioCard from "./components/radio-card";
 import Tabs from './components/tabs';
 import Table from './components/table';
 import Select from "./components/select";
+import Datepicker from './components/datepicker';
 import { mode } from "@chakra-ui/theme-tools"
+import colors from './colors';
+import styles from './styles';
 
-const colors = {
-  brandBlue: "var(--brandBlue)",
-  brandGray: "var(--brandGray)",
-  blue: defaultTheme.colors.blue,
-  gray: defaultTheme.colors.gray,
-}
 
 const overrides = {
   ...defaultTheme,
-  styles: {
-    global: (props: any) => ({
-      ":root": {
-        "--brandBlue": mode(colors.blue["400"], colors.blue["200"])(props),
-        "--brandGray": mode(colors.gray["100"], colors.gray["600"])(props),
-      },
-    }),
-  },
+  styles,
   colors,
   radii: {
     brand: "3px"
@@ -37,7 +27,8 @@ const overrides = {
     RadioCard,
     Tabs,
     Table,
-    Select
+    Select,
+    Datepicker
   },
 };
 

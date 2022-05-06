@@ -83,10 +83,7 @@ const HomesSettings: React.FC = () => {
       {isOpenForm && <HomeFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Box className={style.settingBox} >
-        <Button
-          variant="brandSolid"
-          onClick={handleAddHome}
-        >
+        <Button variant="brandSolid" onClick={handleAddHome}>
           {`${t("actionAdd")} ${t("home")}`}
         </Button>
 
