@@ -6,4 +6,9 @@
   .closeButton {
     border-radius: var(--chakra-radii-brand) ;
   }
+
+  .modalBody {
+    padding-top: 0px;
+    padding-bottom: 10px;
+  }
 }

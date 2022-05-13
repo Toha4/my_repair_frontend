@@ -3,12 +3,12 @@
     "homes": "Homes",
     "rooms": "Rooms",
     "shops": "Shops",
-    "typesCosts": "Types costs",
+    "сategories": "Сategories",
 
     "home": "home",
     "room": "room",
     "shop": "shop",
-    "typeCosts": "type costs",
+    "category": "category",
     "apartment": "apartment",
 
     "actionAdd": "Add",
@@ -17,6 +17,7 @@
     "actionDelete": "Delete",
     "actionSave": "Save",
     "actionSelect": "Select",
+    "actionSelectDate": "Select date",
     
     "profileEmailLabel": "Email",
     "profilePasswordLabel": "Password",
@@ -29,6 +30,7 @@
     "action": "Action",
     "dateBegin": "Date begin",
     "dateEnd": "Date end",
+    "link": "Link",
     
     "noteHomes": "You can add as many home as you want, but only one can be active. Expenses and planning will be added and displayed at the active home.",
     "noteRooms": "Rooms will be added to the active home. At the moment, this is “{{name}}.",
@@ -37,5 +39,5 @@
     "homesEmpty": "homes",
     "roomsEmpty": "rooms",
     "shopsEmpty": "shops",
-    "typeCostsEmpty": "type costs"
+    "categoriesEmpty": "сategories"
 }

@@ -91,3 +91,31 @@ export const HomeFormSchema = (t: Function) => {
     square: yup.number().positive().nullable().transform((v) => (v === '' || Number.isNaN(v) ? null : v)),
   })
 };
+
+export const RoomFormSchema = (t: Function) => {
+  setYupLocale(t);
+
+  return yup.object().shape({
+    name: yup.string().required(),
+    square: yup.number().positive().nullable().transform((v) => (v === '' || Number.isNaN(v) ? null : v)),
+    date_begin: yup.date().nullable(),
+    date_end: yup.date().nullable(),
+  })
+};
+
+export const ShopFormSchema = (t: Function) => {
+  setYupLocale(t);
+
+  return yup.object().shape({
+    name: yup.string().required(),
+    link: yup.string(),
+  })
+};
+
+export const CategoryFormSchema = (t: Function) => {
+  setYupLocale(t);
+
+  return yup.object().shape({
+    name: yup.string().required(),
+  })
+};
