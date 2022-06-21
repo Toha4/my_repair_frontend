@@ -24,7 +24,7 @@ export const LoginFormSchema = (t: Function) => {
 
   return yup.object().shape({
     emailOrUsername: yup.string().required().min(3),
-    password: yup.string().required().min(6),
+    password: yup.string().required().min(5),
   })
 };
 
@@ -34,7 +34,7 @@ export const RegisterFormSchema = (t: Function) => {
   return yup.object().shape({
     username: yup.string().required().min(3),
     email: yup.string().required().email(),
-    password: yup.string().required().min(6),
+    password: yup.string().required().min(5),
     confirmPassword: yup
       .string()
       .when("password", (password, field) =>
@@ -62,7 +62,7 @@ export const PofileSettingsFormSchema = (t: Function) => {
       .notRequired()
       .when("password", {
         is: (value: string) => value?.length,
-        then: (rule) => rule.min(6),
+        then: (rule) => rule.min(5),
       }),
     confirmPassword: yup
       .string()

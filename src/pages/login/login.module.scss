@@ -1,21 +1,3 @@
-.header {
-  width: 100%;
-  height: 60px;
-  background: var(--brandGray);
-}
-
-.logo {
-  margin-left: 10vw;
-}
-
-.background {
-  width: 100%;
-  min-width: 460px;
-  min-height: 500px;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-}
-
 .auth {
   width: 410px;
   padding: 45px;

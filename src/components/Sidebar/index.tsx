@@ -25,11 +25,14 @@ import {
 import NavItem from "./NavItem";
 import SiteSettings from "../common/SiteSettings";
 import { getLocalStorage, setLocalStorage } from "../../utils/localStorage";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { OurStore } from "../../redux/store";
+import { logout } from "../../redux/slices/auth";
 
 export enum NavSize {
   LARGE = 1,
   SMALL = 2,
-}
+};
 
 const Sidebar: React.FC = () => {
   const { t } = useTranslation("common");
@@ -49,13 +52,17 @@ const Sidebar: React.FC = () => {
   }, [navSize]);
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const {user} = useAppSelector((state: OurStore) => state.authReducer);
 
   const handleClickNavSize = () => {
     changeNavSize(navSize == NavSize.LARGE ? NavSize.SMALL : NavSize.LARGE);
   };
 
   const handleLogout = () => {
-    console.log("logout!");
+    if (dispatch && dispatch !== null && dispatch !== undefined) {
+      dispatch(logout());
+    }
   };
 
   const menuItems = [
@@ -129,12 +136,19 @@ const Sidebar: React.FC = () => {
             <SiteSettings hideLanguageSwitch={navSize === NavSize.SMALL} />
           </Box>
           <Flex className={style.user}>
-            <Avatar size="sm" name="Anton Marusin" />
+            <Avatar
+              size="sm"
+              name={
+                user?.first_name && user?.last_name
+                  ? `${user.first_name} ${user.last_name}`
+                  : user?.username
+              }
+            />
             <Flex
               className={style.userName}
               display={navSize === NavSize.SMALL ? "none" : "flex"}
             >
-              <Text>Anton</Text>
+              <Text>{user?.username}</Text>
               <Spacer />
               <IconButton
                 pr="6px"

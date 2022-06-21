@@ -1,4 +1,11 @@
-
+// export type ResponseUser = {
+//   email: string;
+//   username: string;
+//   is_active: boolean;
+//   is_superuser?: boolean;
+//   first_name?: string;
+//   last_name?: string;
+// };
 
 // export type Home = {
 //   id: number,

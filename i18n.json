@@ -4,6 +4,7 @@
     "pages": {
       "*": ["common", "yup"],
       "/login": ["login"],
+      "/confirmation_email": ["login"],
       "/settings": ["settings"]
     }
   }

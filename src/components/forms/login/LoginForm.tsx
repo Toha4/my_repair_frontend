@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useTranslation from "next-translate/useTranslation";
 
 import style from "../form.module.scss";
@@ -10,16 +10,23 @@ import {
   Button,
   Flex,
   Spacer,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginFormSchema } from "../../../utils/validations";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { OurStore } from "../../../redux/store";
+import { login, reset as resetAction } from "../../../redux/slices/auth";
+import { ILogin, LoadingStates } from "../../../redux/types";
+
 
 interface IFormInputs {
   emailOrUsername: string;
   password: string;
-}
+};
+
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation("login");
@@ -27,6 +34,7 @@ const LoginForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IFormInputs>({
     mode: "onSubmit",
@@ -34,8 +42,28 @@ const LoginForm: React.FC = () => {
     resolver: yupResolver(LoginFormSchema(t)),
   });
 
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((state: OurStore) => state.authReducer);
+
+  const toast = useToast();
+  useEffect(() => {
+    if (error) {
+      const message = (error.code === "ERR_BAD_REQUEST") ? t("invalidCreditals") : error.message;
+      toast({ title: message, status: "error" });
+
+      reset({ password: "" });
+      dispatch(resetAction());
+    }
+  }, [error]);
+
   const onSubmit = (value: IFormInputs) => {
-    console.log("value: ", value);
+    if (dispatch) {
+      const data = {
+        emailOrUsername: value.emailOrUsername,
+        password: value.password,
+      } as ILogin;
+      dispatch(login(data));
+    }
   };
 
   const handleLoginVkontakte = () => {
@@ -78,6 +106,7 @@ const LoginForm: React.FC = () => {
           type="submit"
           variant="brandSolid"
           isFullWidth
+          isLoading={loading === LoadingStates.LOADING}
         >
           {t("titleLogin")}
         </Button>

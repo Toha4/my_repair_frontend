@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "../form.module.scss";
 import useTranslation from "next-translate/useTranslation";
 
@@ -8,11 +8,18 @@ import {
   Input,
   Box,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterFormSchema } from "../../../utils/validations";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { OurStore } from "../../../redux/store";
+import { register as registerAction, reset as resetAction } from "../../../redux/slices/auth";
+import { useRouter } from "next/router";
+import { IRegister, LoadingStates } from "../../../redux/types";
+
 
 interface IFormInputs {
   username: string;
@@ -20,6 +27,7 @@ interface IFormInputs {
   password: string;
   confirmPassword: string;
 }
+
 
 const RegisterForm: React.FC = () => {
   const { t } = useTranslation("login");
@@ -33,9 +41,45 @@ const RegisterForm: React.FC = () => {
     resolver: yupResolver(RegisterFormSchema(t)),
   });
 
+  const dispatch = useAppDispatch();
+  const { loading, register_success, error } = useAppSelector((state: OurStore) => state.authReducer);
+
   const onSubmit = (value: IFormInputs) => {
-    console.log("value: ", value);
+    if (dispatch && dispatch !== null && dispatch !== undefined) {
+      const data = {
+        username: value.username,
+        email: value.email,
+        password: value.password,
+      } as IRegister;
+      dispatch(registerAction(data));
+    }
   };
+
+  const router = useRouter();
+  useEffect(() => {
+    if (register_success) {
+      router.push("/confirmation_email")
+    }
+  }, [register_success])
+
+  const toast = useToast();
+  useEffect(() => {
+    if (error) {
+      let title: string;
+      if (error.message === "Username already exists") {
+        title = t("UsernameAlreadyExists");
+      }
+      else if (error.message === "Email already exists") {
+        title = t("EmailAlreadyExists");
+      }
+      else {
+        title = error.message ? error.message : "";
+      }
+      toast({ title, status: "error" });
+
+      dispatch(resetAction());
+    }
+  }, [error]);
 
   return (
     <Box>
@@ -95,6 +139,7 @@ const RegisterForm: React.FC = () => {
           type="submit"
           variant="brandSolid"
           isFullWidth
+          isLoading={loading === LoadingStates.LOADING}
         >
           {t("buttonRegister")}
         </Button>
