@@ -1,6 +1,6 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
-import MainLayout from "../../components/layout/MainLayout";
+import MainLayout from "../../components/layouts/MainLayout";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
 import ProfileSettings from "../../components/settings/Profile";

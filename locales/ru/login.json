@@ -17,5 +17,10 @@
     "password": "пароль",
     "username": "логин",
     "email": "эл. почта",
-    "confirmPassword": "повторите пароль"
+    "confirmPassword": "повторите пароль",
+
+    "invalidCreditals": "Неверный логин или пароль",
+    "UsernameAlreadyExists": "Пользователь с таким логином уже зарегистрирован",
+    "EmailAlreadyExists": "Данная эл. почта уже зарегистрирована",
+    "confirmationEmail": "На адрес {{email}} было отправлено письмо для подтверждения."
   }
