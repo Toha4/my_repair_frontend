@@ -24,7 +24,7 @@ const ModalForm: React.FC<IModalForm> = ({ children, isOpen, header, onClose, on
       <ModalContent className={style.modalContent}>
         <ModalHeader>{header}</ModalHeader>
         <ModalCloseButton className={style.closeButton} />
-        <ModalBody pb={6}>
+        <ModalBody className={style.modalBody}>
           {children}
         </ModalBody>
 
