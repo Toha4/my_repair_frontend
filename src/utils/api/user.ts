@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { ILogin, IRegister, IUser } from '../../redux/types';
+import { ILogin, IRegister, IUser, IUserUpdate } from '../../redux/types';
 
 
 export const UserApi = (instance: AxiosInstance) => ({
@@ -19,4 +19,8 @@ export const UserApi = (instance: AxiosInstance) => ({
     const { data } = await instance.get<IUser>("/api/users/me/");
     return data;
   },
+  async updateUser(user: IUserUpdate) {
+    const { data } = await instance.put<IUser>("/api/users/me/", user);
+    return data;
+  }
 });

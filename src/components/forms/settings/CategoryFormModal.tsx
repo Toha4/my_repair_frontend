@@ -6,13 +6,15 @@ import ModalForm from "../../common/ModalForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CategoryFormSchema } from "../../../utils/validations";
 import InputForm from "../elements/InputForm";
+import { Api } from "../../../utils/api";
+import { useToast } from "@chakra-ui/react";
 
 
 interface IFormCategory {
   name: string;
 }
 
-const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
+const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTable }) => {
   const { t } = useTranslation("settings");
 
   const methodsForm = useForm<IFormCategory>({
@@ -21,31 +23,39 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     resolver: yupResolver(CategoryFormSchema(t)),
   });
 
+  const toast = useToast();
+
   const { reset } = methodsForm;
 
   React.useEffect(() => {
     if (id) {
-      console.log(`Loading category [${id}]`);
-      // Simulated loading
-      setTimeout(() => {
-        const test_data = { name: "Потолок" }
-        reset(test_data);
-      }, 100)
+      const fetchData = async () => {
+        const result = await Api().category.get(id);
+        reset({ name: result.name });
+      }
+      fetchData();
     }
   }, []);
 
-  const handleSave = (value: IFormCategory) => {
+  const handleSave = async (value: IFormCategory) => {
     const data = {
       name: value.name,
     };
 
-    if (id) {
-      console.log("Save category: ", data);
-    } else {
-      console.log("Add category: ", data);
+    try {
+      if (id) {
+        await Api().category.update(id, data);
+        onUpdateTable();
+      } else {
+        await Api().category.create(data);
+        onUpdateTable();
+      }
+    } catch (err) {
+      console.warn('Error add or update category', err);
+      toast({ title: t("unknownError"), status: "error" });
+    } finally {
+      onClose();
     }
-
-    onClose();
   };
 
   return (

@@ -11,6 +11,8 @@ import InputNumberForm from "../elements/InputNumberForm";
 import SelectForm from "../elements/SelectForm";
 import { HomeTypesNames } from "../../../constants/home";
 import { capitalizeFirstLetter } from "../../../utils/DataConvert";
+import { Api } from "../../../utils/api";
+import { useToast } from "@chakra-ui/react";
 
 
 interface IFormHome {
@@ -19,7 +21,7 @@ interface IFormHome {
   square?: number | null;
 }
 
-const HomeFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
+const HomeFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTable }) => {
   const { t } = useTranslation("settings");
 
   const methodsForm = useForm<IFormHome>({
@@ -28,27 +30,45 @@ const HomeFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     resolver: yupResolver(HomeFormSchema(t)),
   });
 
+  const toast = useToast();
+
   const { reset } = methodsForm;
 
   React.useEffect(() => {
     if (id) {
-      console.log(`Loading shop [${id}]`);
-      // Simulated loading
-      setTimeout(() => {
-        const test_data = { name: "Мой дом", type: 1, square: null }
-        reset(test_data);
-      }, 100)
+      const fetchData = async () => {
+        const result = await Api().home.get(id);
+        reset({
+          name: result.name,
+          type: result.type_home,
+          square: result.square,
+        });
+      }
+      fetchData();
     }
   }, []);
 
-  const handleSave = (value: IFormHome) => {
-    if (id) {
-      console.log("Save home: ", value);
-    } else {
-      console.log("Add home: ", value);
-    }
+  const handleSave = async (value: IFormHome) => {
+    const data = {
+      name: value.name,
+      type_home: value.type,
+      square: value.square,
+    };
 
-    onClose();
+    try {
+      if (id) {
+        await Api().home.update(id, data);
+        onUpdateTable();
+      } else {
+        await Api().home.create(data);
+        onUpdateTable();
+      }
+    } catch (err) {
+      console.warn('Error add or update shop', err);
+      toast({ title: t("unknownError"), status: "error" });
+    } finally {
+      onClose();
+    }
   };
 
   return (

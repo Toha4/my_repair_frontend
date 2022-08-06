@@ -56,25 +56,27 @@ export const PofileSettingsFormSchema = (t: Function) => {
 
   return yup.object().shape({
     email: yup.string().email(),
-    password: yup
-      .string()
-      .nullable()
-      .notRequired()
-      .when("password", {
-        is: (value: string) => value?.length,
-        then: (rule) => rule.min(5),
-      }),
-    confirmPassword: yup
-      .string()
-      .when("password", (password, field) =>
-        password
-          ? field
-            .oneOf(
-              [yup.ref("password")],
-              t("yup:oneOfConfirmPassword")
-            )
-          : field
-      ),
+    firstName: yup.string(),
+    lastName: yup.string(),
+    // password: yup
+    //   .string()
+    //   .nullable()
+    //   .notRequired()
+    //   .when("password", {
+    //     is: (value: string) => value?.length,
+    //     then: (rule) => rule.min(5),
+    //   }),
+    // confirmPassword: yup
+    //   .string()
+    //   .when("password", (password, field) =>
+    //     password
+    //       ? field
+    //         .oneOf(
+    //           [yup.ref("password")],
+    //           t("yup:oneOfConfirmPassword")
+    //         )
+    //       : field
+    //   ),
   },
     [
       ['password', 'password'],

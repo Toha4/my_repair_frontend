@@ -19,10 +19,21 @@
     "actionSelect": "Выберите",
     "actionSelectDate": "Выберите дату",
 
+    "profileFirstNameLabel": "Имя",
+    "profilelastNameLabel": "Фамилия",
     "profileEmailLabel": "Эл. почта",
     "profilePasswordLabel": "Пароль",
     "profileConfirmPasswordLabel": "Повторите пароль",
     "profileSaveButton": "Сохранить изменения",
+
+    "profileUpdateSuccess": "Профиль успешно обновлен",
+    "profileUpdateError": "Произошла ошибка при обновлении профиля",
+    "unknownError": "Произошла неизвестная ошибка",
+
+    "confirmationAction": "Подтверждение действия",
+    "confirmationCancel": "Отмена",
+    "confirmationYes": "Да",
+    "confirmationTextDelete": "Вы действительно хотите удалить {{name}} “{{object}}”?",
 
     "name": "Наименование",
     "type": "Тип",

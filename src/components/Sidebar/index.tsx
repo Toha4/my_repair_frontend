@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
 
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const {user} = useAppSelector((state: OurStore) => state.authReducer);
+  const { user } = useAppSelector((state: OurStore) => state.authReducer);
 
   const handleClickNavSize = () => {
     changeNavSize(navSize == NavSize.LARGE ? NavSize.SMALL : NavSize.LARGE);

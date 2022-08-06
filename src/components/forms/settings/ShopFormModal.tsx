@@ -6,6 +6,8 @@ import ModalForm from "../../common/ModalForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ShopFormSchema } from "../../../utils/validations";
 import InputForm from "../elements/InputForm";
+import { Api } from "../../../utils/api";
+import { useToast } from "@chakra-ui/react";
 
 
 interface IFormShop {
@@ -13,7 +15,7 @@ interface IFormShop {
   link?: string;
 }
 
-const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
+const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTable }) => {
   const { t } = useTranslation("settings");
 
   const methodsForm = useForm<IFormShop>({
@@ -22,32 +24,40 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     resolver: yupResolver(ShopFormSchema(t)),
   });
 
+  const toast = useToast();
+  
   const { reset } = methodsForm;
 
   React.useEffect(() => {
     if (id) {
-      console.log(`Loading shop [${id}]`);
-      // Simulated loading
-      setTimeout(() => {
-        const test_data = { name: "AliExpress", link: "https://ru.aliexpress.com" }
-        reset(test_data);
-      }, 100)
+      const fetchData = async () => {
+        const result = await Api().shop.get(id);
+        reset({ name: result.name, link: result.link });
+      }
+      fetchData();
     }
   }, []);
 
-  const handleSave = (value: IFormShop) => {
+  const handleSave = async (value: IFormShop) => {
     const data = {
       name: value.name,
       link: value.link,
     };
 
-    if (id) {
-      console.log("Save shop: ", data);
-    } else {
-      console.log("Add shop: ", data);
+    try {
+      if (id) {
+        await Api().shop.update(id, data);
+        onUpdateTable();
+      } else {
+        await Api().shop.create(data);
+        onUpdateTable();
+      }
+    } catch (err) {
+      console.warn('Error add or update shop', err);
+      toast({ title: t("unknownError"), status: "error" });
+    } finally {
+      onClose();
     }
-
-    onClose();
   };
 
   return (
