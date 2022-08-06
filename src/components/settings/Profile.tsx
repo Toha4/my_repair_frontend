@@ -1,31 +1,60 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PofileSettingsFormSchema } from "../../utils/validations";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { OurStore } from "../../redux/store";
+import { updateUser } from "../../redux/slices/auth";
+import { IUserUpdate } from "../../redux/types";
+
 
 interface IFormInputs {
   email: string;
-  password?: string;
-  confirmPassword?: string;
+  firstName?: string,
+  lastName?: string,
+  // password?: string;
+  // confirmPassword?: string;
 }
 
 const ProfileSettings: React.FC = () => {
   const { t } = useTranslation("settings");
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state: OurStore) => state.authReducer);
   const {
     register,
     handleSubmit,
     formState: { errors },
+
   } = useForm<IFormInputs>({
     mode: "onTouched",
     reValidateMode: "onSubmit",
     resolver: yupResolver(PofileSettingsFormSchema(t)),
+    defaultValues: {
+      firstName: user?.first_name,
+      lastName: user?.last_name,
+      email: user?.email,
+    }
   });
+  const toast = useToast();
 
-  const onSubmit = (value: IFormInputs) => {
-    console.log("value: ", value);
+  const onSubmit = async (value: IFormInputs) => {
+    if (dispatch) {
+      const data = {
+        email: value.email,
+        first_name: value.firstName,
+        last_name: value.lastName
+      } as IUserUpdate;
+      const result = await dispatch(updateUser(data));
+      if (updateUser.fulfilled.match(result)) {
+        toast({ title: t("profileUpdateSuccess"), status: "success" });
+      }
+      else {
+        toast({ title: t("profileUpdateError"), status: "error" });
+      }
+    }
   };
 
   return (
@@ -45,6 +74,32 @@ const ProfileSettings: React.FC = () => {
           )}
         </FormControl>
         <FormControl>
+          <FormLabel htmlFor='firstName'>{t("profileFirstNameLabel")}</FormLabel>
+          <Input
+            id="firstName"
+            type="firstName"
+            {...register("firstName")}
+          />
+          {errors.firstName && (
+            <FormHelperText color="red">
+              {errors.firstName.message && errors.firstName.message}
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor='lastName'>{t("profilelastNameLabel")}</FormLabel>
+          <Input
+            id="lastName"
+            type="lastName"
+            {...register("lastName")}
+          />
+          {errors.lastName && (
+            <FormHelperText color="red">
+              {errors.lastName.message && errors.lastName.message}
+            </FormHelperText>
+          )}
+        </FormControl>
+        {/* <FormControl>
           <FormLabel htmlFor='password'>{t("profilePasswordLabel")}</FormLabel>
           <Input
             id="password"
@@ -69,7 +124,7 @@ const ProfileSettings: React.FC = () => {
               {errors.confirmPassword.message && errors.confirmPassword.message}
             </FormHelperText>
           )}
-        </FormControl>
+        </FormControl> */}
         <Flex >
           <Button
             marginLeft="auto"

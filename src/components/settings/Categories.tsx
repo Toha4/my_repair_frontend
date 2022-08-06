@@ -1,10 +1,13 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
-import { Box, Button, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
 import ActionTableRow from "../tables/ActionTableRow";
 import TableSettings from "../tables/TableSetting";
 import CategoryFormModal from "../forms/settings/CategoryFormModal";
+import { Api } from "../../utils/api";
+import { CategoryItemTypes } from "../../utils/api/types";
+import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
 
 
 const CategoriesSettings: React.FC = () => {
@@ -12,20 +15,31 @@ const CategoriesSettings: React.FC = () => {
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure()
   const [idEdit, setIdEdit] = React.useState<number | null>(null);
 
-  const testData = [
-    {
-      id: 7,
-      name: "Пол",
-    },
-    {
-      id: 20,
-      name: "Потолок",
-    },
-    {
-      id: 10,
-      name: "Стены",
-    },
-  ];
+  const [categoryies, setCategoryies] = React.useState<CategoryItemTypes[]>([]);
+  const [update, setUpdate] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+  const toast = useToast();
+  const modalContext = useConfirmationModalContext()
+
+  React.useEffect(() => {
+    if (update) {
+      const fetchData = async () => {
+        try {
+          setLoading(true);
+          const result = await Api().category.getAll();
+          setCategoryies(result);
+        } catch (e) {
+          console.error("Error from get categories");
+        }
+
+        setUpdate(false);
+        setLoading(false);
+      }
+
+      fetchData();
+    }
+  }, [update])
 
   const columns = React.useMemo(
     () => [
@@ -45,7 +59,7 @@ const CategoriesSettings: React.FC = () => {
           } = props;
           return (
             <ActionTableRow
-              id={original.id}
+              id={original.pk}
               onClickEdit={handleEditCategory}
               onClickDelete={handleDeleteCategory}
             />
@@ -53,7 +67,7 @@ const CategoriesSettings: React.FC = () => {
         },
       },
     ],
-    [lang]
+    [lang, categoryies]
   );
 
   const handleEditCategory = (id: number) => {
@@ -61,8 +75,24 @@ const CategoriesSettings: React.FC = () => {
     onOpenForm();
   };
 
-  const handleDeleteCategory = (id: number) => {
-    console.log(`Delete [${id}]`);
+  const handleDeleteCategory = async (id: number) => {
+    const nameCategory = categoryies.find(item => id === item.pk)?.name;
+    const resultConfirm = await modalContext.showConfirmation(
+      t("confirmationTextDelete", { name: t("category"), object: nameCategory })
+    );
+
+    if (!resultConfirm) {
+      return;
+    }
+
+    Api().category.remove(id)
+      .then(() => {
+        updateTable();
+      })
+      .catch((err) => {
+        console.warn('Error delete category', err);
+        toast({ title: t("unknownError"), status: "error" });
+      })
   };
 
   const handleAddCategory = () => {
@@ -70,9 +100,13 @@ const CategoriesSettings: React.FC = () => {
     onOpenForm();
   };
 
+  const updateTable = () => {
+    setUpdate(true);
+  };
+
   return (
     <>
-      {isOpenForm && <CategoryFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
+      {isOpenForm && <CategoryFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} onUpdateTable={updateTable} />}
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddCategory}>
@@ -82,9 +116,9 @@ const CategoriesSettings: React.FC = () => {
         <Box mt="15px" mb="15px">
           <TableSettings
             columns={columns}
-            data={testData}
+            data={categoryies}
             maxHeight="600px"
-            emptyPlaceholder={t("placeholderEmpty", { name: t("categoriesEmpty") })}
+            emptyPlaceholder={loading ? "" : t("placeholderEmpty", { name: t("categoriesEmpty") })}
           />
         </Box>
       </Box>

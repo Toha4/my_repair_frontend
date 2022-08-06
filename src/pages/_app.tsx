@@ -9,12 +9,15 @@ import { Api } from "../utils/api";
 import { setUser } from "../redux/slices/auth";
 import axios from "axios";
 import { setAccessCookie } from "../utils/cookies";
+import ConfirmationModalContextProvider from "../contexts/ModalDialogContext";
 
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <ConfirmationModalContextProvider>
+        <Component {...pageProps} />
+      </ConfirmationModalContextProvider>
     </ChakraProvider>
   );
 };

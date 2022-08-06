@@ -1,8 +1,7 @@
 import { createSlice, SerializedError, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { Api } from "../../utils/api";
 import { destoryAccessCookie, setAccessCookie } from "../../utils/cookies";
-import { IAuthSliceState, ILogin, IRegister, IUser, LoadingStates } from "../types";
+import { IAuthSliceState, ILogin, IRegister, IUser, IUserSettings, IUserUpdate, LoadingStates } from "../types";
 
 
 const internalInitialState: IAuthSliceState = {
@@ -71,13 +70,25 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
+export const updateUser = createAsyncThunk("auth/me/update", async (data: IUserUpdate, thinkAPI) => {
+  try {
+    return await Api().user.updateUser(data);
+  }
+  catch (error: any) {
+    return thinkAPI.rejectWithValue({ error: error.message });
+  }
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: internalInitialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IUser | null>) => {
+    setUser: (state: any, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
       state.isAuthenticated = action.payload !== null;
+    },
+    setUserSettings: (state: any, action: PayloadAction<IUserSettings>) => {
+      state.user.settings = action.payload;
     },
     reset: () => internalInitialState,
   },
@@ -116,9 +127,12 @@ export const authSlice = createSlice({
     builder.addCase(fetchUser.rejected, (state, action) => {
       return { ...internalInitialState, error: action.error };
     })
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+    })
   }
 });
 
-export const { setUser, reset } = authSlice.actions;
+export const { setUser, setUserSettings, reset } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

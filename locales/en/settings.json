@@ -19,10 +19,21 @@
     "actionSelect": "Select",
     "actionSelectDate": "Select date",
     
+    "profileFirstNameLabel": "Name",
+    "profilelastNameLabel": "Surname",
     "profileEmailLabel": "Email",
     "profilePasswordLabel": "Password",
     "profileConfirmPasswordLabel": "Confirm password",
     "profileSaveButton": "Save changes",
+
+    "profileUpdateSuccess": "Profile has been successfully updated",
+    "profileUpdateError": "An error occurred while updating the profile",
+    "unknownError": "An unknown error has occurred",
+
+    "confirmationAction": "Confirmation of the action",
+    "confirmationCancel": "Cancel",
+    "confirmationYes": "Yes",
+    "confirmationTextDelete": "Do you really want to delete {{name}} “{{object}}”?",
 
     "name": "Name",
     "type": "Type",

@@ -10,6 +10,8 @@ import InputNumberForm from "../elements/InputNumberForm";
 import DatepickerForm from "../elements/DatepickerForm";
 import moment from "moment";
 import { stringToDate } from "../../../utils/DataConvert";
+import { Api } from "../../../utils/api";
+import { useToast } from "@chakra-ui/react";
 
 
 interface IFormRoom {
@@ -19,7 +21,7 @@ interface IFormRoom {
   date_end?: Date | null;
 }
 
-const RoomFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
+const RoomFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTable }) => {
   const { t } = useTranslation("settings");
 
   const methodsForm = useForm<IFormRoom>({
@@ -28,21 +30,26 @@ const RoomFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     resolver: yupResolver(RoomFormSchema(t)),
   });
 
+  const toast = useToast();
+  
   const { reset } = methodsForm;
 
   React.useEffect(() => {
     if (id) {
-      console.log(`Loading room [${id}]`);
-      // Simulated loading
-      setTimeout(() => {
-        const test_data = { name: "Спальня", square: 15.2, date_begin: stringToDate("12.11.2020"), date_end: null }
-        reset(test_data);
-      }, 100)
+      const fetchData = async () => {
+        const result = await Api().room.get(id);
+        reset({
+          name: result.name,
+          square: result.square,
+          date_begin: result.date_begin ? stringToDate(result.date_begin) : null,
+          date_end: result.date_end ? stringToDate(result.date_end) : null
+        });
+      }
+      fetchData();
     }
   }, []);
 
-  const handleSave = (value: IFormRoom) => {
-    console.log('value: ', value);
+  const handleSave = async (value: IFormRoom) => {
     const data = {
       name: value.name,
       square: value.square,
@@ -50,13 +57,20 @@ const RoomFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
       date_end: value.date_end ? moment(value.date_end).format("YYYY-MM-DD") : null,
     };
 
-    if (id) {
-      console.log("Save room: ", data);
-    } else {
-      console.log("Add room: ", data);
+    try {
+      if (id) {
+        await Api().room.update(id, data);
+        onUpdateTable();
+      } else {
+        await Api().room.create(data);
+        onUpdateTable();
+      }
+    } catch (err) {
+      console.warn('Error add or update shop', err);
+      toast({ title: t("unknownError"), status: "error" });
+    } finally {
+      onClose();
     }
-
-    onClose();
   };
 
   return (

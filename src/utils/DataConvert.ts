@@ -5,6 +5,6 @@ export function capitalizeFirstLetter(string: string): string {
 }
 
 export function stringToDate(string: string): Date {
-  const date = moment(string, "MM.DD.YYYY");
+  const date = moment(string, "DD.MM.YYYY");
   return date.toDate();
 }

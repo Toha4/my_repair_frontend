@@ -36,7 +36,7 @@ const TableSettings: React.FC<ITableSettings> = ({
       overflowY="auto"
       maxHeight={maxHeight}
     >
-      <Table {...getTableProps()} variant="simple" size="sm">
+      <Table {...getTableProps()} variant="simple" size="sm" overflowY="hiden">
         <Thead position="sticky" top={0}>
           {headerGroups.map((headerGroup: any) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -66,7 +66,10 @@ const TableSettings: React.FC<ITableSettings> = ({
             rows.map((row: any) => {
               prepareRow(row);
               return (
-                <Tr {...row.getRowProps()}>
+                <Tr
+                  {...row.getRowProps()}
+                  style={{ whiteSpace: "normal" }}
+                >
                   {row.cells.map((cell: any) => (
                     <Td
                       {...cell.getCellProps()}

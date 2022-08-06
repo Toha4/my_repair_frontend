@@ -8,6 +8,7 @@ import Tabs from './components/tabs';
 import Table from './components/table';
 import Select from "./components/select";
 import Datepicker from './components/datepicker';
+import Modal from './components/modal';
 import { mode } from "@chakra-ui/theme-tools"
 import colors from './colors';
 import styles from './styles';
@@ -28,7 +29,8 @@ const overrides = {
     Tabs,
     Table,
     Select,
-    Datepicker
+    Datepicker,
+    Modal
   },
 };
 
