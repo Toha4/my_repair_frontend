@@ -31,8 +31,9 @@ const NavItem: React.FC<INavItemProps> = ({ navSize, title, href, icon, active }
         alignItems={navSize == NavSize.SMALL ? "center" : "flex-start"}
       >
         <Menu placement="right">
-          <NextLink href={href} passHref>
             <Link
+              as={NextLink}
+              href={href}
               className={style.navItemLink}
               _hover={{ textDecor: "none", backgroundColor: colorMode == "dark" ? "gray.500" : "gray.300" }}
               w={navSize == NavSize.LARGE ? "100%" : ""}
@@ -50,7 +51,6 @@ const NavItem: React.FC<INavItemProps> = ({ navSize, title, href, icon, active }
                 </Flex>
               </MenuButton>
             </Link>
-          </NextLink>
         </Menu>
       </Flex>
     </>
