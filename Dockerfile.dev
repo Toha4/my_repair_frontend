@@ -1,0 +1,22 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package.json ./
+RUN yarn install
+
+# COPY . /app
+
+COPY .env ./.env
+COPY next.config.js ./next.config.js
+COPY tsconfig.json ./tsconfig.json
+COPY i18n.json ./i18n.json
+
+# COPY .next ./.next
+COPY locales ./locales
+COPY public ./public
+# COPY src ./src
+
+EXPOSE 3000
+
+CMD ["yarn", "dev"]
