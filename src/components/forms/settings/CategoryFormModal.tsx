@@ -8,13 +8,16 @@ import { CategoryFormSchema } from "../../../utils/validations";
 import InputForm from "../elements/InputForm";
 import { Api } from "../../../utils/api";
 import { useToast } from "@chakra-ui/react";
+import { useAppDispatch } from "../../../redux/hooks";
+import { CategoryItemTypes } from "../../../utils/api/types";
+import { categoryAdded, categoryUpdated } from "../../../redux/slices/categorySlice";
 
 
 interface IFormCategory {
   name: string;
 }
 
-const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTable }) => {
+const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   const { t } = useTranslation("settings");
 
   const methodsForm = useForm<IFormCategory>({
@@ -27,12 +30,21 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdate
 
   const { reset } = methodsForm;
 
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+
   React.useEffect(() => {
     if (id) {
+      setLoading(true);
+
       const fetchData = async () => {
         const result = await Api().category.get(id);
         reset({ name: result.name });
+
+        setLoading(false);
       }
+
       fetchData();
     }
   }, []);
@@ -44,11 +56,17 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdate
 
     try {
       if (id) {
-        await Api().category.update(id, data);
-        onUpdateTable();
+        await Api().category.update(id, data).then(
+          (category: CategoryItemTypes) => {
+            dispatch(categoryUpdated(category))
+          }
+        );
       } else {
-        await Api().category.create(data);
-        onUpdateTable();
+        await Api().category.create(data).then(
+          (category: CategoryItemTypes) => {
+            dispatch(categoryAdded(category))
+          }
+        );
       }
     } catch (err) {
       console.warn('Error add or update category', err);
@@ -68,7 +86,7 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdate
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>
-          <InputForm name={t("name")} keyItem="name" isRequired />
+          <InputForm name={t("name")} keyItem="name" isRequired loading={loading}/>
         </form>
       </FormProvider>
     </ModalForm>

@@ -18,8 +18,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginFormSchema } from "../../../utils/validations";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { OurStore } from "../../../redux/store";
-import { login, reset as resetAction } from "../../../redux/slices/auth";
-import { ILogin, LoadingStates } from "../../../redux/types";
+import { login, reset as resetAction } from "../../../redux/slices/authSlice";
+import { ILogin, LoadingStatus } from "../../../redux/types";
 
 
 interface IFormInputs {
@@ -105,8 +105,8 @@ const LoginForm: React.FC = () => {
         <Button
           type="submit"
           variant="brandSolid"
-          isFullWidth
-          isLoading={loading === LoadingStates.LOADING}
+          width="100%"
+          isLoading={loading === LoadingStatus.LOADING}
         >
           {t("titleLogin")}
         </Button>

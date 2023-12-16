@@ -5,7 +5,7 @@ import Sidebar from "../Sidebar";
 import { useRouter } from "next/router";
 import { useAppSelector } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";
-import { LoadingStates } from "../../redux/types";
+import { LoadingStatus } from "../../redux/types";
 
 
 interface IMainLayoutProps {
@@ -17,7 +17,7 @@ const MainLayout: React.FC<IMainLayoutProps> = ({ children, title }) => {
   const router = useRouter();
   const { loading, isAuthenticated } = useAppSelector((state: OurStore) => state.authReducer);
 
-  if (typeof window !== "undefined" && loading !== LoadingStates.LOADING && !isAuthenticated) {
+  if (typeof window !== "undefined" && loading !== LoadingStatus.LOADING && !isAuthenticated) {
     router.push("/login");
   }
 

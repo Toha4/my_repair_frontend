@@ -84,13 +84,24 @@ export const PofileSettingsFormSchema = (t: Function) => {
 };
 
 
-export const HomeFormSchema = (t: Function) => {
+export const RepairObjectFormSchema = (t: Function) => {
   setYupLocale(t);
 
   return yup.object().shape({
     name: yup.string().required(),
     type: yup.number().required().nullable().transform((v) => (v === '' || Number.isNaN(v) ? null : v)),
     square: yup.number().positive().nullable().transform((v) => (v === '' || Number.isNaN(v) ? null : v)),
+  })
+};
+
+export const BuildingFormSchema = (t: Function) => {
+  setYupLocale(t);
+
+  return yup.object().shape({
+    name: yup.string().required(),
+    square: yup.number().positive().nullable().transform((v) => (v === '' || Number.isNaN(v) ? null : v)),
+    date_begin: yup.date().nullable(),
+    date_end: yup.date().nullable(),
   })
 };
 

@@ -6,7 +6,7 @@ import { destroyCookie, parseCookies, } from 'nookies';
 import * as cookie from "cookie";
 import { wrapper } from "../redux/store";
 import { Api } from "../utils/api";
-import { setUser } from "../redux/slices/auth";
+import { setUser } from "../redux/slices/authSlice";
 import axios from "axios";
 import { setAccessCookie } from "../utils/cookies";
 import ConfirmationModalContextProvider from "../contexts/ModalDialogContext";

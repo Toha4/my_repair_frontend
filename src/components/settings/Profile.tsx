@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { PofileSettingsFormSchema } from "../../utils/validations";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";
-import { updateUser } from "../../redux/slices/auth";
+import { updateUser } from "../../redux/slices/authSlice";
 import { IUserUpdate } from "../../redux/types";
 
 

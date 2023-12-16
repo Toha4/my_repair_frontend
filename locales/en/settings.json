@@ -1,15 +1,19 @@
 {
     "profile": "Profile",
-    "homes": "Homes",
-    "rooms": "Rooms",
+    "objects": "Objects",
+    "objectSettings": "Object settings",
+    "rooms": "Rooms",    
+    "buildings": "Buildings",
     "shops": "Shops",
-    "сategories": "Сategories",
+    "categories": "Categories",
 
-    "home": "home",
+    "object": "object",
     "room": "room",
+    "building": "building",
     "shop": "shop",
     "category": "category",
     "apartment": "apartment",
+    "land": "land plot",
 
     "actionAdd": "Add",
     "actionSetActive": "Set active",
@@ -37,18 +41,21 @@
 
     "name": "Name",
     "type": "Type",
-    "square": "Square",
+    "typeDescription": "Land plot - allows you to add buildings. You can add your own rooms for each building. Apartment - this type allows you to add only rooms",
+    "typeHelpText": "The type can only be specified when creating an object",
+    "square": "Square, m2",
     "action": "Action",
     "dateBegin": "Date begin",
     "dateEnd": "Date end",
     "link": "Link",
     
-    "noteHomes": "You can add as many home as you want, but only one can be active. Expenses and planning will be added and displayed at the active home.",
-    "noteRooms": "Rooms will be added to the active home. At the moment, this is “{{name}}.",
+    "noteHomes": "You can add as many objects of repair as you want, but only one can be active. Expenses and planning will be added and displayed at the active object.",
+    "noteObjectSettings": "The settings will be applied to the active object. At the moment, this is “{{name}}.",
 
     "placeholderEmpty": "The list of {{name}} is empty",
-    "homesEmpty": "homes",
-    "roomsEmpty": "rooms",
+    "objectsEmpty": "objects",
+    "buildingsEmpty": "buildings",
+    "roomsEmpty": "rooms",    
     "shopsEmpty": "shops",
-    "categoriesEmpty": "сategories"
+    "categoriesEmpty": "categories"
 }

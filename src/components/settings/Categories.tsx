@@ -6,8 +6,11 @@ import ActionTableRow from "../tables/ActionTableRow";
 import TableSettings from "../tables/TableSetting";
 import CategoryFormModal from "../forms/settings/CategoryFormModal";
 import { Api } from "../../utils/api";
-import { CategoryItemTypes } from "../../utils/api/types";
 import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { OurStore } from "../../redux/store";
+import { LoadingStatus } from "../../redux/types";
+import { CategoryRemoved, fetchCategories } from "../../redux/slices/categorySlice";
 
 
 const CategoriesSettings: React.FC = () => {
@@ -15,31 +18,17 @@ const CategoriesSettings: React.FC = () => {
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure()
   const [idEdit, setIdEdit] = React.useState<number | null>(null);
 
-  const [categoryies, setCategoryies] = React.useState<CategoryItemTypes[]>([]);
-  const [update, setUpdate] = React.useState<boolean>(true);
-  const [loading, setLoading] = React.useState<boolean>(false);
-
   const toast = useToast();
   const modalContext = useConfirmationModalContext()
 
+  const { categories, status: categoriesStatus } = useAppSelector((state: OurStore) => state.categoriesReducer);
+  const dispatch = useAppDispatch();
+
   React.useEffect(() => {
-    if (update) {
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const result = await Api().category.getAll();
-          setCategoryies(result);
-        } catch (e) {
-          console.error("Error from get categories");
-        }
-
-        setUpdate(false);
-        setLoading(false);
-      }
-
-      fetchData();
+    if (categoriesStatus === LoadingStatus.IDLE) {
+      dispatch(fetchCategories());
     }
-  }, [update])
+  }, [categoriesStatus, dispatch]);
 
   const columns = React.useMemo(
     () => [
@@ -67,7 +56,7 @@ const CategoriesSettings: React.FC = () => {
         },
       },
     ],
-    [lang, categoryies]
+    [lang, categories]
   );
 
   const handleEditCategory = (id: number) => {
@@ -76,7 +65,7 @@ const CategoriesSettings: React.FC = () => {
   };
 
   const handleDeleteCategory = async (id: number) => {
-    const nameCategory = categoryies.find(item => id === item.pk)?.name;
+    const nameCategory = categories.find(item => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
       t("confirmationTextDelete", { name: t("category"), object: nameCategory })
     );
@@ -87,7 +76,7 @@ const CategoriesSettings: React.FC = () => {
 
     Api().category.remove(id)
       .then(() => {
-        updateTable();
+        dispatch(CategoryRemoved(id));
       })
       .catch((err) => {
         console.warn('Error delete category', err);
@@ -100,13 +89,9 @@ const CategoriesSettings: React.FC = () => {
     onOpenForm();
   };
 
-  const updateTable = () => {
-    setUpdate(true);
-  };
-
   return (
     <>
-      {isOpenForm && <CategoryFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} onUpdateTable={updateTable} />}
+      {isOpenForm && <CategoryFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddCategory}>
@@ -116,9 +101,10 @@ const CategoriesSettings: React.FC = () => {
         <Box mt="15px" mb="15px">
           <TableSettings
             columns={columns}
-            data={categoryies}
+            data={categories}
             maxHeight="600px"
-            emptyPlaceholder={loading ? "" : t("placeholderEmpty", { name: t("categoriesEmpty") })}
+            loading={categoriesStatus === LoadingStatus.LOADING}
+            emptyPlaceholder={t("placeholderEmpty", { name: t("categoriesEmpty") })}
           />
         </Box>
       </Box>

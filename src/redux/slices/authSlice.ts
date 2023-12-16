@@ -1,11 +1,11 @@
 import { createSlice, SerializedError, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../utils/api";
 import { destoryAccessCookie, setAccessCookie } from "../../utils/cookies";
-import { IAuthSliceState, ILogin, IRegister, IUser, IUserSettings, IUserUpdate, LoadingStates } from "../types";
+import { IAuthSliceState, ILogin, IRegister, IUser, IUserSettings, IUserUpdate, LoadingStatus } from "../types";
 
 
 const internalInitialState: IAuthSliceState = {
-  loading: LoadingStates.IDLE,
+  loading: LoadingStatus.IDLE,
   user: null,
   isAuthenticated: false,
   register_success: false,
@@ -94,11 +94,11 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
-      state.loading = LoadingStates.LOADING;
+      state.loading = LoadingStatus.LOADING;
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = action.payload.user;
-      state.loading = LoadingStates.IDLE;
+      state.loading = LoadingStatus.IDLE;
       state.isAuthenticated = true;
     })
     builder.addCase(login.rejected, (state, action) => {
@@ -106,15 +106,15 @@ export const authSlice = createSlice({
       // throw new Error(action.error.message);
     })
     builder.addCase(logout.pending, (state) => {
-      state.loading = LoadingStates.LOADING;
+      state.loading = LoadingStatus.LOADING;
     })
     builder.addCase(logout.fulfilled, (_state) => internalInitialState)
     builder.addCase(register.pending, (state) => {
-      state.loading = LoadingStates.LOADING;
+      state.loading = LoadingStatus.LOADING;
     })
     builder.addCase(register.fulfilled, (state, action) => {
       state.user = action.payload.user;
-      state.loading = LoadingStates.IDLE;
+      state.loading = LoadingStatus.IDLE;
       state.register_success = true;
     })
     builder.addCase(register.rejected, (state, action) => {

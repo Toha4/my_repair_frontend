@@ -2,6 +2,7 @@ import React from "react";
 import {
   Box,
   chakra,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -12,23 +13,53 @@ import {
 } from "@chakra-ui/react";
 import style from "./TableSetting.module.scss";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, Column } from "react-table";
 
 interface ITableSettings {
-  columns: Array<object>;
+  columns: Column<object>[];
   data: Array<object>;
   maxHeight?: string | number;
   emptyPlaceholder?: string;
+  loading?: boolean;
 }
 
 const TableSettings: React.FC<ITableSettings> = ({
   columns,
   data,
   maxHeight,
-  emptyPlaceholder,
+  emptyPlaceholder = '',
+  loading = false
 }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy);
+
+    const getTableBody = () => {
+      if (loading) {
+        return <Box m="15px" ><Spinner /></Box>
+      } else if (rows.length === 0) {
+        return <Box m="15px">{emptyPlaceholder}</Box>
+      } else {
+        return rows.map((row: any) => {
+          prepareRow(row);
+          
+          return (
+            <Tr
+              {...row.getRowProps()}
+              style={{ whiteSpace: "normal" }}
+            >
+              {row.cells.map((cell: any) => (
+                <Td
+                  {...cell.getCellProps()}
+                  isNumeric={cell.column.isNumeric}
+                >
+                  {cell.render("Cell")}
+                </Td>
+              ))}
+            </Tr>
+          );
+        })
+      }
+    }
 
   return (
     <TableContainer
@@ -36,7 +67,7 @@ const TableSettings: React.FC<ITableSettings> = ({
       overflowY="auto"
       maxHeight={maxHeight}
     >
-      <Table {...getTableProps()} variant="simple" size="sm" overflowY="hiden">
+      <Table {...getTableProps()} variant="simple" size="sm" overflowY="hidden">
         <Thead position="sticky" top={0}>
           {headerGroups.map((headerGroup: any) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -62,28 +93,7 @@ const TableSettings: React.FC<ITableSettings> = ({
           ))}
         </Thead>
         <Tbody {...getTableBodyProps()}>
-          {rows.length > 0 ? (
-            rows.map((row: any) => {
-              prepareRow(row);
-              return (
-                <Tr
-                  {...row.getRowProps()}
-                  style={{ whiteSpace: "normal" }}
-                >
-                  {row.cells.map((cell: any) => (
-                    <Td
-                      {...cell.getCellProps()}
-                      isNumeric={cell.column.isNumeric}
-                    >
-                      {cell.render("Cell")}
-                    </Td>
-                  ))}
-                </Tr>
-              );
-            })
-          ) : (
-            <Box m="15px">{emptyPlaceholder}</Box>
-          )}
+          {getTableBody()}
         </Tbody>
       </Table>
     </TableContainer>

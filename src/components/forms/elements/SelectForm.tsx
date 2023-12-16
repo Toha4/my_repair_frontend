@@ -1,38 +1,51 @@
 import React from "react";
-import {
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Select,
-} from "@chakra-ui/react";
+import { FormControl, FormHelperText, FormLabel, Select, Skeleton, Tooltip } from "@chakra-ui/react";
 import ConnectForm from "./ConnectForm";
+import { QuestionIcon } from "@chakra-ui/icons";
+import style from "../form.module.scss";
 
-interface IFormInput {
+interface ISelectForm {
   name: string;
   keyItem: string;
   isRequired?: boolean;
   placeholder?: string;
+  disabled?: boolean;
+  tooltip?: string;
+  helpText?: string;
+  loading?: boolean;
 }
 
-const SelectForm: React.FC<IFormInput> = ({
+const SelectForm: React.FC<ISelectForm> = ({
   children,
   name,
   keyItem,
   isRequired,
   placeholder,
+  disabled,
+  tooltip,
+  helpText,
+  loading = false,
 }) => (
   <FormControl isRequired={isRequired}>
     <ConnectForm>
       {({ register, formState: { errors } }) => (
         <div>
-          <FormLabel htmlFor={keyItem}>{name}</FormLabel>
-          <Select {...register(keyItem)} placeholder={placeholder}>
-            {children}
-          </Select>
+          <FormLabel htmlFor={keyItem}>
+            {name}
+            {!!tooltip && (
+              <Tooltip label={tooltip} fontSize="md">
+                <QuestionIcon className={style.formLabelTooltipIcon} />
+              </Tooltip>
+            )}
+          </FormLabel>
+          <Skeleton isLoaded={!loading}>
+            <Select {...register(keyItem)} placeholder={placeholder} disabled={disabled}>
+              {children}
+            </Select>
+          </Skeleton>
+          {!!helpText && <FormHelperText color="gray">{helpText}</FormHelperText>}
           {errors[keyItem] && (
-            <FormHelperText color="red">
-              {errors[keyItem].message && errors[keyItem].message}
-            </FormHelperText>
+            <FormHelperText color="red">{errors[keyItem].message && errors[keyItem].message}</FormHelperText>
           )}
         </div>
       )}

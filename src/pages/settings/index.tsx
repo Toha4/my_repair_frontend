@@ -4,10 +4,10 @@ import MainLayout from "../../components/layouts/MainLayout";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
 import ProfileSettings from "../../components/settings/Profile";
-import HomesSettings from "../../components/settings/Homes";
-import RoomsSettings from "../../components/settings/Rooms";
+import RepairObjectsSettings from "../../components/settings/RepairObjects";
 import ShopsSettings from "../../components/settings/Shops";
 import CategoriesSettings from "../../components/settings/Categories";
+import RepairObjectSettings from "../../components/settings/ObjectSettings";
 
 const SettingsPage: React.FC = () => {
   const { t } = useTranslation("settings");
@@ -17,10 +17,10 @@ const SettingsPage: React.FC = () => {
       <Tabs className={style.tabs} isLazy lazyBehavior="keepMounted">
         <TabList>
           <Tab>{t("profile")}</Tab>
-          <Tab>{t("homes")}</Tab>
-          <Tab>{t("rooms")}</Tab>
+          <Tab>{t("objects")}</Tab>
+          <Tab>{t("objectSettings")}</Tab>
           <Tab>{t("shops")}</Tab>
-          <Tab>{t("сategories")}</Tab>
+          <Tab>{t("categories")}</Tab>
         </TabList>
 
         <TabPanels>
@@ -28,10 +28,10 @@ const SettingsPage: React.FC = () => {
             <ProfileSettings />
           </TabPanel>
           <TabPanel className={style.tabPanels}>
-            <HomesSettings />
+            <RepairObjectsSettings />
           </TabPanel>
           <TabPanel className={style.tabPanels}>
-            <RoomsSettings />
+            <RepairObjectSettings />
           </TabPanel>
           <TabPanel className={style.tabPanels}>
             <ShopsSettings />
