@@ -1,13 +1,17 @@
 import { SerializedError } from "@reduxjs/toolkit";
+import { BuildingItemTypes, CategoryItemTypes, RepairObjectItemTypes, RoomItemTypes, ShopItemTypes } from "../utils/api/types";
 
-export enum LoadingStates {
+export enum LoadingStatus {
   IDLE = "idle",
   LOADING = "loading",
+  SUCCEEDED = 'succeeded',
+  FAILED = 'failed'
 };
 
 export interface IUserSettings {
-  current_home?: number;
-  current_home_name?: string;
+  current_repair_object?: number;
+  current_repair_object_name?: string;
+  current_repair_object_type?: number;
 };
 
 export interface IUser {
@@ -38,9 +42,39 @@ export interface ILogin {
 };
 
 export interface IAuthSliceState {
-  loading: LoadingStates;
+  loading: LoadingStatus;
   user?: IUser | null;
   isAuthenticated: boolean;
   register_success: boolean;
   error?: SerializedError | null;
 };
+
+export interface IBuildingSliceState {
+  status: LoadingStatus;
+  buildings: BuildingItemTypes[];
+  error: any;
+}
+
+export interface IRoomSliceState {
+  status: LoadingStatus;
+  rooms: RoomItemTypes[];
+  error: any;
+}
+
+export interface IRepairObjectSliceState {
+  status: LoadingStatus;
+  repairObjects: RepairObjectItemTypes[];
+  error: any;
+}
+
+export interface IShopSliceState {
+  status: LoadingStatus;
+  shops: ShopItemTypes[];
+  error: any;
+}
+
+export interface ICategorySliceState {
+  status: LoadingStatus;
+  categories: CategoryItemTypes[];
+  error: any;
+}

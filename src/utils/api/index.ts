@@ -1,18 +1,20 @@
 import Cookies, { parseCookies } from 'nookies';
 import { GetServerSidePropsContext, NextPageContext } from 'next';
 import { UserApi } from './user';
-import { HomeApi } from './home';
+import { RepairObjectApi } from './repairObject';
 import { CategoryApi } from './category';
 import { ShopApi } from './shop';
 import { RoomApi } from './room';
 import axiosApi from '../axiosApi';
+import { BuildingApi } from './buildings';
 
 
 export type ApiReturnType = {
   user: ReturnType<typeof UserApi>;
-  home: ReturnType<typeof HomeApi>;
+  repairObject: ReturnType<typeof RepairObjectApi>;
   category: ReturnType<typeof CategoryApi>;
   shop: ReturnType<typeof ShopApi>;
+  building: ReturnType<typeof BuildingApi>;
   room: ReturnType<typeof RoomApi>;
 };
 
@@ -28,10 +30,11 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
 
   const apis = {
     user: UserApi,
-    home: HomeApi,
+    repairObject: RepairObjectApi,
     category: CategoryApi,
     shop: ShopApi,
     room: RoomApi,
+    building: BuildingApi,
   };
 
   const result = Object.entries(apis).reduce((prev, [key, f]) => {

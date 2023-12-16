@@ -8,14 +8,16 @@ import { ShopFormSchema } from "../../../utils/validations";
 import InputForm from "../elements/InputForm";
 import { Api } from "../../../utils/api";
 import { useToast } from "@chakra-ui/react";
-
+import { ShopItemTypes } from "../../../utils/api/types";
+import { shopAdded, shopUpdated } from "../../../redux/slices/shopsSlice";
+import { useAppDispatch } from "../../../redux/hooks";
 
 interface IFormShop {
   name: string;
   link?: string;
 }
 
-const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTable }) => {
+const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   const { t } = useTranslation("settings");
 
   const methodsForm = useForm<IFormShop>({
@@ -25,15 +27,24 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTabl
   });
 
   const toast = useToast();
-  
+
   const { reset } = methodsForm;
+
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     if (id) {
+      setLoading(true);
+
       const fetchData = async () => {
         const result = await Api().shop.get(id);
         reset({ name: result.name, link: result.link });
-      }
+
+        setLoading(false);
+      };
+
       fetchData();
     }
   }, []);
@@ -46,14 +57,20 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTabl
 
     try {
       if (id) {
-        await Api().shop.update(id, data);
-        onUpdateTable();
+        await Api()
+          .shop.update(id, data)
+          .then((shop: ShopItemTypes) => {
+            dispatch(shopUpdated(shop));
+          });
       } else {
-        await Api().shop.create(data);
-        onUpdateTable();
+        await Api()
+          .shop.create(data)
+          .then((shop: ShopItemTypes) => {
+            dispatch(shopAdded(shop));
+          });
       }
     } catch (err) {
-      console.warn('Error add or update shop', err);
+      console.warn("Error add or update shop", err);
       toast({ title: t("unknownError"), status: "error" });
     } finally {
       onClose();
@@ -70,8 +87,8 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose, onUpdateTabl
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>
-          <InputForm name={t("name")} keyItem="name" isRequired />
-          <InputForm name={t("link")} keyItem="link" />
+          <InputForm name={t("name")} keyItem="name" isRequired loading={loading} />
+          <InputForm name={t("link")} keyItem="link" loading={loading} />
         </form>
       </FormProvider>
     </ModalForm>

@@ -5,41 +5,29 @@ import style from "./Settings.module.scss";
 import TableSettings from "../tables/TableSetting";
 import ActionTableRow from "../tables/ActionTableRow";
 import ShopFormModal from "../forms/settings/ShopFormModal";
-import { ShopItemTypes } from "../../utils/api/types";
 import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
 import { Api } from "../../utils/api";
-
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { OurStore } from "../../redux/store";
+import { LoadingStatus } from "../../redux/types";
+import { fetchShops, shopRemoved } from "../../redux/slices/shopsSlice";
 
 const ShopsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
-  const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure()
+  const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
   const [idEdit, setIdEdit] = React.useState<number | null>(null);
 
-  const [shops, setShops] = React.useState<ShopItemTypes[]>([]);
-  const [update, setUpdate] = React.useState<boolean>(true);
-  const [loading, setLoading] = React.useState<boolean>(false);
-
   const toast = useToast();
-  const modalContext = useConfirmationModalContext()
+  const modalContext = useConfirmationModalContext();
+
+  const { shops, status: shopsStatus } = useAppSelector((state: OurStore) => state.shopsReducer);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    if (update) {
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const result = await Api().shop.getAll();
-          setShops(result);
-        } catch (e) {
-          console.error("Error from get categories");
-        }
-
-        setUpdate(false);
-        setLoading(false);
-      }
-
-      fetchData();
+    if (shopsStatus === LoadingStatus.IDLE) {
+      dispatch(fetchShops());
     }
-  }, [update])
+  }, [shopsStatus, dispatch]);
 
   const columns = React.useMemo(
     () => [
@@ -54,9 +42,13 @@ const ShopsSettings: React.FC = () => {
         width: "45%",
         disableSortBy: true,
         Cell: (props: any) => {
-          const { row: { original } } = props;
+          const {
+            row: { original },
+          } = props;
           return (
-            <a href={original.link} target="_blank">{original.link}</a>
+            <a href={original.link} target="_blank">
+              {original.link}
+            </a>
           );
         },
       },
@@ -66,14 +58,10 @@ const ShopsSettings: React.FC = () => {
         width: "10%",
         disableSortBy: true,
         Cell: (props: any) => {
-          const { row: { original } } = props;
-          return (
-            <ActionTableRow
-              id={original.pk}
-              onClickEdit={handleEditShop}
-              onClickDelete={handleDeleteShop}
-            />
-          );
+          const {
+            row: { original },
+          } = props;
+          return <ActionTableRow id={original.pk} onClickEdit={handleEditShop} onClickDelete={handleDeleteShop} />;
         },
       },
     ],
@@ -86,7 +74,7 @@ const ShopsSettings: React.FC = () => {
   };
 
   const handleDeleteShop = async (id: number) => {
-    const nameShop = shops.find(item => id === item.pk)?.name;
+    const nameShop = shops.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
       t("confirmationTextDelete", { name: t("shop"), object: nameShop })
     );
@@ -95,14 +83,15 @@ const ShopsSettings: React.FC = () => {
       return;
     }
 
-    Api().shop.remove(id)
+    Api()
+      .shop.remove(id)
       .then(() => {
-        updateTable();
+        dispatch(shopRemoved(id));
       })
       .catch((err) => {
-        console.warn('Error delete shop', err);
+        console.warn("Error delete shop", err);
         toast({ title: t("unknownError"), status: "error" });
-      })
+      });
   };
 
   const handleAddShop = () => {
@@ -110,13 +99,11 @@ const ShopsSettings: React.FC = () => {
     onOpenForm();
   };
 
-  const updateTable = () => {
-    setUpdate(true);
-  };
-
   return (
     <>
-      {isOpenForm && <ShopFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} onUpdateTable={updateTable} />}
+      {isOpenForm && (
+        <ShopFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />
+      )}
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddShop}>
@@ -128,7 +115,8 @@ const ShopsSettings: React.FC = () => {
             columns={columns}
             data={shops}
             maxHeight="600px"
-            emptyPlaceholder={loading ? "" : t("placeholderEmpty", { name: t("shopsEmpty") })}
+            loading={shopsStatus === LoadingStatus.LOADING}
+            emptyPlaceholder={t("placeholderEmpty", { name: t("shopsEmpty") })}
           />
         </Box>
       </Box>

@@ -4,22 +4,26 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Skeleton,
 } from "@chakra-ui/react";
 import ConnectForm from "./ConnectForm";
 
-interface IFormInput {
+interface IInputForm {
   name: string;
   keyItem: string;
   isRequired?: boolean;
+  loading?: boolean;
 }
 
-const InputForm: React.FC<IFormInput> = ({ name, keyItem, isRequired }) => (
+const InputForm: React.FC<IInputForm> = ({ name, keyItem, isRequired, loading=false }) => (
   <FormControl isRequired={isRequired}>
     <ConnectForm>
       {({ register, formState: { errors } }) => (
         <div>
           <FormLabel htmlFor={keyItem}>{name}</FormLabel>
-          <Input {...register(keyItem)} />
+          <Skeleton isLoaded={!loading}>
+            <Input {...register(keyItem)} />
+          </Skeleton>
           {errors[keyItem] && (
             <FormHelperText color="red">
               {errors[keyItem].message && errors[keyItem].message}

@@ -27,7 +27,7 @@ import SiteSettings from "../common/SiteSettings";
 import { getLocalStorage, setLocalStorage } from "../../utils/localStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";
-import { logout } from "../../redux/slices/auth";
+import { logout } from "../../redux/slices/authSlice";
 
 export enum NavSize {
   LARGE = 1,
