@@ -51,6 +51,7 @@
     
     "noteHomes": "You can add as many objects of repair as you want, but only one can be active. Expenses and planning will be added and displayed at the active object.",
     "noteObjectSettings": "The settings will be applied to the active object. At the moment, this is “{{name}}.",
+    "objectDisableHelpText": "You cannot delete the current object",
 
     "placeholderEmpty": "The list of {{name}} is empty",
     "objectsEmpty": "objects",

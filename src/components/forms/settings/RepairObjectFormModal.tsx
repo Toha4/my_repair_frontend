@@ -38,6 +38,7 @@ const RepairObjectFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) =>
   const { reset } = methodsForm;
 
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [submitLoading, setSubmitLoading] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -68,21 +69,25 @@ const RepairObjectFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) =>
     };
 
     try {
+      setSubmitLoading(true);
+
       if (id) {
         await Api().repairObject.update(id, data).then(
           (reparObject: RepairObjectItemTypes) => {
-            dispatch(repairObjectUpdated(reparObject))
+            dispatch(repairObjectUpdated(reparObject));
+            setSubmitLoading(false);
           }
         );
       } else {
         await Api().repairObject.create(data).then(
           (reparObject: RepairObjectItemTypes) => {
-            dispatch(repairObjectAdded(reparObject))
+            dispatch(repairObjectAdded(reparObject));
+            setSubmitLoading(false);
           }
         );
       }
     } catch (err) {
-      console.warn('Error add or update shop', err);
+      console.warn('Error add or update object repair', err);
       toast({ title: t("unknownError"), status: "error" });
     } finally {
       onClose();
@@ -96,6 +101,7 @@ const RepairObjectFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) =>
       onClose={onClose}
       okText={t(id ? "actionSave" : "actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
+      isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>
