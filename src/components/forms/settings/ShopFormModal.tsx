@@ -31,6 +31,7 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   const { reset } = methodsForm;
 
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [submitLoading, setSubmitLoading] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -56,17 +57,21 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     };
 
     try {
+      setSubmitLoading(true);
+
       if (id) {
         await Api()
           .shop.update(id, data)
           .then((shop: ShopItemTypes) => {
             dispatch(shopUpdated(shop));
+            setSubmitLoading(false);
           });
       } else {
         await Api()
           .shop.create(data)
           .then((shop: ShopItemTypes) => {
             dispatch(shopAdded(shop));
+            setSubmitLoading(false);
           });
       }
     } catch (err) {
@@ -84,6 +89,7 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
       onClose={onClose}
       okText={t(id ? "actionSave" : "actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
+      isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>

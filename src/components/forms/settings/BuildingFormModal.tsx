@@ -38,6 +38,7 @@ const BuildingFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   const { reset } = methodsForm;
 
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [submitLoading, setSubmitLoading] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -69,16 +70,20 @@ const BuildingFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     };
 
     try {
+      setSubmitLoading(true);
+
       if (id) {
         await Api().building.update(id, data).then(
           (building: BuildingItemTypes) => {
-            dispatch(buildingUpdated(building))
+            dispatch(buildingUpdated(building));
+            setSubmitLoading(false);
           }
         );
       } else {
         await Api().building.create(data).then(
           (building: BuildingItemTypes) => {
             dispatch(buildingAdded(building));
+            setSubmitLoading(false);
           }
         );
       }
@@ -97,6 +102,7 @@ const BuildingFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
       onClose={onClose}
       okText={t(id ? "actionSave" : "actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
+      isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>

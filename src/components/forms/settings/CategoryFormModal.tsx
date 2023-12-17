@@ -31,6 +31,7 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   const { reset } = methodsForm;
 
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [submitLoading, setSubmitLoading] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -55,16 +56,20 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     };
 
     try {
+      setSubmitLoading(true);
+
       if (id) {
         await Api().category.update(id, data).then(
           (category: CategoryItemTypes) => {
-            dispatch(categoryUpdated(category))
+            dispatch(categoryUpdated(category));
+            setSubmitLoading(false);
           }
         );
       } else {
         await Api().category.create(data).then(
           (category: CategoryItemTypes) => {
-            dispatch(categoryAdded(category))
+            dispatch(categoryAdded(category));
+            setSubmitLoading(false);
           }
         );
       }
@@ -83,6 +88,7 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
       onClose={onClose}
       okText={t(id ? "actionSave" : "actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
+      isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>

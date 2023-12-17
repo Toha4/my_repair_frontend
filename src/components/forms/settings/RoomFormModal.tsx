@@ -42,6 +42,7 @@ const RoomFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   const { reset } = methodsForm;
 
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [submitLoading, setSubmitLoading] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -75,16 +76,20 @@ const RoomFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
     };
 
     try {
+      setSubmitLoading(true);
+
       if (id) {
         await Api().room.update(id, data).then(
           (room: RoomItemTypes) => {
-            dispatch(roomUpdated(room))
+            dispatch(roomUpdated(room));
+            setSubmitLoading(false);
           }
         );
       } else {
         await Api().room.create(data).then(
           (room: RoomItemTypes) => {
             dispatch(roomAdded(room));
+            setSubmitLoading(false);
           }
         );
       }
@@ -103,6 +108,7 @@ const RoomFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
       onClose={onClose}
       okText={t(id ? "actionSave" : "actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
+      isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>

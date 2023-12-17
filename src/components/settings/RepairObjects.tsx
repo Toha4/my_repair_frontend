@@ -99,6 +99,11 @@ const RepairObjectsSettings: React.FC = () => {
   };
 
   const handleDeleteRepairObject = async (id: number) => {
+    if (id === user?.settings?.current_repair_object) {
+      toast({ title: t("objectDisableHelpText"), status: "info" });
+      return
+    }
+
     const nameObject = repairObjects.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
       t("confirmationTextDelete", { name: t("object"), object: nameObject })

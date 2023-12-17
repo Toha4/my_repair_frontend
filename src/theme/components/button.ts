@@ -21,6 +21,9 @@ const Button: ComponentStyleConfig = {
       color: mode("white", "black")(props),
       _hover: {
         bg: mode("blue.500", "blue.300")(props),
+        _disabled: {
+          bg: mode("blue.500", "blue.300")(props),
+        },
       }
     }),    
     iconButton: {
