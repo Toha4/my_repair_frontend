@@ -21,6 +21,7 @@ export type RoomItemTypes = {
   pk?: number;  
   name: string;
   building?: number
+  building_name?: string
   square?: number;
   date_begin?: string | null;
   date_end?: string | null;

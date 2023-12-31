@@ -3,7 +3,7 @@ import useTranslation from "next-translate/useTranslation";
 import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
 import ActionTableRow from "../tables/ActionTableRow";
-import TableSettings from "../tables/TableSetting";
+import TableSettings, { ActionColumnType } from "../tables/TableSetting";
 import CategoryFormModal from "../forms/settings/CategoryFormModal";
 import { Api } from "../../utils/api";
 import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
@@ -11,15 +11,16 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";
 import { LoadingStatus } from "../../redux/types";
 import { CategoryRemoved, fetchCategories } from "../../redux/slices/categorySlice";
-
+import { createColumnHelper } from "@tanstack/react-table";
+import { CategoryItemTypes } from "../../utils/api/types";
 
 const CategoriesSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
-  const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure()
+  const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
   const [idEdit, setIdEdit] = React.useState<number | null>(null);
 
   const toast = useToast();
-  const modalContext = useConfirmationModalContext()
+  const modalContext = useConfirmationModalContext();
 
   const { categories, status: categoriesStatus } = useAppSelector((state: OurStore) => state.categoriesReducer);
   const dispatch = useAppDispatch();
@@ -30,31 +31,27 @@ const CategoriesSettings: React.FC = () => {
     }
   }, [categoriesStatus, dispatch]);
 
+  const columnHelper = createColumnHelper<CategoryItemTypes & ActionColumnType>();
   const columns = React.useMemo(
     () => [
-      {
-        Header: t("name"),
-        accessor: "name",
-        width: "90%",
-      },
-      {
-        Header: t("action"),
-        accessor: "action",
-        width: "10%",
-        disableSortBy: true,
-        Cell: (props: any) => {
+      columnHelper.accessor("name", {
+        id: "name",
+        header: () => <span>{t("name")}</span>,
+      }),
+      columnHelper.accessor("action", {
+        id: "action",
+        header: () => <span>{t("action")}</span>,
+        size: 120,
+        enableSorting: false,
+        cell: (props: any) => {
           const {
             row: { original },
           } = props;
           return (
-            <ActionTableRow
-              id={original.pk}
-              onClickEdit={handleEditCategory}
-              onClickDelete={handleDeleteCategory}
-            />
+            <ActionTableRow id={original.pk} onClickEdit={handleEditCategory} onClickDelete={handleDeleteCategory} />
           );
         },
-      },
+      }),
     ],
     [lang, categories]
   );
@@ -65,7 +62,7 @@ const CategoriesSettings: React.FC = () => {
   };
 
   const handleDeleteCategory = async (id: number) => {
-    const nameCategory = categories.find(item => id === item.pk)?.name;
+    const nameCategory = categories.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
       t("confirmationTextDelete", { name: t("category"), object: nameCategory })
     );
@@ -74,14 +71,15 @@ const CategoriesSettings: React.FC = () => {
       return;
     }
 
-    Api().category.remove(id)
+    Api()
+      .category.remove(id)
       .then(() => {
         dispatch(CategoryRemoved(id));
       })
       .catch((err) => {
-        console.warn('Error delete category', err);
+        console.warn("Error delete category", err);
         toast({ title: t("unknownError"), status: "error" });
-      })
+      });
   };
 
   const handleAddCategory = () => {

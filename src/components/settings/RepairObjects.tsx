@@ -2,7 +2,7 @@ import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { Box, Button, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
-import TableSettings from "../tables/TableSetting";
+import TableSettings, { ActionColumnType } from "../tables/TableSetting";
 import ActionTableRow from "../tables/ActionTableRow";
 import RepairObjectFormModal from "../forms/settings/RepairObjectFormModal";
 import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
@@ -14,6 +14,8 @@ import { LoadingStatus } from "../../redux/types";
 import { reset as resetBuildings } from "../../redux/slices/buildingsSlice";
 import { reset as resetRooms } from "../../redux/slices/roomsSlice";
 import { fetchRepairObjects, repairObjectRemoved } from "../../redux/slices/repairObjectSlice";
+import { createColumnHelper } from "@tanstack/react-table";
+import { RepairObjectItemTypes } from "../../utils/api/types";
 
 const RepairObjectsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
@@ -36,30 +38,29 @@ const RepairObjectsSettings: React.FC = () => {
     }
   }, [repairObjectsStatus, dispatch]);
 
+  const columnHelper = createColumnHelper<RepairObjectItemTypes & ActionColumnType>();
   const columns = React.useMemo(
     () => [
-      {
-        Header: t("name"),
-        accessor: "name",
-        width: "40%",
-      },
-      {
-        Header: t("type"),
-        accessor: "type_object_name",
-        width: "25%",
-      },
-      {
-        Header: t("square"),
-        accessor: "square",
-        width: "20%",
-        disableSortBy: true,
-      },
-      {
-        Header: t("action"),
-        accessor: "action",
-        width: "15%",
-        disableSortBy: true,
-        Cell: (props: any) => {
+      columnHelper.accessor("name", {
+        id: "name",
+        header: () => <span>{t("name")}</span>,
+      }),
+      columnHelper.accessor("type_object_name", {
+        id: "type_object_name",
+        header: () => <span>{t("type")}</span>,
+      }),
+      columnHelper.accessor("square", {
+        id: "square",
+        header: () => <span>{t("square")}</span>,
+        size: 148,
+        enableSorting: false,
+      }),
+      columnHelper.accessor("action", {
+        id: "action",
+        header: () => <span>{t("action")}</span>,
+        size: 120,
+        enableSorting: false,
+        cell: (props: any) => {
           const {
             row: { original },
           } = props;
@@ -73,7 +74,7 @@ const RepairObjectsSettings: React.FC = () => {
             />
           );
         },
-      },
+      }),
     ],
     [lang, repairObjects, user]
   );
@@ -101,7 +102,7 @@ const RepairObjectsSettings: React.FC = () => {
   const handleDeleteRepairObject = async (id: number) => {
     if (id === user?.settings?.current_repair_object) {
       toast({ title: t("objectDisableHelpText"), status: "info" });
-      return
+      return;
     }
 
     const nameObject = repairObjects.find((item) => id === item.pk)?.name;
@@ -131,9 +132,7 @@ const RepairObjectsSettings: React.FC = () => {
 
   return (
     <>
-      {isOpenForm && (
-        <RepairObjectFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />
-      )}
+      {isOpenForm && <RepairObjectFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddRepairObject}>

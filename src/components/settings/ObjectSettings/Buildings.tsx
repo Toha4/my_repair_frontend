@@ -2,7 +2,7 @@ import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import ActionTableRow from "../../tables/ActionTableRow";
-import TableSettings from "../../tables/TableSetting";
+import TableSettings, { ActionColumnType } from "../../tables/TableSetting";
 import BuildingFormModal from "../../forms/settings/BuildingFormModal";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { OurStore } from "../../../redux/store";
@@ -10,6 +10,8 @@ import { useConfirmationModalContext } from "../../../contexts/ModalDialogContex
 import { Api } from "../../../utils/api";
 import { LoadingStatus } from "../../../redux/types";
 import { buildingRemoved, fetchBuildings } from "../../../redux/slices/buildingsSlice";
+import { createColumnHelper } from "@tanstack/react-table";
+import { BuildingItemTypes } from "../../../utils/api/types";
 
 const BuildingsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
@@ -29,37 +31,34 @@ const BuildingsSettings: React.FC = () => {
     }
   }, [buildingsStatus, dispatch]);
 
+  const columnHelper = createColumnHelper<BuildingItemTypes & ActionColumnType>();
   const columns = React.useMemo(
     () => [
-      {
-        Header: t("name"),
-        accessor: "name",
-        width: "35%",
-      },
-      {
-        Header: t("square"),
-        accessor: "square",
-        width: "15%",
-        disableSortBy: true,
-      },
-      {
-        Header: t("dateBegin"),
-        accessor: "date_begin",
-        width: "20%",
-        disableSortBy: true,
-      },
-      {
-        Header: t("dateEnd"),
-        accessor: "date_end",
-        width: "20%",
-        disableSortBy: true,
-      },
-      {
-        Header: t("action"),
-        accessor: "action",
-        width: "10%",
-        disableSortBy: true,
-        Cell: (props: any) => {
+      columnHelper.accessor("name", {
+        id: "name",
+        header: () => <span>{t("name")}</span>,
+      }),
+      columnHelper.accessor("square", {
+        id: "square",
+        header: () => <span>{t("square")}</span>,
+        size: 120,
+      }),
+      columnHelper.accessor("date_begin", {
+        id: "dateBegin",
+        header: () => <span>{t("dateBegin")}</span>,
+        size: 135,
+      }),
+      columnHelper.accessor("date_end", {
+        id: "dateEnd",
+        header: () => <span>{t("dateEnd")}</span>,
+        size: 135,
+      }),
+      columnHelper.accessor("action", {
+        id: "action",
+        header: () => <span>{t("action")}</span>,
+        size: 120,
+        enableSorting: false,
+        cell: (props: any) => {
           const {
             row: { original },
           } = props;
@@ -67,7 +66,7 @@ const BuildingsSettings: React.FC = () => {
             <ActionTableRow id={original.pk} onClickEdit={handleEditBuilding} onClickDelete={handleDeleteBuilding} />
           );
         },
-      },
+      }),
     ],
     [lang, buildings]
   );
