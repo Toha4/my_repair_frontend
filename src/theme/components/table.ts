@@ -15,6 +15,11 @@ const Table: ComponentStyleConfig = {
         bg: mode("white", "gray.500")(props),
         whiteSpace: "pre-line",
       },
+      td: {
+        color: mode("black", "white")(props),
+        bg: mode("white", "gray.500")(props),
+        whiteSpace: "pre-line",
+      },
       // tr: {
       //   _hover: {
       //     bg: mode("gray.300", "gray.700")(props),

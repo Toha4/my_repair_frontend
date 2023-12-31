@@ -2,7 +2,7 @@ import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
-import TableSettings from "../tables/TableSetting";
+import TableSettings, { ActionColumnType } from "../tables/TableSetting";
 import ActionTableRow from "../tables/ActionTableRow";
 import ShopFormModal from "../forms/settings/ShopFormModal";
 import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
@@ -11,6 +11,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";
 import { LoadingStatus } from "../../redux/types";
 import { fetchShops, shopRemoved } from "../../redux/slices/shopsSlice";
+import { ShopItemTypes } from "../../utils/api/types";
+import { createColumnHelper } from "@tanstack/react-table";
 
 const ShopsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
@@ -29,19 +31,18 @@ const ShopsSettings: React.FC = () => {
     }
   }, [shopsStatus, dispatch]);
 
+  const columnHelper = createColumnHelper<ShopItemTypes & ActionColumnType>();
   const columns = React.useMemo(
     () => [
-      {
-        Header: t("name"),
-        accessor: "name",
-        width: "45%",
-      },
-      {
-        Header: t("link"),
-        accessor: "link",
-        width: "45%",
-        disableSortBy: true,
-        Cell: (props: any) => {
+      columnHelper.accessor("name", {
+        id: "name",
+        header: () => <span>{t("name")}</span>,
+      }),
+      columnHelper.accessor("link", {
+        id: "link",
+        header: () => <span>{t("link")}</span>,
+        enableSorting: false,
+        cell: (props: any) => {
           const {
             row: { original },
           } = props;
@@ -51,19 +52,19 @@ const ShopsSettings: React.FC = () => {
             </a>
           );
         },
-      },
-      {
-        Header: t("action"),
-        accessor: "action",
-        width: "10%",
-        disableSortBy: true,
-        Cell: (props: any) => {
+      }),
+      columnHelper.accessor("action", {
+        id: "action",
+        header: () => <span>{t("action")}</span>,
+        size: 120,
+        enableSorting: false,
+        cell: (props: any) => {
           const {
             row: { original },
           } = props;
           return <ActionTableRow id={original.pk} onClickEdit={handleEditShop} onClickDelete={handleDeleteShop} />;
         },
-      },
+      }),
     ],
     [lang, shops]
   );
@@ -101,9 +102,7 @@ const ShopsSettings: React.FC = () => {
 
   return (
     <>
-      {isOpenForm && (
-        <ShopFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />
-      )}
+      {isOpenForm && <ShopFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddShop}>

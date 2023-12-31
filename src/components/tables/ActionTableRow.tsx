@@ -31,7 +31,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
         ) : (
           <Tooltip label={t("actionSetActive")}>
             <IconButton
-              className={style.iconActionRow}
+              className={style.iconActionButton}
               aria-label={t("actionSetActive")}
               variant="iconButton"
               icon={<StarIcon {...size_icon} />}
@@ -41,7 +41,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
         ))}
       <Tooltip label={t("actionEdit")}>
         <IconButton
-          className={style.iconActionRow}
+          className={style.iconActionButton}
           ml="8px"
           aria-label={t("actionEdit")}
           variant="iconButton"
@@ -51,7 +51,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
       </Tooltip>
       <Tooltip label={t("actionDelete")}>
         <IconButton
-          className={style.iconActionRow}
+          className={style.iconActionButton}
           ml="8px"
           aria-label={t("actionDelete")}
           variant="iconButton"
