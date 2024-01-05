@@ -10,6 +10,7 @@ const Table: ComponentStyleConfig = {
   variants: {
     simple: (props) => ({
       th: {
+        fontFamily: `'Inter Variable', sans-serif`,
         color: mode("black", "white")(props),
         bg: mode("white", "gray.500")(props),
         whiteSpace: "pre-line",
@@ -18,6 +19,7 @@ const Table: ComponentStyleConfig = {
         paddingRight: "10px",
       },
       td: {
+        fontFamily: `'Inter Variable', sans-serif`,
         color: mode("black", "white")(props),
         bg: mode("white", "gray.500")(props),
         whiteSpace: "pre-line",

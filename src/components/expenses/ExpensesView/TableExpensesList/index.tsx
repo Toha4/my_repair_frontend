@@ -2,7 +2,7 @@ import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { Api } from "../../../../utils/api";
 import { PurchasePositionTypes } from "../../../../utils/api/types";
-import { Box, Spinner, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorMode } from "@chakra-ui/react";
 import {
   Column,
   createColumnHelper,
@@ -26,13 +26,8 @@ interface ITableExpensesList {
   filter?: any;
 }
 
-// TODO: Изменить шрифт
-
-// TODO: Сделать более точный расчет высоты таблицы после реализации всех компонентов
-const WIDTH_TABLE = "65vh";
-const WIDTH_TABLE_WITH_FILTER = "55vh";
-
 const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => {
+  const { colorMode } = useColorMode();
   const { t, lang } = useTranslation("expenses");
 
   const { user } = useAppSelector((state: OurStore) => state.authReducer);
@@ -239,8 +234,15 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
   };
 
   return (
-    <React.Fragment>
-      <TableContainer className={style.tableContainer} height={WIDTH_TABLE} overflowY="auto">
+    <Flex direction="column" height={"calc(100vh - 115px)"}>
+      <Box style={{ background: "#EDF2F7", minHeight: "50px", marginBottom: "1.25rem" }}>Filter block</Box>
+      <TableContainer
+        className={style.tableContainer}
+        style={{ flexGrow: 1, minHeight: "200px" }}
+        border={colorMode == "light" ? "1px solid" : undefined}
+        borderColor={colorMode == "light" ? "gray.200 !important" : undefined}
+        overflowY="auto"
+      >
         <Table
           variant="simple"
           size="sm"
@@ -285,7 +287,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
         canPreviousPage={table.getCanPreviousPage()}
         canNextPage={table.getCanNextPage()}
       ></TablePagination>
-    </React.Fragment>
+    </Flex>
   );
 };
 

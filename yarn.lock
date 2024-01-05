@@ -1037,6 +1037,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource-variable/inter@^5.0.16":
+  version "5.0.16"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/inter/-/inter-5.0.16.tgz#14ee7fac425222aede9b57795a19532e7b687679"
+  integrity sha512-k+BUNqksTL+AN+o+OV7ILeiE9B5M5X+/jA7LWvCwjbV9ovXTqZyKRhA/x7uYv/ml8WQ0XNLBM7cRFIx4jW0/hg==
+
 "@hookform/resolvers@^2.8.8":
   version "2.8.8"
   resolved "https://registry.npmjs.org/@hookform/resolvers/-/resolvers-2.8.8.tgz"

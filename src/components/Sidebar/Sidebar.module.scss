@@ -2,7 +2,7 @@
 .sidebar {
   position: sticky;
   left: 0px;
-  height: 100vh;
+  height: max(100vh, var(--minHeight));
   flex-direction: column;
   justify-content: space-between;
   background: var(--brandGray);

@@ -13,6 +13,7 @@
     "@chakra-ui/react": "2.8.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource-variable/inter": "^5.0.16",
     "@hookform/resolvers": "^2.8.8",
     "@reduxjs/toolkit": "^1.8.1",
     "@tanstack/react-table": "^8.11.2",
