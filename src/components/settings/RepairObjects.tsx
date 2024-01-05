@@ -2,7 +2,7 @@ import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { Box, Button, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
-import TableSettings, { ActionColumnType } from "../tables/TableSetting";
+import TableSettings from "../tables/TableSetting";
 import ActionTableRow from "../tables/ActionTableRow";
 import RepairObjectFormModal from "../forms/settings/RepairObjectFormModal";
 import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
@@ -16,6 +16,7 @@ import { reset as resetRooms } from "../../redux/slices/roomsSlice";
 import { fetchRepairObjects, repairObjectRemoved } from "../../redux/slices/repairObjectSlice";
 import { createColumnHelper } from "@tanstack/react-table";
 import { RepairObjectItemTypes } from "../../utils/api/types";
+import { ActionColumnType } from "../../types/types";
 
 const RepairObjectsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
@@ -58,7 +59,7 @@ const RepairObjectsSettings: React.FC = () => {
       columnHelper.accessor("action", {
         id: "action",
         header: () => <span>{t("action")}</span>,
-        size: 120,
+        size: 105,
         enableSorting: false,
         cell: (props: any) => {
           const {

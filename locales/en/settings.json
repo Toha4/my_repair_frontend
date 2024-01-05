@@ -40,6 +40,7 @@
     "confirmationTextDelete": "Do you really want to delete {{name}} “{{object}}”?",
 
     "name": "Name",
+    "buildingTitle": "Building",
     "type": "Type",
     "typeDescription": "Land plot - allows you to add buildings. You can add your own rooms for each building. Apartment - this type allows you to add only rooms",
     "typeHelpText": "The type can only be specified when creating an object",

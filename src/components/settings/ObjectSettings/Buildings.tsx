@@ -2,7 +2,7 @@ import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import ActionTableRow from "../../tables/ActionTableRow";
-import TableSettings, { ActionColumnType } from "../../tables/TableSetting";
+import TableSettings from "../../tables/TableSetting";
 import BuildingFormModal from "../../forms/settings/BuildingFormModal";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { OurStore } from "../../../redux/store";
@@ -12,6 +12,7 @@ import { LoadingStatus } from "../../../redux/types";
 import { buildingRemoved, fetchBuildings } from "../../../redux/slices/buildingsSlice";
 import { createColumnHelper } from "@tanstack/react-table";
 import { BuildingItemTypes } from "../../../utils/api/types";
+import { ActionColumnType } from "../../../types/types";
 
 const BuildingsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
@@ -56,7 +57,7 @@ const BuildingsSettings: React.FC = () => {
       columnHelper.accessor("action", {
         id: "action",
         header: () => <span>{t("action")}</span>,
-        size: 120,
+        size: 90,
         enableSorting: false,
         cell: (props: any) => {
           const {

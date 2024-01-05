@@ -4,5 +4,15 @@
     "titlePlans": "Планы",
     "titleBlog": "Блог",
     "titleStatistics": "Статистика",
-    "titleSettings": "Настройки"
+    "titleSettings": "Настройки",
+
+    "paginationShow": "Показать",
+    "paginationGoToPage": "Перейти на страницу",
+    "paginationPage": "Страница",
+    "paginationOf": "из",
+    "paginationNavigatePage": "{{navigate}} страница",
+    "paginationFirst": "Первая",
+    "paginationPrevious": "Предыдущая",
+    "paginationNext": "Следующая",
+    "paginationLast": "Последняя"
 }

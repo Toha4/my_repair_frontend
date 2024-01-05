@@ -1,7 +1,4 @@
-export const RepairObjectTypes = {
-  LAND: 1,
-  APARTMENT: 2,
-};
+import { RepairObjectTypes } from "../redux/types";
 
 export const RepairObjectTypesNames = {
   [RepairObjectTypes.LAND]: "land",

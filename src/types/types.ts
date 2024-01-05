@@ -1,25 +1,13 @@
-// export type ResponseUser = {
-//   email: string;
-//   username: string;
-//   is_active: boolean;
-//   is_superuser?: boolean;
-//   first_name?: string;
-//   last_name?: string;
-// };
+import { PaginationState } from "@tanstack/react-table";
 
-// export type Home = {
-//   id: number,
-//   name: string,
-//   type: number,
-//   type_name?: string,
-//   square?: number,
-//   is_active?: boolean,
-// };
+export type ActionColumnType = {
+  action: any;
+};
 
-// export type Room = {
-//   id: number,
-//   name: string,
-//   square?: number,
-//   date_begin?: string,
-//   date_end?: string,
-// }
+export interface ITablePagination extends PaginationState {
+  pageCount: number;
+}
+
+export interface ITableParams {
+  pagination?: ITablePagination;
+}

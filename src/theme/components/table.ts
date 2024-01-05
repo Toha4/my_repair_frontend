@@ -1,24 +1,27 @@
 import type { ComponentStyleConfig } from "@chakra-ui/theme";
 import { mode } from "@chakra-ui/theme-tools";
 
-
 const Table: ComponentStyleConfig = {
-  baseStyle: props => ({
+  baseStyle: (props) => ({
     table: {
-      bg: mode("white", "gray.500")(props)
-    }
+      bg: mode("white", "gray.500")(props),
+    },
   }),
   variants: {
-    simple: props => ({
+    simple: (props) => ({
       th: {
         color: mode("black", "white")(props),
         bg: mode("white", "gray.500")(props),
         whiteSpace: "pre-line",
+        textTransform: "none",
+        paddingLeft: "10px",
+        paddingRight: "10px",
       },
       td: {
         color: mode("black", "white")(props),
         bg: mode("white", "gray.500")(props),
         whiteSpace: "pre-line",
+        padding: "8px 10px 8px 10px",
       },
       // tr: {
       //   _hover: {
@@ -27,6 +30,6 @@ const Table: ComponentStyleConfig = {
       // },
     }),
   },
-}
+};
 
 export default Table;

@@ -1,0 +1,39 @@
+.tableContainer {
+  border-radius: var(--chakra-radii-brand);
+  border-color: var(--brandGray);
+}
+
+.table{
+  min-width: 1000px;
+}
+
+.tableCellPurchaseDate {
+  font-weight: 600;
+}
+
+.tableCellPurchaseCheck {
+  margin-left: 1rem;
+}
+
+.tableCellPurposeCategory {
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  font-weight: 600;
+}
+
+.tableCellAmountTotal {
+  font-weight: bold;
+}
+
+.iconActionButton {
+  position: unset !important;
+
+  &:hover {
+    color: var(--brandBlue);
+  }
+}
+
+.sortIcon {
+  margin-left: .4rem;
+}

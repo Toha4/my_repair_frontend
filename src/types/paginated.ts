@@ -14,5 +14,6 @@ export interface Paginated<T> {
   numbers: PaginatedNumbers;
   count: number;
   page_size: number;
+  page_count: number;
   results: T[];
 }

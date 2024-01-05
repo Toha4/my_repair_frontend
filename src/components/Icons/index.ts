@@ -9,3 +9,5 @@ export { default as StarIcon } from "./StarIcon";
 export { default as StarFillIcon } from "./StarFillIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as DeleteIcon } from "./DeleteIcon";
+export { default as LinkIcon } from "./LinkIcon";
+export { default as EditCheckIcon } from "./EditCheckIcon";

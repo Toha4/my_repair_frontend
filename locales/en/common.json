@@ -4,5 +4,15 @@
     "titlePlans": "Plans",
     "titleBlog": "Blog",
     "titleStatistics": "Statistics",
-    "titleSettings": "Settings"
+    "titleSettings": "Settings",
+
+    "paginationShow": "Show",
+    "paginationGoToPage": "Go to page",
+    "paginationPage": "Page",
+    "paginationOf": "of",
+    "paginationNavigatePage": "{{navigate}} page",
+    "paginationFirst": "First",
+    "paginationPrevious": "Previous",
+    "paginationNext": "Next",
+    "paginationLast": "Last"
 }

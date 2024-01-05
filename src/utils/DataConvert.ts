@@ -10,5 +10,13 @@ export function stringToDate(string: string): Date {
 }
 
 export function sortByName(a: any, b: any) {
-  return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+  return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
+}
+
+export function formatNumber(num: number, separator = " ", decimals = 2): number | string {
+  if (num) {
+    return num.toFixed(decimals).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, separator);
+  } else {
+    return num;
+  }
 }
