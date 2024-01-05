@@ -1,4 +1,4 @@
-import { PaginationState } from "@tanstack/react-table";
+import { PaginationState, SortingState } from "@tanstack/react-table";
 
 export type ActionColumnType = {
   action: any;
@@ -9,5 +9,6 @@ export interface ITablePagination extends PaginationState {
 }
 
 export interface ITableParams {
-  pagination?: ITablePagination;
+  pagination?: PaginationState;
+  sorting?: SortingState;
 }

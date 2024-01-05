@@ -5,15 +5,13 @@ import { PurchasePositionTypes } from "../../../../utils/api/types";
 import { Box, Spinner, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import {
   Column,
-  PaginationState,
-  SortingState,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ActionColumnType } from "../../../../types/types";
+import { ActionColumnType, ITableParams } from "../../../../types/types";
 import style from "../../expenses.module.scss";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import ActionTableRow from "./ActionTableRow";
@@ -28,6 +26,7 @@ interface ITableExpensesList {
   filter?: any;
 }
 
+// TODO: Изменить шрифт
 
 // TODO: Сделать более точный расчет высоты таблицы после реализации всех компонентов
 const WIDTH_TABLE = "65vh";
@@ -41,37 +40,29 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
   const [purchasses, setPurchases] = React.useState<PurchasePositionTypes[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({ pageIndex: 0, pageSize: 50 });
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-
-  const pagination = React.useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize]
-  );
+  const [tableParams, setTableParams] = React.useState<ITableParams>({ pagination: { pageIndex: 0, pageSize: 50 } });
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
 
-        let params: {[k: string]: any} = {
-          page: pageIndex + 1,
-          page_size: pageSize
-        };
+        let params: { [k: string]: any } = {};
+
+        if (tableParams.pagination) {
+          params.page = tableParams.pagination?.pageIndex + 1;
+          params.page_size = tableParams.pagination?.pageSize;
+        }
 
         if (sorting.length > 0) {
           params.sortField = sorting[0].id;
           params.sortOrder = sorting[0].desc ? "desc" : "asc";
         }
 
-
         const result = await Api().purchase.getAllByPosition(params);
         setPurchases(result.results);
 
-        // Обновляем pageCount у таблицы (через table.setPageCount() не рабоатет)
+        // Обновляем pageCount у таблицы (через table.setPageCount() не работает)
         table.setOptions((old) => {
           return { ...old, pageCount: result.page_count };
         });
@@ -84,7 +75,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
     };
 
     fetchData();
-  }, [search, filter, pagination, sorting]);
+  }, [search, filter, tableParams]);
 
   const columnHelper = createColumnHelper<PurchasePositionTypes & ActionColumnType>();
   const columns = React.useMemo(
@@ -118,7 +109,9 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
           return (
             <React.Fragment>
               <Box>{props.row.original.room_name}</Box>
-              <Box mt={1} className={style.tableCellPurposeCategory}>{props.row.original.category_name}</Box>
+              <Box mt={1} className={style.tableCellPurposeCategory}>
+                {props.row.original.category_name}
+              </Box>
             </React.Fragment>
           );
         },
@@ -178,17 +171,37 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
     console.log("Edit check: ", id);
   };
 
+  const pagination = React.useMemo(
+    () => ({
+      pageIndex: tableParams.pagination?.pageIndex ?? 0,
+      pageSize: tableParams.pagination?.pageSize ?? 50,
+    }),
+    [tableParams]
+  );
+
+  const sorting = React.useMemo(() => tableParams.sorting ?? [], [tableParams]);
+
   const table = useReactTable({
     data: purchasses,
     columns,
     state: {
       pagination,
-      sorting
+      sorting,
     },
     manualPagination: true,
     manualSorting: true,
-    onPaginationChange: setPagination,
-    onSortingChange: setSorting,
+    onPaginationChange: (updater) => {
+      if (typeof updater === "function") {
+        const nextState = updater(pagination);
+        setTableParams({ ...tableParams, pagination: nextState });
+      }
+    },
+    onSortingChange: (updater) => {
+      if (typeof updater === "function") {
+        const nextState = updater(sorting);
+        setTableParams({ ...tableParams, sorting: nextState });
+      }
+    },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
