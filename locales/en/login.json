@@ -1,26 +1,26 @@
 {
-    "titleLogin": "Login",
-    "titleRegister": "Register",
+  "titleLogin": "Login",
+  "titleRegister": "Register",
 
-    "loginEmailOrUsernamePlaceholder": "Email or username",
-    "loginPasswordPlaceholder": "Password",
-    "buttonLogin": "Login",
-    "buttonVk": "VKontakte",
+  "loginEmailOrUsernamePlaceholder": "Email or username",
+  "loginPasswordPlaceholder": "Password",
+  "buttonLogin": "Login",
+  "buttonVk": "VKontakte",
 
-    "registerLoginPlaceholder": "Username",
-    "registerEmailPlaceholder": "Email",
-    "registerPasswordPlaceholder": "Password",
-    "registerСonfirmPasswordPlaceholder": "Confirm password",
-    "buttonRegister": "Register",
+  "registerLoginPlaceholder": "Username",
+  "registerEmailPlaceholder": "Email",
+  "registerPasswordPlaceholder": "Password",
+  "registerСonfirmPasswordPlaceholder": "Confirm password",
+  "buttonRegister": "Register",
 
-    "emailOrUsername": "email or username",
-    "password": "password",
-    "username": "username",
-    "email": "Email",
-    "confirmPassword": "confirm password",
+  "emailOrUsername": "email or username",
+  "password": "password",
+  "username": "username",
+  "email": "Email",
+  "confirmPassword": "confirm password",
 
-    "invalidCreditals": "Invalid username or password",
-    "UsernameAlreadyExists": "A user with this username is already registered",
-    "EmailAlreadyExists": "This email is already registered",
-    "confirmationEmail": "A confirmation email was sent to the address of {{email}}"
-  }
+  "invalidCreditals": "Invalid username or password",
+  "UsernameAlreadyExists": "A user with this username is already registered",
+  "EmailAlreadyExists": "This email is already registered",
+  "confirmationEmail": "A confirmation email was sent to the address of {{email}}"
+}

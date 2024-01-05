@@ -1,5 +1,4 @@
-import { RepairObjectTypes } from "../constants/object";
-import { IUser } from "../redux/types";
+import { IUser, RepairObjectTypes } from "../redux/types";
 
 
 export function isCurrentLandMode (user: IUser | null | undefined): boolean {

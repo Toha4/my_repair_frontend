@@ -3,7 +3,7 @@ import useTranslation from "next-translate/useTranslation";
 import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
 import ActionTableRow from "../tables/ActionTableRow";
-import TableSettings, { ActionColumnType } from "../tables/TableSetting";
+import TableSettings from "../tables/TableSetting";
 import CategoryFormModal from "../forms/settings/CategoryFormModal";
 import { Api } from "../../utils/api";
 import { useConfirmationModalContext } from "../../contexts/ModalDialogContext";
@@ -13,6 +13,7 @@ import { LoadingStatus } from "../../redux/types";
 import { CategoryRemoved, fetchCategories } from "../../redux/slices/categorySlice";
 import { createColumnHelper } from "@tanstack/react-table";
 import { CategoryItemTypes } from "../../utils/api/types";
+import { ActionColumnType } from "../../types/types";
 
 const CategoriesSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
@@ -41,7 +42,7 @@ const CategoriesSettings: React.FC = () => {
       columnHelper.accessor("action", {
         id: "action",
         header: () => <span>{t("action")}</span>,
-        size: 120,
+        size: 90,
         enableSorting: false,
         cell: (props: any) => {
           const {

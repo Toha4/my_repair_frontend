@@ -34,3 +34,21 @@ export type RepairObjectItemTypes = {
   type_object_name?: string;
   square?: number | null;
 };
+
+export type PurchasePositionTypes = {
+  pk: number;
+  cash_check: number;
+  name: string;
+  room: number;
+  room_name: string;
+  category: number;
+  category_name: string;
+  shop: number;
+  shop_name: string;
+  quantity: number;
+  price: number;
+  is_service: boolean;
+  date: string
+  link: string;
+  note: string;
+};

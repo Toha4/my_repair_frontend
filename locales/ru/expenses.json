@@ -1,0 +1,21 @@
+{
+  "titleExpenses": "Расходы",
+
+  "buttonAddCkeck": "Добавить чек",
+  "radioViewTitle": "Вид",
+  "radioViewList": "список",
+  "radioViewCheck": "чеки",
+
+  "name": "Наименование",
+  "purchase": "Покупка",
+  "purpose": "Назначение",
+  "note": "Заметки",
+  "amount": "Сумма",
+  "action": "Действия",
+
+  "expensesEmpty": "Список расходов пуст",
+
+  "actionOpenLink": "Перейти по ссылки",
+  "actionEditPosition": "Редактировать позицию",
+  "actionEditCheck": "Редактировать чек"
+}

@@ -7,6 +7,7 @@ import { ShopApi } from './shop';
 import { RoomApi } from './room';
 import axiosApi from '../axiosApi';
 import { BuildingApi } from './buildings';
+import { PurchaseApi } from './purchase';
 
 
 export type ApiReturnType = {
@@ -16,6 +17,7 @@ export type ApiReturnType = {
   shop: ReturnType<typeof ShopApi>;
   building: ReturnType<typeof BuildingApi>;
   room: ReturnType<typeof RoomApi>;
+  purchase: ReturnType<typeof PurchaseApi>;
 };
 
 export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiReturnType => {
@@ -35,6 +37,7 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
     shop: ShopApi,
     room: RoomApi,
     building: BuildingApi,
+    purchase: PurchaseApi,
   };
 
   const result = Object.entries(apis).reduce((prev, [key, f]) => {

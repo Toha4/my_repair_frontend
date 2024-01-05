@@ -1,0 +1,21 @@
+{
+  "titleExpenses": "Expenses",
+
+  "buttonAddCkeck": "Add check",
+  "radioViewTitle": "View",
+  "radioViewList": "list",
+  "radioViewCheck": "by checks",
+
+  "name": "Name",
+  "purchase": "Purchase",
+  "purpose": "Purposee",
+  "note": "Note",
+  "amount": "Amount",
+  "action": "Action",
+  
+  "expensesEmpty": "The expense list is empty",
+
+  "actionOpenLink": "Open link",
+  "actionEditPosition": "Edit position",
+  "actionEditCheck": "Edit check"
+}

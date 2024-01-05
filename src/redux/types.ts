@@ -8,10 +8,15 @@ export enum LoadingStatus {
   FAILED = 'failed'
 };
 
+export enum RepairObjectTypes {
+  LAND = 1,
+  APARTMENT = 2,
+};
+
 export interface IUserSettings {
   current_repair_object?: number;
   current_repair_object_name?: string;
-  current_repair_object_type?: number;
+  current_repair_object_type?: RepairObjectTypes;
 };
 
 export interface IUser {

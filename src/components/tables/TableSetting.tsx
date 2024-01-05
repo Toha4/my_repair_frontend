@@ -12,11 +12,7 @@ interface ITableSettings {
   loading?: boolean;
 }
 
-export type ActionColumnType = {
-  action: any;
-}
-
-// TODO: В react-table v8 ширина колонок (size) передается в виде число, нельзя задать в процентах или auto
+// В react-table v8 ширина колонок (size) передается в виде числа, нельзя задать в процентах или auto
 // По умолчанию ширина 150
 // Временный обходной путь getSize() !== 150 ? cell.column.getSize() : undefined.
 
@@ -48,7 +44,7 @@ const TableSettings: React.FC<ITableSettings> = ({
     } else if (rows.length === 0) {
       return (
         <Tr>
-          <Td>{emptyPlaceholder}</Td>
+          <Td colSpan={columns.length}>{emptyPlaceholder}</Td>
         </Tr>
       );
     } else {
