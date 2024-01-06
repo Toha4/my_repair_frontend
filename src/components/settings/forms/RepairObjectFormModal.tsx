@@ -1,14 +1,14 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { FormProvider, useForm } from "react-hook-form";
-import style from "../form.module.scss";
+import style from "../Settings.module.scss";
 import ModalForm from "../../common/ModalForm";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RepairObjectFormSchema } from "../../../utils/validations";
-import InputForm from "../elements/InputForm";
-import InputNumberForm from "../elements/InputNumberForm";
-import SelectForm from "../elements/SelectForm";
+import InputForm from "../../common/forms/elements/InputForm";
+import InputNumberForm from "../../common/forms/elements/InputNumberForm";
+import SelectForm from "../../common/forms/elements/SelectForm";
 import { RepairObjectTypesNames } from "../../../constants/object";
 import { capitalizeFirstLetter } from "../../../utils/DataConvert";
 import { Api } from "../../../utils/api";

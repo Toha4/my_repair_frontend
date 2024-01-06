@@ -14,3 +14,9 @@
 .headerRepairObjectSettings {
   margin-bottom: .5rem;
 }
+
+.settingForm {
+  & > div {
+    margin-top: 5px;
+  }
+}

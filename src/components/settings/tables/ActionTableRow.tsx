@@ -1,7 +1,7 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { Flex, IconButton, Tooltip } from "@chakra-ui/react";
-import { StarIcon, StarFillIcon, EditIcon, DeleteIcon } from "../Icons";
+import { StarIcon, StarFillIcon, EditIcon, DeleteIcon } from "../../Icons";
 import style from "./TableSetting.module.scss";
 
 interface IActionTableRow {

@@ -1,13 +1,13 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { FormProvider, useForm } from "react-hook-form";
-import style from "../form.module.scss";
+import style from "../Settings.module.scss";
 import ModalForm from "../../common/ModalForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BuildingFormSchema } from "../../../utils/validations";
-import InputForm from "../elements/InputForm";
-import InputNumberForm from "../elements/InputNumberForm";
-import DatepickerForm from "../elements/DatepickerForm";
+import InputForm from "../../common/forms/elements/InputForm";
+import InputNumberForm from "../../common/forms/elements/InputNumberForm";
+import DatepickerForm from "../../common/forms/elements/DatepickerForm";
 import moment from "moment";
 import { stringToDate } from "../../../utils/DataConvert";
 import { Api } from "../../../utils/api";
