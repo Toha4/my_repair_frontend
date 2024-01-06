@@ -1,9 +1,9 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
-import ActionTableRow from "../../tables/ActionTableRow";
-import TableSettings from "../../tables/TableSetting";
-import RoomFormModal from "../../forms/settings/RoomFormModal";
+import ActionTableRow from "../tables/ActionTableRow";
+import TableSettings from "../tables/TableSetting";
+import RoomFormModal from "../forms/RoomFormModal";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { OurStore } from "../../../redux/store";
 import { useConfirmationModalContext } from "../../../contexts/ModalDialogContext";

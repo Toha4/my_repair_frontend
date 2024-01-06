@@ -8,8 +8,8 @@ import {
   Flex,
   Spacer,
 } from "@chakra-ui/react";
-import LoginForm from "../../components/forms/login/LoginForm";
-import RegisterForm from "../../components/forms/login/RegisterForm";
+import LoginForm from "../../components/login/forms/LoginForm";
+import RegisterForm from "../../components/login/forms/RegisterForm";
 import { useRouter } from "next/router";
 import { useAppSelector } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";

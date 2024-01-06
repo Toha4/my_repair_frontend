@@ -1,7 +1,7 @@
 import React from "react";
 import SelectForm from "./SelectForm";
-import { useAppSelector } from "../../../redux/hooks";
-import { OurStore } from "../../../redux/store";
+import { useAppSelector } from "../../../../redux/hooks";
+import { OurStore } from "../../../../redux/store";
 import useTranslation from "next-translate/useTranslation";
 
 interface IBuildingSelectForm {

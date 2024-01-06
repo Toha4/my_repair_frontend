@@ -1,11 +1,11 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import { FormProvider, useForm } from "react-hook-form";
-import style from "../form.module.scss";
+import style from "../Settings.module.scss";
 import ModalForm from "../../common/ModalForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ShopFormSchema } from "../../../utils/validations";
-import InputForm from "../elements/InputForm";
+import InputForm from "../../common/forms/elements/InputForm";
 import { Api } from "../../../utils/api";
 import { useToast } from "@chakra-ui/react";
 import { ShopItemTypes } from "../../../utils/api/types";

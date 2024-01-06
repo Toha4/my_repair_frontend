@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useTranslation from "next-translate/useTranslation";
 
-import style from "../form.module.scss";
+import style from "../login.module.scss";
 import {
   FormControl,
   FormHelperText,

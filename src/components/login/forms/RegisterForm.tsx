@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import style from "../form.module.scss";
+import style from "../login.module.scss";
 import useTranslation from "next-translate/useTranslation";
 
 import {
