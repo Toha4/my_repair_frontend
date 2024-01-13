@@ -68,7 +68,7 @@ const TableSettings: React.FC<ITableSettings> = ({
 
   return (
     <TableContainer className={style.table} overflowY="auto" maxHeight={maxHeight}>
-      <Table variant="simple" size="sm" overflowY="hidden" __css={{ "table-layout": "fixed", width: "full" }}>
+      <Table variant="simple" size="sm" overflowY="hidden" __css={{ "tableLayout": "fixed", width: "full" }}>
         <Thead position="sticky" top={0}>
           {table.getHeaderGroups().map((headerGroup: any) => (
             <Tr key={headerGroup.id}>

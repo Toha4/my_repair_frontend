@@ -7,12 +7,13 @@ import { EditCheckIcon, EditIcon, LinkIcon } from "../../../Icons";
 
 interface IActionTableRow {
   id: number;
+  cash_check_id: number;
   link: string;
   onClickEditPosition: Function;
   onClickEditCheck: Function;
 }
 
-const ActionTableRow: React.FC<IActionTableRow> = ({ id, link, onClickEditPosition, onClickEditCheck }) => {
+const ActionTableRow: React.FC<IActionTableRow> = ({ id, cash_check_id, link, onClickEditPosition, onClickEditCheck }) => {
   const { t } = useTranslation("expenses");
 
   const size_icon = { w: "24px", h: "24px" };
@@ -48,7 +49,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({ id, link, onClickEditPositi
           aria-label={t("actionEditCheck")}
           variant="iconButton"
           icon={<EditCheckIcon {...size_icon} />}
-          onClick={() => onClickEditCheck(id)}
+          onClick={() => onClickEditCheck(cash_check_id)}
         />
       </Tooltip>
     </Flex>

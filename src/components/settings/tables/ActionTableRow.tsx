@@ -39,21 +39,21 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
             />
           </Tooltip>
         ))}
-      <Tooltip label={t("actionEdit")}>
+      <Tooltip label={t("common:actionEdit")}>
         <IconButton
           className={style.iconActionButton}
           ml="8px"
-          aria-label={t("actionEdit")}
+          aria-label={t("common:actionEdit")}
           variant="iconButton"
           icon={<EditIcon {...size_icon} />}
           onClick={() => onClickEdit(id)}
         />
       </Tooltip>
-      <Tooltip label={t("actionDelete")}>
+      <Tooltip label={t("common:actionDelete")}>
         <IconButton
           className={style.iconActionButton}
           ml="8px"
-          aria-label={t("actionDelete")}
+          aria-label={t("common:actionDelete")}
           variant="iconButton"
           icon={<DeleteIcon {...size_icon} />}
           onClick={() => onClickDelete(id)}

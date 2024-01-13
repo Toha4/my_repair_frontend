@@ -1,12 +1,10 @@
 {
   "titleExpenses": "Расходы",
 
-  "buttonAddCkeck": "Добавить чек",
   "radioViewTitle": "Вид",
   "radioViewList": "список",
   "radioViewCheck": "чеки",
 
-  "name": "Наименование",
   "purchase": "Покупка",
   "purpose": "Назначение",
   "note": "Заметки",
@@ -17,5 +15,11 @@
 
   "actionOpenLink": "Перейти по ссылки",
   "actionEditPosition": "Редактировать позицию",
-  "actionEditCheck": "Редактировать чек"
+  "actionEditCheck": "Редактировать чек",
+
+  "actionPosition": "позицию",
+  "fromPlan": "Из плана",
+
+  "totalPositions": "Всего позиций",
+  "totalAmount": "Всего сумма"
 }

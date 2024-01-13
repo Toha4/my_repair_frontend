@@ -14,5 +14,38 @@
     "paginationFirst": "First",
     "paginationPrevious": "Previous",
     "paginationNext": "Next",
-    "paginationLast": "Last"
+    "paginationLast": "Last",
+
+    "actionAdd": "Add",
+    "actionEdit": "Edit",
+    "actionDelete": "Delete",
+    "actionSave": "Save",
+    "actionSelect": "Select",
+    "actionSelectDate": "Select date",
+    "actionCopy": "Copy",
+
+    "_comment": "Все поля",
+    "name": "Name",
+    "date": "Date",
+    "shop": "Shop",
+    "link": "Link",
+    "building": "Building",
+    "object": "Object",
+    "type": "Type",
+    "check": "Check",
+    "price": "Price",
+    "room": "Room",
+    "category": "Category",
+    "buildingAndRoom": "Building and room",
+
+    "unitQuantity": "pc",
+    "service": "Service",
+    "delivery": "Delivery",
+    "note": "Note",
+
+    "confirmationAction": "Confirmation of the action",
+    "confirmationCancel": "Cancel",
+    "confirmationYes": "Yes",
+    "confirmationTextDelete": "Do you really want to delete {{name}}?",
+    "confirmationTextDeleteWithObject": "Do you really want to delete {{name}} “{{object}}”?"
 }

@@ -22,11 +22,11 @@ import { RepairObjectTypes } from "../../../../redux/types";
 import TablePagination from "../../../common/TablePagination";
 
 interface ITableExpensesList {
-  search?: string;
-  filter?: any;
+  onOpenEditCheckDialog: (id: number) => void;
+  updateCount: number;  // Для тригера useEffect, чтоб обновить данные
 }
 
-const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => {
+const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog, updateCount }) => {
   const { colorMode } = useColorMode();
   const { t, lang } = useTranslation("expenses");
 
@@ -55,29 +55,39 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
         }
 
         const result = await Api().purchase.getAllByPosition(params);
-        setPurchases(result.results);
 
-        // Обновляем pageCount у таблицы (через table.setPageCount() не работает)
-        table.setOptions((old) => {
-          return { ...old, pageCount: result.page_count };
-        });
+        if (!ignore) {
+          setPurchases(result.results);
+
+          // Обновляем pageCount у таблицы (через table.setPageCount() не работает)
+          table.setOptions((old) => {
+            return { ...old, pageCount: result.page_count };
+          });
+        }
       } catch (e) {
         console.log(e);
         console.error("Error from get position");
       }
 
-      setLoading(false);
+      if (!ignore) {
+        setLoading(false);
+      }
     };
 
+    let ignore = false;
     fetchData();
-  }, [search, filter, tableParams]);
+
+    return () => {
+      ignore = true;
+    };
+  }, [tableParams, updateCount]);
 
   const columnHelper = createColumnHelper<PurchasePositionTypes & ActionColumnType>();
   const columns = React.useMemo(
     () => [
       columnHelper.accessor("name", {
         id: "name",
-        header: () => <span>{t("name")}</span>,
+        header: () => <span>{t("common:name")}</span>,
       }),
       columnHelper.accessor("date", {
         id: "date",
@@ -147,6 +157,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
           return (
             <ActionTableRow
               id={original.pk}
+              cash_check_id={original.cash_check}
               link={original.link}
               onClickEditPosition={handleEditPositon}
               onClickEditCheck={handleEditCheck}
@@ -163,7 +174,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
   };
 
   const handleEditCheck = (id: number) => {
-    console.log("Edit check: ", id);
+    onOpenEditCheckDialog(id);
   };
 
   const pagination = React.useMemo(
@@ -248,7 +259,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ search, filter }) => 
           size="sm"
           className={style.table}
           overflowY="hidden"
-          __css={{ "table-layout": "fixed", width: "full" }}
+          __css={{ tableLayout: "fixed", width: "full" }}
         >
           <Thead position="sticky" top={0}>
             {table.getHeaderGroups().map((headerGroup: any) => (

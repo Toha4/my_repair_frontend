@@ -84,15 +84,15 @@ const CategoryFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   return (
     <ModalForm
       isOpen={isOpen}
-      header={`${t(id ? "actionEdit" : "actionAdd")} ${t("category")}`}
+      header={`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("category")}`}
       onClose={onClose}
-      okText={t(id ? "actionSave" : "actionAdd")}
+      okText={t(id ? "common:actionSave" : "common:actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
       isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>
-          <InputForm name={t("name")} keyItem="name" isRequired loading={loading}/>
+          <InputForm name={t("common:name")} keyItem="name" isRequired loading={loading}/>
         </form>
       </FormProvider>
     </ModalForm>

@@ -97,18 +97,18 @@ const RepairObjectFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) =>
   return (
     <ModalForm
       isOpen={isOpen}
-      header={`${t(id ? "actionEdit" : "actionAdd")} ${t("object")}`}
+      header={`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:object").toLocaleLowerCase()}`}
       onClose={onClose}
-      okText={t(id ? "actionSave" : "actionAdd")}
+      okText={t(id ? "common:actionSave" : "common:actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
       isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>
-          <InputForm name={t("name")} keyItem="name" isRequired loading={loading}/>
+          <InputForm name={t("common:name")} keyItem="name" isRequired loading={loading}/>
           
           <SelectForm
-            name={t("type")}
+            name={t("common:type")}
             keyItem="type"
             isRequired={!id}
             disabled={!!id}

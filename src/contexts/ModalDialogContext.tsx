@@ -80,16 +80,16 @@ const ConfirmationModalContextProvider: React.FC<ConfirmationModalContextProvide
         <Modal isOpen={show} onClose={onHide}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>{t("confirmationAction")}</ModalHeader>
+            <ModalHeader>{t("common:confirmationAction")}</ModalHeader>
             <ModalCloseButton borderRadius="brand"/>
             <ModalBody>{content.message}</ModalBody>
 
             <ModalFooter>
               <Button colorScheme="blue" mr={3} onClick={handleCancel}>
-                {t("confirmationCancel")}
+                {t("common:confirmationCancel")}
               </Button>
               <Button variant="ghost" onClick={handleOk}>
-                {t("confirmationYes")}
+                {t("common:confirmationYes")}
               </Button>
             </ModalFooter>
           </ModalContent>

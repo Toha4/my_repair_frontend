@@ -17,6 +17,7 @@ import { ActionColumnType } from "../../types/types";
 
 const CategoriesSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
+
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
   const [idEdit, setIdEdit] = React.useState<number | null>(null);
 
@@ -37,7 +38,7 @@ const CategoriesSettings: React.FC = () => {
     () => [
       columnHelper.accessor("name", {
         id: "name",
-        header: () => <span>{t("name")}</span>,
+        header: () => <span>{t("common:name")}</span>,
       }),
       columnHelper.accessor("action", {
         id: "action",
@@ -65,7 +66,7 @@ const CategoriesSettings: React.FC = () => {
   const handleDeleteCategory = async (id: number) => {
     const nameCategory = categories.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("confirmationTextDelete", { name: t("category"), object: nameCategory })
+      t("common:confirmationTextDeleteWithObject", { name: t("category"), object: nameCategory })
     );
 
     if (!resultConfirm) {
@@ -94,7 +95,7 @@ const CategoriesSettings: React.FC = () => {
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddCategory}>
-          {`${t("actionAdd")} ${t("category")}`}
+          {`${t("common:actionAdd")} ${t("category")}`}
         </Button>
 
         <Box mt="15px" mb="15px">

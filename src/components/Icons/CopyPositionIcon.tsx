@@ -1,0 +1,16 @@
+import React from "react";
+import { Icon, IconProps } from "@chakra-ui/icons";
+
+const CopyPositionIcon: React.FC<IconProps> = (props) => (
+  <Icon {...props}>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M16.6667 1.66669H8.33334C7.41417 1.66669 6.66667 2.41419 6.66667 3.33335V6.66669H3.33334C2.41417 6.66669 1.66667 7.41419 1.66667 8.33335V16.6667C1.66667 17.5859 2.41417 18.3334 3.33334 18.3334H11.6667C12.5858 18.3334 13.3333 17.5859 13.3333 16.6667V13.3334H16.6667C17.5858 13.3334 18.3333 12.5859 18.3333 11.6667V3.33335C18.3333 2.41419 17.5858 1.66669 16.6667 1.66669ZM3.33334 16.6667V8.33335H11.6667L11.6683 16.6667H3.33334ZM16.6667 11.6667H13.3333V8.33335C13.3333 7.41419 12.5858 6.66669 11.6667 6.66669H8.33334V3.33335H16.6667V11.6667Z"
+        fill="currentColor"
+      />
+      <path d="M5 10H10V11.6667H5V10ZM5 13.3333H10V15H5V13.3333Z" fill="currentColor" />
+    </svg>
+  </Icon>
+);
+
+export default CopyPositionIcon;

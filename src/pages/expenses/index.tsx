@@ -1,9 +1,10 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
 import MainLayout from "../../components/layouts/MainLayout";
-import { Box, Button, Flex, Radio, RadioGroup, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Radio, RadioGroup, Spacer, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import TableExpensesList from "../../components/expenses/ExpensesView/TableExpensesList";
 import TableExpensesCheck from "../../components/expenses/ExpensesView/TableExpensesCheck";
+import CheckFormModal from "../../components/expenses/forms/AddCheckModal";
 
 export enum ExpensesViewType {
   LIST = "1",
@@ -15,12 +16,37 @@ const ExpensesPage: React.FC = () => {
 
   const [viewType, setViewType] = React.useState<ExpensesViewType>(ExpensesViewType.LIST);
 
+  const { isOpen: isOpenFormCheck, onOpen: onOpenFormCheck, onClose: onCloseFormCheck } = useDisclosure();
+  const [idCheckEdit, setIdCheckEdit] = React.useState<number | null>(null);
+
+  const [updateCount, setUpdateCount] = React.useState(0);  // state для передачи в useEffect дочерней таблицы для обновлени данных
+
   const handleAddCkeck = () => {
-    console.log("Add check!");
+    setIdCheckEdit(null);
+    onOpenFormCheck();
   };
+
+  const handleUpdateTable = () => {
+    console.log("Update table!");
+    setUpdateCount(current => current + 1);
+  };
+
+  const handleEditCheck = (id: number) => {
+    setIdCheckEdit(id);
+    onOpenFormCheck();
+  }
 
   return (
     <MainLayout title={t("titleExpenses")}>
+      {isOpenFormCheck && (
+        <CheckFormModal
+          id={idCheckEdit}
+          isOpen={isOpenFormCheck}
+          onClose={onCloseFormCheck}
+          onUpdateTable={handleUpdateTable}
+        />
+      )}
+
       <React.Fragment>
         <Flex
           minWidth="max-content"
@@ -30,7 +56,7 @@ const ExpensesPage: React.FC = () => {
           style={{ marginBottom: "1.25rem" }}
         >
           <Button variant="brandSolid" onClick={handleAddCkeck}>
-            {t("buttonAddCkeck")}
+            {`${t("common:actionAdd")} ${t("common:check").toLowerCase()}`}
           </Button>
           <Spacer />
           <Box>
@@ -44,12 +70,11 @@ const ExpensesPage: React.FC = () => {
           </Box>
         </Flex>
 
-      {viewType == ExpensesViewType.LIST ? (
-        <TableExpensesList></TableExpensesList>
-      ) : (
-        <TableExpensesCheck></TableExpensesCheck>
-      )}
-
+        {viewType == ExpensesViewType.LIST ? (
+          <TableExpensesList onOpenEditCheckDialog={handleEditCheck} updateCount={updateCount}></TableExpensesList>
+        ) : (
+          <TableExpensesCheck></TableExpensesCheck>
+        )}
       </React.Fragment>
     </MainLayout>
   );

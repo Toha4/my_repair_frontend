@@ -14,5 +14,38 @@
     "paginationFirst": "Первая",
     "paginationPrevious": "Предыдущая",
     "paginationNext": "Следующая",
-    "paginationLast": "Последняя"
+    "paginationLast": "Последняя",
+
+    "actionAdd": "Добавить",
+    "actionEdit": "Редактировать",
+    "actionDelete": "Удалить",
+    "actionSave": "Сохранить",
+    "actionSelect": "Выберите",
+    "actionSelectDate": "Выберите дату",
+    "actionCopy": "Копировать",
+
+    "_comment": "Все поля",
+    "name": "Наименование",
+    "date": "Дата",
+    "shop": "Магазин",
+    "link": "Ссылка",
+    "building": "Строение",
+    "object": "Объект",
+    "type": "Тип",
+    "check": "Чек",
+    "price": "Цена",
+    "room": "Комната",
+    "category": "Категория",
+    "buildingAndRoom": "Строение и комната",
+
+    "unitQuantity": "шт",
+    "service": "Услуга",
+    "delivery": "Доставка",
+    "note": "Примечание",
+
+    "confirmationAction": "Подтверждение действия",
+    "confirmationCancel": "Отмена",
+    "confirmationYes": "Да",
+    "confirmationTextDelete": "Вы действительно хотите удалить {{name}}?",
+    "confirmationTextDeleteWithObject": "Вы действительно хотите удалить {{name}} “{{object}}”?"
 }

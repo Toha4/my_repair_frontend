@@ -98,18 +98,18 @@ const BuildingFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   return (
     <ModalForm
       isOpen={isOpen}
-      header={`${t(id ? "actionEdit" : "actionAdd")} ${t("building")}`}
+      header={`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("building")}`}
       onClose={onClose}
-      okText={t(id ? "actionSave" : "actionAdd")}
+      okText={t(id ? "common:actionSave" : "common:actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
       isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>
-          <InputForm name={t("name")} keyItem="name" isRequired loading={loading}/>
+          <InputForm name={t("common:name")} keyItem="name" isRequired loading={loading}/>
           <InputNumberForm name={t("square")} keyItem="square" loading={loading}/>
-          <DatepickerForm name={t("dateBegin")} keyItem="date_begin" placeholder={t("actionSelectDate")} loading={loading}/>
-          <DatepickerForm name={t("dateEnd")} keyItem="date_end" placeholder={t("actionSelectDate")} loading={loading}/>
+          <DatepickerForm name={t("dateBegin")} keyItem="date_begin" placeholder={t("common:actionSelectDate")} loading={loading}/>
+          <DatepickerForm name={t("dateEnd")} keyItem="date_end" placeholder={t("common:actionSelectDate")} loading={loading}/>
         </form>
       </FormProvider>
     </ModalForm>

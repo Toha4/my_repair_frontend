@@ -37,7 +37,7 @@ const BuildingsSettings: React.FC = () => {
     () => [
       columnHelper.accessor("name", {
         id: "name",
-        header: () => <span>{t("name")}</span>,
+        header: () => <span>{t("common:name")}</span>,
       }),
       columnHelper.accessor("square", {
         id: "square",
@@ -80,7 +80,7 @@ const BuildingsSettings: React.FC = () => {
   const handleDeleteBuilding = async (id: number) => {
     const nameBuilding = buildings.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("confirmationTextDelete", { name: t("building"), object: nameBuilding })
+      t("common:confirmationTextDeleteWithObject", { name: t("building"), object: nameBuilding })
     );
 
     if (!resultConfirm) {
@@ -108,7 +108,7 @@ const BuildingsSettings: React.FC = () => {
       {isOpenForm && <BuildingFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Button variant="brandSolid" onClick={handleAddBuilding}>
-        {`${t("actionAdd")} ${t("building")}`}
+        {`${t("common:actionAdd")} ${t("building")}`}
       </Button>
 
       <Box mt="15px" mb="15px">
