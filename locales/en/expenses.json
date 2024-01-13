@@ -1,12 +1,10 @@
 {
   "titleExpenses": "Expenses",
 
-  "buttonAddCkeck": "Add check",
   "radioViewTitle": "View",
   "radioViewList": "list",
   "radioViewCheck": "by checks",
 
-  "name": "Name",
   "purchase": "Purchase",
   "purpose": "Purposee",
   "note": "Note",
@@ -17,5 +15,11 @@
 
   "actionOpenLink": "Open link",
   "actionEditPosition": "Edit position",
-  "actionEditCheck": "Edit check"
+  "actionEditCheck": "Edit check",
+
+  "actionPosition": "position",
+  "fromPlan": "From plan",
+ 
+  "totalPositions": "Total positions",
+  "totalAmount": "Total amount"
 }

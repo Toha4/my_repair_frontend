@@ -11,6 +11,7 @@ import { useToast } from "@chakra-ui/react";
 import { ShopItemTypes } from "../../../utils/api/types";
 import { shopAdded, shopUpdated } from "../../../redux/slices/shopsSlice";
 import { useAppDispatch } from "../../../redux/hooks";
+import { capitalize } from "../../../utils/DataConvert";
 
 interface IFormShop {
   name: string;
@@ -85,16 +86,16 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   return (
     <ModalForm
       isOpen={isOpen}
-      header={`${t(id ? "actionEdit" : "actionAdd")} ${t("shop")}`}
+      header={`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:shop").toLowerCase()}`}
       onClose={onClose}
-      okText={t(id ? "actionSave" : "actionAdd")}
+      okText={t(id ? "common:actionSave" : "common:actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
       isLoadingSubmitButton={submitLoading}
     >
       <FormProvider {...methodsForm}>
         <form className={style.settingForm}>
-          <InputForm name={t("name")} keyItem="name" isRequired loading={loading} />
-          <InputForm name={t("link")} keyItem="link" loading={loading} />
+          <InputForm name={capitalize(t("common:name"))} keyItem="name" isRequired loading={loading} />
+          <InputForm name={t("common:link")} keyItem="link" loading={loading} />
         </form>
       </FormProvider>
     </ModalForm>

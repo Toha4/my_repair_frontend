@@ -7,7 +7,7 @@
     "shops": "Shops",
     "categories": "Categories",
 
-    "object": "object",
+    
     "room": "room",
     "building": "building",
     "shop": "shop",
@@ -15,13 +15,7 @@
     "apartment": "apartment",
     "land": "land plot",
 
-    "actionAdd": "Add",
     "actionSetActive": "Set active",
-    "actionEdit": "Edit",
-    "actionDelete": "Delete",
-    "actionSave": "Save",
-    "actionSelect": "Select",
-    "actionSelectDate": "Select date",
     
     "profileFirstNameLabel": "Name",
     "profilelastNameLabel": "Surname",
@@ -34,21 +28,12 @@
     "profileUpdateError": "An error occurred while updating the profile",
     "unknownError": "An unknown error has occurred",
 
-    "confirmationAction": "Confirmation of the action",
-    "confirmationCancel": "Cancel",
-    "confirmationYes": "Yes",
-    "confirmationTextDelete": "Do you really want to delete {{name}} “{{object}}”?",
-
-    "name": "Name",
-    "buildingTitle": "Building",
-    "type": "Type",
     "typeDescription": "Land plot - allows you to add buildings. You can add your own rooms for each building. Apartment - this type allows you to add only rooms",
     "typeHelpText": "The type can only be specified when creating an object",
     "square": "Square, m2",
     "action": "Action",
     "dateBegin": "Date begin",
     "dateEnd": "Date end",
-    "link": "Link",
     
     "noteHomes": "You can add as many objects of repair as you want, but only one can be active. Expenses and planning will be added and displayed at the active object.",
     "noteObjectSettings": "The settings will be applied to the active object. At the moment, this is “{{name}}.",

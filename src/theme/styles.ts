@@ -14,8 +14,8 @@ const globalStyles = (props: any) => ({
   },
   ".react-datepicker__header": {
     background: "var(--brandBlue)",
-    "border-top-right-radius": "0 !important",
-    "border-top-left-radius": "0 !important",
+    "borderTopRightRadius": "0 !important",
+    "borderTopLeftRadius": "0 !important",
   },
   ".react-datepicker__current-month, .react-datepicker__day-name": {
     color: mode("white", "black")(props),
@@ -44,10 +44,10 @@ const globalStyles = (props: any) => ({
     }
   },
   ".react-datepicker__navigation *::before": {
-    "border-color": mode("white", "black")(props),
+    "borderColor": mode("white", "black")(props),
   },
   ".react-datepicker__navigation:hover *::before": {
-    "border-color": mode("gray.300", "white")(props),
+    "borderColor": mode("gray.300", "white")(props),
   },
   ".react-datepicker__navigation-icon": {
     top: "7px",

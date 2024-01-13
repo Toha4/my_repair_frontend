@@ -20,3 +20,7 @@ export function formatNumber(num: number, separator = " ", decimals = 2): number
     return num;
   }
 }
+
+export const capitalize = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};

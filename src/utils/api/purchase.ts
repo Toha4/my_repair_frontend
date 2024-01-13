@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { PurchasePositionTypes } from "./types";
+import { CheckType, PurchasePositionTypes } from "./types";
 import { Paginated } from "../../types/paginated";
 
 export const PurchaseApi = (instance: AxiosInstance) => ({
@@ -8,4 +8,16 @@ export const PurchaseApi = (instance: AxiosInstance) => ({
     return data;
   },
   async getAllByChecks() {},
+  async getCheck(id: number) {
+    const { data } = await instance.get<CheckType>(`/api/purchases/cash_check/${id}`);
+    return data;
+  },
+  async createCheck(check: CheckType) {
+    const { data } = await instance.post<CheckType, { data: CheckType }>("/api/purchases/cash_check/", check);
+    return data;
+  },
+  async updateCheck(id: number, check: CheckType) {
+    const { data } = await instance.put<CheckType, { data: CheckType }>(`api/purchases/cash_check/${id}`, check);
+    return data;
+  },
 });

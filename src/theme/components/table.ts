@@ -15,8 +15,7 @@ const Table: ComponentStyleConfig = {
         bg: mode("white", "gray.500")(props),
         whiteSpace: "pre-line",
         textTransform: "none",
-        paddingLeft: "10px",
-        paddingRight: "10px",
+        padding: "10px"
       },
       td: {
         fontFamily: `'Inter Variable', sans-serif`,

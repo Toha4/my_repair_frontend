@@ -20,6 +20,7 @@ import { ActionColumnType } from "../../types/types";
 
 const RepairObjectsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
+  
   const { user } = useAppSelector((state: OurStore) => state.authReducer);
 
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
@@ -44,11 +45,11 @@ const RepairObjectsSettings: React.FC = () => {
     () => [
       columnHelper.accessor("name", {
         id: "name",
-        header: () => <span>{t("name")}</span>,
+        header: () => <span>{t("common:name")}</span>,
       }),
       columnHelper.accessor("type_object_name", {
         id: "type_object_name",
-        header: () => <span>{t("type")}</span>,
+        header: () => <span>{t("common:type")}</span>,
       }),
       columnHelper.accessor("square", {
         id: "square",
@@ -108,7 +109,7 @@ const RepairObjectsSettings: React.FC = () => {
 
     const nameObject = repairObjects.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("confirmationTextDelete", { name: t("object"), object: nameObject })
+      t("common:confirmationTextDeleteWithObject", { name: t("common:object").toLocaleLowerCase(), object: nameObject })
     );
 
     if (!resultConfirm) {
@@ -137,7 +138,7 @@ const RepairObjectsSettings: React.FC = () => {
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddRepairObject}>
-          {`${t("actionAdd")} ${t("object")}`}
+          {`${t("common:actionAdd")} ${t("common:object").toLocaleLowerCase()}`}
         </Button>
 
         <Box mt="15px" mb="15px">

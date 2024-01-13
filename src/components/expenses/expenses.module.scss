@@ -37,3 +37,30 @@
 .sortIcon {
   margin-left: .4rem;
 }
+
+.settingForm {
+  & > div {
+    margin-top: 0px;
+  }
+}
+
+.position {
+  border-top: solid 1px;
+  border-color: var(--brandBlue);
+
+  .positionAction {
+    border-right: solid 1px;
+    border-color: var(--brandBlue);
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  .positionCount {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .chakraInputDisabled:disabled {
+    opacity: unset;
+  }
+}

@@ -8,15 +8,15 @@ export const BuildingApi = (instance: AxiosInstance) => ({
     return data;
   },
   async get(id: number) {  
-    const { data } = await instance.get<BuildingItemTypes>(`/api/homes/building/${id}`,);
+    const { data } = await instance.get<BuildingItemTypes>(`/api/homes/building/${id}`);
     return data;
   },
-  async create(Building: BuildingItemTypes) {
-    const { data } = await instance.post<BuildingItemTypes, { data: BuildingItemTypes }>('/api/homes/building/', Building);
+  async create(building: BuildingItemTypes) {
+    const { data } = await instance.post<BuildingItemTypes, { data: BuildingItemTypes }>('/api/homes/building/', building);
     return data;
   },
-  async update(id: number, Building: BuildingItemTypes) {
-    const { data } = await instance.put<BuildingItemTypes, { data: BuildingItemTypes }>(`api/homes/building/${id}`, Building);
+  async update(id: number, building: BuildingItemTypes) {
+    const { data } = await instance.put<BuildingItemTypes, { data: BuildingItemTypes }>(`api/homes/building/${id}`, building);
     return data;
   },
   remove(id: number) {

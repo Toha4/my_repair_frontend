@@ -17,6 +17,7 @@ import { ActionColumnType } from "../../../types/types";
 
 const RoomsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
+  
   const { user } = useAppSelector((state: OurStore) => state.authReducer);
 
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
@@ -41,11 +42,11 @@ const RoomsSettings: React.FC = () => {
         ? [
             columnHelper.accessor("name", {
               id: "name",
-              header: () => <span>{t("name")}</span>,
+              header: () => <span>{t("common:name")}</span>,
             }),
             columnHelper.accessor("building_name", {
               id: "building",
-              header: () => <span>{t("buildingTitle")}</span>,
+              header: () => <span>{t("common:building")}</span>,
             }),
             columnHelper.accessor("square", {
               id: "square",
@@ -80,7 +81,7 @@ const RoomsSettings: React.FC = () => {
         : [
             columnHelper.accessor("name", {
               id: "name",
-              header: () => <span>{t("name")}</span>,
+              header: () => <span>{t("common:name")}</span>,
             }),
             columnHelper.accessor("square", {
               id: "square",
@@ -123,7 +124,7 @@ const RoomsSettings: React.FC = () => {
   const handleDeleteRoom = async (id: number) => {
     const nameRoom = rooms.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("confirmationTextDelete", { name: t("room"), object: nameRoom })
+      t("common:confirmationTextDeleteWithObject", { name: t("room"), object: nameRoom })
     );
 
     if (!resultConfirm) {
@@ -151,7 +152,7 @@ const RoomsSettings: React.FC = () => {
       {isOpenForm && <RoomFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Button variant="brandSolid" onClick={handleAddRoom}>
-        {`${t("actionAdd")} ${t("room")}`}
+        {`${t("common:actionAdd")} ${t("room")}`}
       </Button>
 
       <Box mt="15px" mb="15px">

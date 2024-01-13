@@ -1,38 +1,24 @@
 import React from "react";
-import { FormControl, FormHelperText, FormLabel, Input, Skeleton } from "@chakra-ui/react";
+import { FormControl, FormHelperText, FormLabel, Skeleton, Textarea } from "@chakra-ui/react";
 import ConnectForm from "./ConnectForm";
 
-interface IInputForm {
+interface ITextareaForm {
   name?: string;
   keyItem: string;
   isRequired?: boolean;
   loading?: boolean;
   placeholder?: string;
   isInvalid?: boolean;
-  autoCompleteDisabled?: boolean;
 }
 
-const InputForm: React.FC<IInputForm> = ({
-  name,
-  keyItem,
-  isRequired,
-  loading = false,
-  placeholder,
-  isInvalid,
-  autoCompleteDisabled,
-}) => (
+const TextareaForm: React.FC<ITextareaForm> = ({ name, keyItem, isRequired, loading = false, placeholder, isInvalid }) => (
   <FormControl isRequired={isRequired}>
     <ConnectForm>
       {({ register, formState: { errors } }) => (
         <div>
           {!!name && <FormLabel htmlFor={keyItem}>{name}</FormLabel>}
           <Skeleton isLoaded={!loading}>
-            <Input
-              placeholder={placeholder}
-              borderColor={isInvalid ? "red" : undefined}
-              autoComplete={autoCompleteDisabled ? "off" : undefined}
-              {...register(keyItem)}
-            />
+            <Textarea minHeight="42px" placeholder={placeholder} borderColor={isInvalid ? "red" : undefined} {...register(keyItem)} />
           </Skeleton>
           {errors[keyItem] && (
             <FormHelperText color="red">{errors[keyItem].message && errors[keyItem].message}</FormHelperText>
@@ -43,4 +29,4 @@ const InputForm: React.FC<IInputForm> = ({
   </FormControl>
 );
 
-export default InputForm;
+export default TextareaForm;

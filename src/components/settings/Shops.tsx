@@ -17,6 +17,7 @@ import { ActionColumnType } from "../../types/types";
 
 const ShopsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
+  
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
   const [idEdit, setIdEdit] = React.useState<number | null>(null);
 
@@ -37,11 +38,11 @@ const ShopsSettings: React.FC = () => {
     () => [
       columnHelper.accessor("name", {
         id: "name",
-        header: () => <span>{t("name")}</span>,
+        header: () => <span>{t("common:name")}</span>,
       }),
       columnHelper.accessor("link", {
         id: "link",
-        header: () => <span>{t("link")}</span>,
+        header: () => <span>{t("common:link")}</span>,
         enableSorting: false,
         cell: (props: any) => {
           const {
@@ -78,7 +79,7 @@ const ShopsSettings: React.FC = () => {
   const handleDeleteShop = async (id: number) => {
     const nameShop = shops.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("confirmationTextDelete", { name: t("shop"), object: nameShop })
+      t("common:confirmationTextDeleteWithObject", { name: t("common:shop"), object: nameShop })
     );
 
     if (!resultConfirm) {
@@ -107,7 +108,7 @@ const ShopsSettings: React.FC = () => {
 
       <Box className={style.settingBox}>
         <Button variant="brandSolid" onClick={handleAddShop}>
-          {`${t("actionAdd")} ${t("shop")}`}
+          {`${t("common:actionAdd")} ${t("common:shop").toLowerCase()}`}
         </Button>
 
         <Box mt="15px" mb="15px">

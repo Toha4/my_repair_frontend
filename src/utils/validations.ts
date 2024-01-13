@@ -1,19 +1,20 @@
 import * as yup from 'yup';
 
+// locales: Поля берутся из ns common
 
-const setYupLocale = (t: Function) => {
+export const setYupLocale = (t: Function) => {
   yup.setLocale({
     mixed: {
-      default: ({ path }) => t("yup:mixedDefault", { path: t(path) }),
-      required: ({ path }) => t("yup:mixedRequired", { path: t(path) }),
+      default: ({ path }) => t("yup:mixedDefault", { path: t(`common:${path}`) }),
+      required: ({ path }) => t("yup:mixedRequired", { path: t(`common:${path}`) }),
       // oneOf: (t) => console.log(t)
     },
     string: {
-      min: ({ min, path }) => t("yup:stringMin", { path: t(path), min })
+      min: ({ min, path }) => t("yup:stringMin", { path: t(`common:${path}`), min })
 
     },
     number: {
-      positive: ({ more, path }) => t("yup:numberPositive", { path: t(path), more })
+      positive: ({ more, path }) => t("yup:numberPositive", { path: t(`common:${path}`), more })
     }
   })
 };
