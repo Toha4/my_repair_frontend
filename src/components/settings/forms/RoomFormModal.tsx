@@ -18,6 +18,7 @@ import { isCurrentLandMode } from "../../../utils/repairObjects";
 import BuildingSelectForm from "../../common/forms/elements/BuildingSelectForm";
 import { RoomItemTypes } from "../../../utils/api/types";
 import { roomAdded, roomUpdated } from "../../../redux/slices/roomsSlice";
+import { IModalForm } from "../../common/forms/types";
 
 interface IFormRoom {
   name: string;

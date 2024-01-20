@@ -4,11 +4,11 @@ import { ILogin, IRegister, IUser, IUserUpdate } from '../../redux/types';
 
 export const UserApi = (instance: AxiosInstance) => ({
   async loginProxy(credentials: ILogin) {
-    const { data } = await axios.post<{ access: string }>("http://localhost:3000/api/auth/login", credentials);
+    const { data } = await axios.post<{ access: string }>("/api/auth/login", credentials);
     return data;
   },
   async logoutProxy() {
-    const { data } = await axios.post("http://localhost:3000/api/auth/logout");
+    const { data } = await axios.post("/api/auth/logout");
     return data;
   },
   async register(credentials: IRegister) {

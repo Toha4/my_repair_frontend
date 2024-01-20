@@ -16,6 +16,7 @@ import { useToast } from "@chakra-ui/react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RepairObjectItemTypes } from "../../../utils/api/types";
 import { repairObjectAdded, repairObjectUpdated } from "../../../redux/slices/repairObjectSlice";
+import { IModalForm } from "../../common/forms/types";
 
 
 interface IFormObject {

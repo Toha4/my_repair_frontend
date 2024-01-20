@@ -12,6 +12,7 @@ import { ShopItemTypes } from "../../../utils/api/types";
 import { shopAdded, shopUpdated } from "../../../redux/slices/shopsSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 import { capitalize } from "../../../utils/DataConvert";
+import { IModalForm } from "../../common/forms/types";
 
 interface IFormShop {
   name: string;

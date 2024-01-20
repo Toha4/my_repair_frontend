@@ -11,6 +11,7 @@ import { useToast } from "@chakra-ui/react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { CategoryItemTypes } from "../../../utils/api/types";
 import { categoryAdded, categoryUpdated } from "../../../redux/slices/categorySlice";
+import { IModalForm } from "../../common/forms/types";
 
 
 interface IFormCategory {

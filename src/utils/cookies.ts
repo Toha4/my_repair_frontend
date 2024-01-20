@@ -5,7 +5,7 @@ import { ACCESS_TOKEN_LIFETIME_SEC } from "../config";
 
 export function setAccessCookie(access_token: string, ctx?: NextPageContext | GetServerSidePropsContext) {
   setCookie(ctx, 'access', access_token, {
-    maxAge: ACCESS_TOKEN_LIFETIME_SEC,
+    maxAge: Number(ACCESS_TOKEN_LIFETIME_SEC),
     path: '/',
   });
 };
