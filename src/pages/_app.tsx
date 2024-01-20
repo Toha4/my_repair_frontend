@@ -10,6 +10,7 @@ import { setUser } from "../redux/slices/authSlice";
 import axios from "axios";
 import { setAccessCookie } from "../utils/cookies";
 import ConfirmationModalContextProvider from "../contexts/ModalDialogContext";
+import { NEXT_INSTANCE_URL } from "../config";
 
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -33,7 +34,7 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Compon
   const { refresh } = parseCookies(ctx);
   if (req && refresh) {
     try {
-      const resp = await axios.get('http://127.0.0.1:3000/api/auth/refresh', { headers: { cookie: req.headers.cookie || "" } });
+      const resp = await axios.get(`${NEXT_INSTANCE_URL}/api/auth/refresh`, { headers: { cookie: req.headers.cookie || "" } });
 
       if (res) {
         res.setHeader('set-cookie', `${resp.headers['set-cookie']}`);
