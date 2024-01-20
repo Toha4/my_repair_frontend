@@ -33,7 +33,7 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Compon
   const { refresh } = parseCookies(ctx);
   if (req && refresh) {
     try {
-      const resp = await axios.get('/api/auth/refresh', { headers: { cookie: req.headers.cookie || "" } });
+      const resp = await axios.get('http://127.0.0.1:3000/api/auth/refresh', { headers: { cookie: req.headers.cookie || "" } });
 
       if (res) {
         res.setHeader('set-cookie', `${resp.headers['set-cookie']}`);
@@ -47,7 +47,7 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Compon
       store.dispatch(setUser(user));
     }
     catch (e) {
-      destroyCookie(ctx, "refresh");
+      destroyCookie(ctx, "refresh", {path: '/'});
       console.error(e);
     }
   }
