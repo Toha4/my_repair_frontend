@@ -30,8 +30,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       res.send(resApi.data);
 
-    } catch ({ response: { status, data } }) {
-      res.status(typeof status === "number" ? status : 500).json(data);
+    } catch (err) {
+      res.status(500).json({ error: err })
     }
   } else {
     res.setHeader('Allow', ['GET']);

@@ -39,6 +39,7 @@ import { useConfirmationModalContext } from "../../../contexts/ModalDialogContex
 import moment from "moment";
 import { Api } from "../../../utils/api";
 import { CheckType } from "../../../utils/api/types";
+import { IModalForm } from "../../common/forms/types";
 
 interface IAddCheckModalForm extends IModalForm {
   onUpdateTable(): void;

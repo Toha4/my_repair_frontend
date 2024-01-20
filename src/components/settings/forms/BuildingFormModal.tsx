@@ -15,6 +15,7 @@ import { useToast } from "@chakra-ui/react";
 import { BuildingItemTypes } from "../../../utils/api/types";
 import { useAppDispatch } from "../../../redux/hooks";
 import { buildingAdded, buildingUpdated } from "../../../redux/slices/buildingsSlice";
+import { IModalForm } from "../../common/forms/types";
 
 
 interface IFormBuilding {

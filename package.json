@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "2.8.0",
@@ -17,6 +18,7 @@
     "@hookform/resolvers": "^2.8.8",
     "@reduxjs/toolkit": "^1.8.1",
     "@tanstack/react-table": "^8.11.2",
+    "@types/cookie": "^0.6.0",
     "axios": "^0.27.2",
     "axios-auth-refresh": "^3.3.1",
     "classnames": "^2.3.1",
