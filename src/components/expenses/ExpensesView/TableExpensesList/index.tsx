@@ -23,7 +23,7 @@ import TablePagination from "../../../common/TablePagination";
 
 interface ITableExpensesList {
   onOpenEditCheckDialog: (id: number) => void;
-  updateCount: number;  // Для тригера useEffect, чтоб обновить данные
+  updateCount: number; // Для тригера useEffect, чтоб обновить данные
 }
 
 const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog, updateCount }) => {
@@ -88,6 +88,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
       columnHelper.accessor("name", {
         id: "name",
         header: () => <span>{t("common:name")}</span>,
+        cell: (props: any) => <span className={style.tableCellName}>{props.row.original.name}</span>,
       }),
       columnHelper.accessor("date", {
         id: "date",
