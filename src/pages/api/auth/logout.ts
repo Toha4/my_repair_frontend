@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { parseCookies } from "nookies";
+import { destroyCookie, parseCookies } from "nookies";
 import { API_URL } from "../../../config";
 
 
@@ -22,7 +22,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       );
 
       if (resApi.status === 205) {
-        Object.keys(resApi.headers).forEach(key => res.setHeader(key, resApi.headers[key]));     
+        Object.keys(resApi.headers).forEach(key => res.setHeader(key, resApi.headers[key]));
+        destroyCookie({res}, "refresh", {path: '/'});
       }
     }
 

@@ -16,3 +16,11 @@ export function destoryAccessCookie() {
     path: '/',
   });
 };
+
+export function destoryRefreshCookie() {
+  setCookie(undefined, 'refresh', "", {
+    maxAge: 0,
+    path: '/',
+  });
+};
+
