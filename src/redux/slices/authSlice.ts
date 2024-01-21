@@ -1,6 +1,6 @@
 import { createSlice, SerializedError, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../utils/api";
-import { destoryAccessCookie, setAccessCookie } from "../../utils/cookies";
+import { destoryAccessCookie, destoryRefreshCookie, setAccessCookie } from "../../utils/cookies";
 import { IAuthSliceState, ILogin, IRegister, IUser, IUserSettings, IUserUpdate, LoadingStatus } from "../types";
 
 
@@ -61,9 +61,10 @@ export const login = createAsyncThunk("auth/login", async (credentials: ILogin, 
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    Api().user.logoutProxy();
+    await Api().user.logoutProxy();
 
     destoryAccessCookie();
+    destoryRefreshCookie();
   } catch (error: any) {
     const message = error?.response?.data?.detail || error.message;
     return thunkAPI.rejectWithValue({message, code: error.code});
@@ -102,7 +103,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = true;
     })
     builder.addCase(login.rejected, (state, action) => {
-      return { ...internalInitialState, error: action.payload as SerializedError};
+            return { ...internalInitialState, error: action.payload as SerializedError};
       // throw new Error(action.error.message);
     })
     builder.addCase(logout.pending, (state) => {
@@ -121,7 +122,7 @@ export const authSlice = createSlice({
       return { ...internalInitialState, error: action.payload as SerializedError};
     })
     builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.user = action.payload;
+            state.user = action.payload;
       state.isAuthenticated = true;
     })
     builder.addCase(fetchUser.rejected, (state, action) => {

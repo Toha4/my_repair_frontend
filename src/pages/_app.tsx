@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../theme";
-import { destroyCookie, parseCookies, } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 import * as cookie from "cookie";
 import { wrapper } from "../redux/store";
 import { Api } from "../utils/api";
@@ -32,7 +32,7 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Compon
    */
   const { req, res } = ctx;
   const { refresh } = parseCookies(ctx);
-  if (req && refresh) {
+  if (req && !!refresh) {
     try {
       const resp = await axios.get(`${NEXT_INSTANCE_URL}/api/auth/refresh`, { headers: { cookie: req.headers.cookie || "" } });
 
@@ -51,7 +51,11 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Compon
       destroyCookie(ctx, "refresh", {path: '/'});
       console.error(e);
     }
+  } else if (req && !refresh) {
+    // Если refresh токена нет, то очищаем storage на сервере.
+    store.dispatch(setUser(null));
   }
+
   return {
     pageProps: Component.getInitialProps ? await Component.getInitialProps({ ...ctx, store }) : {},
   };
