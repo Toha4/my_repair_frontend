@@ -277,7 +277,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
             </ButtonGroup>
           </Flex>
 
-          <Box maxHeight="500px" overflowY="auto">
+          <Box maxHeight={{base:"290px", md: "500px"}} overflowY="auto">
             {fields.map((item, i) => (
               <Box className={style.position} key={i}>
                 <Flex>
@@ -324,32 +324,30 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                           isInvalid={!!errors.positions?.[i]?.name}
                         />
                       </GridItem>
-                      <GridItem colSpan={{ base: 4, md: 3 }}>
+                      <GridItem colSpan={{ base: 6, md: 6 }}>
                         <InputForm
-                          placeholder={t(`${t("common:price")} *`)}
-                          keyItem={`positions.${i}.price`}
-                          isRequired
+                          placeholder={t("common:link")}
+                          keyItem={`positions.${i}.link`}
                           loading={loading}
-                          isInvalid={!!errors.positions?.[i]?.price}
+                          isInvalid={!!errors.positions?.[i]?.link}
                           autoCompleteDisabled
                         />
                       </GridItem>
-                      <GridItem colSpan={{ base: 4, md: 3 }}>
-                        <InputNumberForm
-                          keyItem={`positions.${i}.quantity`}
-                          isRequired
+                      <GridItem colSpan={{ base: 3, md: 2 }}>
+                        <CheckboxIconForm
+                          icon={<ServiceIcon />}
+                          keyItem={`positions.${i}.is_service`}
+                          tooltipLabel={t("common:service")}
                           loading={loading}
-                          isInvalid={!!errors.positions?.[i]?.quantity}
-                          withStepper
-                          step={1}
-                          precision={0}
-                          minValue={1}
-                          format={(val) => val + ` ${t("common:unitQuantity")}`}
-                          parse={(val) => val.replace(` ${t("common:unitQuantity")}`, "")}
                         />
                       </GridItem>
-                      <GridItem colSpan={4}>
-                        <Input className={style.chakraInputDisabled} disabled value={calculateAmountPosition(i)} />
+                      <GridItem colSpan={{ base: 3, md: 2 }}>
+                        <CheckboxIconForm
+                          icon={<DeliveryIcon />}
+                          keyItem={`positions.${i}.is_delivery`}
+                          tooltipLabel={t("common:delivery")}
+                          loading={loading}
+                        />
                       </GridItem>
                     </Grid>
 
@@ -382,30 +380,32 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                           isInvalid={!!errors.positions?.[i]?.category}
                         />
                       </GridItem>
-                      <GridItem colSpan={{ base: 6, md: 6 }}>
+                      <GridItem colSpan={{ base: 4, md: 3 }}>
                         <InputForm
-                          placeholder={t("common:link")}
-                          keyItem={`positions.${i}.link`}
+                          placeholder={t(`${t("common:price")} *`)}
+                          keyItem={`positions.${i}.price`}
+                          isRequired
                           loading={loading}
-                          isInvalid={!!errors.positions?.[i]?.link}
+                          isInvalid={!!errors.positions?.[i]?.price}
                           autoCompleteDisabled
                         />
                       </GridItem>
-                      <GridItem colSpan={{ base: 3, md: 2 }}>
-                        <CheckboxIconForm
-                          icon={<ServiceIcon />}
-                          keyItem={`positions.${i}.is_service`}
-                          tooltipLabel={t("common:service")}
+                      <GridItem colSpan={{ base: 4, md: 3 }}>
+                        <InputNumberForm
+                          keyItem={`positions.${i}.quantity`}
+                          isRequired
                           loading={loading}
+                          isInvalid={!!errors.positions?.[i]?.quantity}
+                          withStepper
+                          step={1}
+                          precision={0}
+                          minValue={1}
+                          format={(val) => val + ` ${t("common:unitQuantity")}`}
+                          parse={(val) => val.replace(` ${t("common:unitQuantity")}`, "")}
                         />
                       </GridItem>
-                      <GridItem colSpan={{ base: 3, md: 2 }}>
-                        <CheckboxIconForm
-                          icon={<DeliveryIcon />}
-                          keyItem={`positions.${i}.is_delivery`}
-                          tooltipLabel={t("common:delivery")}
-                          loading={loading}
-                        />
+                      <GridItem colSpan={4}>
+                        <Input className={style.chakraInputDisabled} disabled value={calculateAmountPosition(i)} />
                       </GridItem>
                     </Grid>
 
