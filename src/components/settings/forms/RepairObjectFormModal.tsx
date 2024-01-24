@@ -5,7 +5,7 @@ import style from "../Settings.module.scss";
 import ModalForm from "../../common/ModalForm";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RepairObjectFormSchema } from "../../../utils/validations";
+import { RepairObjectFormSchema } from "../validations";
 import InputForm from "../../common/forms/elements/InputForm";
 import InputNumberForm from "../../common/forms/elements/InputNumberForm";
 import SelectForm from "../../common/forms/elements/SelectForm";

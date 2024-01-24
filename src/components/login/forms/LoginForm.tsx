@@ -15,12 +15,11 @@ import {
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginFormSchema } from "../../../utils/validations";
+import { LoginFormSchema } from "./validations";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { OurStore } from "../../../redux/store";
 import { login, reset as resetAction } from "../../../redux/slices/authSlice";
 import { ILogin, LoadingStatus } from "../../../redux/types";
-
 
 interface IFormInputs {
   emailOrUsername: string;

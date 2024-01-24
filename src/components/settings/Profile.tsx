@@ -4,7 +4,7 @@ import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input, useTo
 import style from "./Settings.module.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { PofileSettingsFormSchema } from "../../utils/validations";
+import { PofileSettingsFormSchema } from "./validations";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";
 import { updateUser } from "../../redux/slices/authSlice";

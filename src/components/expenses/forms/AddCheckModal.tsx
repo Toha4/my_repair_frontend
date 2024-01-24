@@ -3,7 +3,7 @@ import ModalForm from "../../common/ModalForm";
 import useTranslation from "next-translate/useTranslation";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CheckFormSchema } from "./validation";
+import { CheckFormSchema } from "./validations";
 import {
   Box,
   Button,
