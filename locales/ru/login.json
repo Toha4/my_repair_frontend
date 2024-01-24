@@ -2,22 +2,11 @@
     "titleLogin": "Вход",
     "titleRegister": "Регистрация",
 
-    "loginEmailOrUsernamePlaceholder": "Эл. почта или логин",
-    "loginPasswordPlaceholder": "Пароль",
     "buttonLogin": "Войти",
     "buttonVk": "ВКонтакте",
 
-    "registerLoginPlaceholder": "Логин",
-    "registerEmailPlaceholder": "Эл. почта",
-    "registerPasswordPlaceholder": "Пароль",
     "registerСonfirmPasswordPlaceholder": "Повторите пароль",
     "buttonRegister": "Зарегистрировать",
-  
-    "emailOrUsername": "эл. адрес или логин",
-    "password": "пароль",
-    "username": "логин",
-    "email": "эл. почта",
-    "confirmPassword": "повторите пароль",
 
     "invalidCreditals": "Неверный логин или пароль",
     "UsernameAlreadyExists": "Пользователь с таким логином уже зарегистрирован",

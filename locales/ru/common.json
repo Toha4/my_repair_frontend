@@ -1,4 +1,10 @@
 {
+    "emailOrUsername": "Эл. адрес или логин",
+    "password": "Пароль",
+    "username": "Логин",
+    "email": "Эл. почта",
+    "confirmPassword": "Повторите пароль",
+
     "logo": "Мой ремонт",
     "titleExpenses": "Расходы",
     "titlePlans": "Планы",
