@@ -1,4 +1,10 @@
 {
+    "emailOrUsername": "Email or username",
+    "password": "Password",
+    "username": "Username",
+    "email": "Email",
+    "confirmPassword": "Confirm password",
+
     "logo": "My repair",
     "titleExpenses": "Expenses",
     "titlePlans": "Plans",

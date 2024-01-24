@@ -78,7 +78,7 @@ const LoginForm: React.FC = () => {
       <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
           <Input
-            placeholder={t("loginEmailOrUsernamePlaceholder")}
+            placeholder={t("common:emailOrUsername")}
             id="emailOrUsername"
             {...register("emailOrUsername")}
           />
@@ -90,7 +90,7 @@ const LoginForm: React.FC = () => {
         </FormControl>
         <FormControl>
           <Input
-            placeholder={t("loginPasswordPlaceholder")}
+            placeholder={t("common:password")}
             id="password"
             type="password"
             {...register("password")}
