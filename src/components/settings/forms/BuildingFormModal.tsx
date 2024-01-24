@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import style from "../Settings.module.scss";
 import ModalForm from "../../common/ModalForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { BuildingFormSchema } from "../../../utils/validations";
+import { BuildingFormSchema } from "../validations";
 import InputForm from "../../common/forms/elements/InputForm";
 import InputNumberForm from "../../common/forms/elements/InputNumberForm";
 import DatepickerForm from "../../common/forms/elements/DatepickerForm";

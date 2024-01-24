@@ -13,7 +13,7 @@ import {
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegisterFormSchema } from "../../../utils/validations";
+import { RegisterFormSchema } from "./validations";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { OurStore } from "../../../redux/store";
 import { register as registerAction, reset as resetAction } from "../../../redux/slices/authSlice";

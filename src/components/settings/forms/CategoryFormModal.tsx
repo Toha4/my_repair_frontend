@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import style from "../Settings.module.scss";
 import ModalForm from "../../common/ModalForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CategoryFormSchema } from "../../../utils/validations";
+import { CategoryFormSchema } from "../validations";
 import InputForm from "../../common/forms/elements/InputForm";
 import { Api } from "../../../utils/api";
 import { useToast } from "@chakra-ui/react";
