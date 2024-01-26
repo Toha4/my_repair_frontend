@@ -5,14 +5,16 @@
 }
 
 .logo {
-  margin-left: 10vw;
+  margin-left: 4.5vw;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .background {
-  width: 100%;
-  min-width: 460px;
-  min-height: 500px;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
+  position: absolute;
+  width: 100vw;
+  min-width: var(--minWidth);
+  height: calc(100vh - 60px);
+  margin-top: 60px;
+  z-index: -1;
 }

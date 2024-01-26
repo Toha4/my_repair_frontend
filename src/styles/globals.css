@@ -28,4 +28,5 @@ img {
 
 :root {
   --minHeight: 490px;
+  --minWidth: 360px;
 }
