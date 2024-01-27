@@ -38,7 +38,7 @@ import TextareaForm from "../../common/forms/elements/TextareaForm";
 import { useConfirmationModalContext } from "../../../contexts/ModalDialogContext";
 import moment from "moment";
 import { Api } from "../../../utils/api";
-import { CheckType } from "../../../utils/api/types";
+import { CheckType, PositionType } from "../../../utils/api/types";
 import { IModalForm } from "../../common/forms/types";
 
 interface IAddCheckModalForm extends IModalForm {
@@ -77,6 +77,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
     reset,
     control,
     watch,
+    setValue,
     formState: { errors },
   } = methodsForm;
   const { fields, append, remove } = useFieldArray({ name: "positions", control });
@@ -105,8 +106,8 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
             note: position.note,
             price: position.price,
             quantity: position.quantity,
-            is_service: position.is_service,
-            // is_delivery: position.is_delivery
+            is_service: position.type === PositionType.SERVICE,
+            is_delivery: position.type === PositionType.DELIVERY,
           })),
         });
 
@@ -122,6 +123,16 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
   }, []);
 
   const handleSave = async (value: IFormCheck) => {
+    const getType = (is_service: boolean, is_delivery: boolean) => {
+      if (is_service) {
+        return PositionType.SERVICE;
+      } else if (is_delivery) {
+        return PositionType.DELIVERY;
+      } else {
+        return PositionType.PURCHASE;
+      }
+    };
+
     const data: CheckType = {
       date: value.date ? moment(value.date).format("YYYY-MM-DD") : "",
       shop: value.shop,
@@ -134,7 +145,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
         note: position.note,
         price: position.price || 0.0,
         quantity: position.quantity,
-        is_service: position.is_service, //TODO: Переделать на enum тип затрат
+        type: getType(position.is_service, position.is_delivery),
       })),
     };
 
@@ -345,6 +356,11 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                           keyItem={`positions.${i}.is_service`}
                           tooltipLabel={t("common:service")}
                           loading={loading}
+                          onChange={(e) => {
+                            if (e.target.checked && watch(`positions.${i}.is_delivery`)) {
+                              setValue(`positions.${i}.is_delivery`, false);
+                            }
+                          }}
                         />
                       </GridItem>
                       <GridItem colSpan={{ base: 3, md: 2 }}>
@@ -353,6 +369,11 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                           keyItem={`positions.${i}.is_delivery`}
                           tooltipLabel={t("common:delivery")}
                           loading={loading}
+                          onChange={(e) => {
+                            if (e.target.checked && watch(`positions.${i}.is_delivery`)) {
+                              setValue(`positions.${i}.is_service`, false);
+                            }
+                          }}
                         />
                       </GridItem>
                     </Grid>

@@ -35,6 +35,12 @@ export type RepairObjectItemTypes = {
   square?: number | null;
 };
 
+export enum PositionType {
+  PURCHASE = 0,
+  SERVICE = 1,
+  DELIVERY = 2,
+}
+
 export type PurchasePositionTypes = {
   pk: number;
   cash_check: number;
@@ -47,7 +53,7 @@ export type PurchasePositionTypes = {
   shop_name: string;
   quantity: number;
   price: number;
-  is_service: boolean;
+  type: PositionType;
   date: string;
   link: string;
   note: string;
@@ -62,7 +68,7 @@ export type PositionCheckType = {
   note: string;
   price: number;
   quantity: number;
-  is_service: boolean;
+  type: PositionType;
 };
 
 export type CheckType = {
