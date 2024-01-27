@@ -16,7 +16,7 @@ import {
   Spacer,
   Tooltip,
   useToast,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import style from "../expenses.module.scss";
 import DatepickerForm from "../../common/forms/elements/DatepickerForm";
@@ -224,13 +224,13 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
     let totalAmount = 0;
 
     const positions = watch("positions");
-    positions?.forEach(position => {
+    positions?.forEach((position) => {
       if (position.price) {
-        totalAmount += position.price * position.quantity
+        totalAmount += position.price * position.quantity;
       }
-    })
+    });
 
-    return formatNumber(totalAmount)
+    return formatNumber(totalAmount);
   };
 
   return (
@@ -246,8 +246,14 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
       minWidth="360px"
       additionalFooter={
         <Flex gap={{ base: 1, md: 5 }} flexDirection={{ base: "column", md: "row" }}>
-          <Flex gap={1}><Text>{t("totalPositions")}:</Text><Text fontWeight={600}>{watch("positions")?.length}</Text></Flex>
-          <Flex gap={1}><Text>{t("totalAmount")}:</Text><Text fontWeight={600}>{calculateTotal()}</Text></Flex>
+          <Flex gap={1}>
+            <Text>{t("totalPositions")}:</Text>
+            <Text fontWeight={600}>{watch("positions")?.length}</Text>
+          </Flex>
+          <Flex gap={1}>
+            <Text>{t("totalAmount")}:</Text>
+            <Text fontWeight={600}>{calculateTotal()}</Text>
+          </Flex>
         </Flex>
       }
     >
@@ -277,7 +283,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
             </ButtonGroup>
           </Flex>
 
-          <Box maxHeight={{base:"290px", md: "500px"}} overflowY="auto">
+          <Box maxHeight={{ base: "290px", md: "500px" }} overflowY="auto">
             {fields.map((item, i) => (
               <Box className={style.position} key={i}>
                 <Flex>
@@ -388,6 +394,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                           loading={loading}
                           isInvalid={!!errors.positions?.[i]?.price}
                           autoCompleteDisabled
+                          type="number"
                         />
                       </GridItem>
                       <GridItem colSpan={{ base: 4, md: 3 }}>

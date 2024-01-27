@@ -10,6 +10,7 @@ interface IInputForm {
   placeholder?: string;
   isInvalid?: boolean;
   autoCompleteDisabled?: boolean;
+  type?: string;
 }
 
 const InputForm: React.FC<IInputForm> = ({
@@ -20,6 +21,7 @@ const InputForm: React.FC<IInputForm> = ({
   placeholder,
   isInvalid,
   autoCompleteDisabled,
+  type
 }) => (
   <FormControl isRequired={isRequired}>
     <ConnectForm>
@@ -31,6 +33,7 @@ const InputForm: React.FC<IInputForm> = ({
               placeholder={placeholder}
               borderColor={isInvalid ? "red" : undefined}
               autoComplete={autoCompleteDisabled ? "off" : undefined}
+              type={type}
               {...register(keyItem)}
             />
           </Skeleton>
