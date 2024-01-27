@@ -1,8 +1,21 @@
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { Api } from "../../../../utils/api";
-import { PurchasePositionTypes } from "../../../../utils/api/types";
-import { Box, Flex, Spinner, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorMode } from "@chakra-ui/react";
+import { PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
+import {
+  Box,
+  Flex,
+  Spinner,
+  Table,
+  TableContainer,
+  Tag,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useColorMode,
+} from "@chakra-ui/react";
 import {
   Column,
   createColumnHelper,
@@ -82,13 +95,36 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
     };
   }, [tableParams, updateCount]);
 
+  const getTagPosition = (type: PositionType) => {
+    if (type === PositionType.SERVICE) {
+      return (
+        <Tag size="sm" colorScheme="orange" marginLeft=".5rem">
+          {t("common:service")}
+        </Tag>
+      );
+    } else if (type === PositionType.DELIVERY) {
+      return (
+        <Tag size="sm" colorScheme="green" marginLeft=".5rem">
+          {t("common:delivery")}
+        </Tag>
+      );
+    }
+  };
+
   const columnHelper = createColumnHelper<PurchasePositionTypes & ActionColumnType>();
   const columns = React.useMemo(
     () => [
       columnHelper.accessor("name", {
         id: "name",
         header: () => <span>{t("common:name")}</span>,
-        cell: (props: any) => <span className={style.tableCellName}>{props.row.original.name}</span>,
+        cell: (props: any) => {
+          return (
+            <React.Fragment>
+              <span className={style.tableCellName}>{props.row.original.name}</span>
+              {getTagPosition(props.row.original.type)}
+            </React.Fragment>
+          );
+        },
       }),
       columnHelper.accessor("date", {
         id: "date",

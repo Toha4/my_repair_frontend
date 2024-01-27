@@ -11,7 +11,7 @@ import Select from "./components/select";
 import Datepicker from './components/datepicker';
 import Checkbox from './components/checkbox';
 import Modal from './components/modal';
-import { mode } from "@chakra-ui/theme-tools"
+import Tag from './components/tag';
 import colors from './colors';
 import styles from './styles';
 
@@ -34,7 +34,8 @@ const overrides = {
     Select,
     Datepicker,
     Checkbox,
-    Modal
+    Modal,
+    Tag
   },
 };
 
