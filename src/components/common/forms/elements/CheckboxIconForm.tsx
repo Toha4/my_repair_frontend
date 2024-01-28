@@ -29,7 +29,7 @@ const CheckboxIconForm: React.FC<ICheckboxIconForm> = ({
           render={({ field }) => {
             return (
               <Skeleton isLoaded={!loading}>
-                <Tooltip label={tooltipLabel} shouldWrapChildren>
+                <Tooltip label={tooltipLabel} shouldWrapChildren closeOnScroll>
                   <Checkbox
                     onChange={(e) => {
                       field.onChange(e.target.checked);

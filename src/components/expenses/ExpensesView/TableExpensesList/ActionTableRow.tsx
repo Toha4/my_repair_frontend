@@ -13,15 +13,21 @@ interface IActionTableRow {
   onClickEditCheck: Function;
 }
 
-const ActionTableRow: React.FC<IActionTableRow> = ({ id, cash_check_id, link, onClickEditPosition, onClickEditCheck }) => {
-  const { t } = useTranslation("expenses");
+const ActionTableRow: React.FC<IActionTableRow> = ({
+  id,
+  cash_check_id,
+  link,
+  onClickEditPosition,
+  onClickEditCheck,
+}) => {
+  const { t, lang } = useTranslation("expenses");
 
   const size_icon = { w: "24px", h: "24px" };
 
   return (
     <Flex justifyContent="end">
       {!!link && (
-        <Tooltip label={t("actionOpenLink")}>
+        <Tooltip label={t("actionOpenLink")} closeOnScroll>
           <a target="_blank" href={link}>
             <IconButton
               className={style.iconActionButton}
@@ -32,7 +38,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({ id, cash_check_id, link, on
           </a>
         </Tooltip>
       )}
-      <Tooltip label={t("actionEditPosition")}>
+      <Tooltip label={t("actionEditPosition")} closeOnScroll offset={lang == "ru" ? [-25, 0] : undefined}>
         <IconButton
           className={style.iconActionButton}
           ml="8px"
@@ -42,7 +48,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({ id, cash_check_id, link, on
           onClick={() => onClickEditPosition(id)}
         />
       </Tooltip>
-      <Tooltip label={t("actionEditCheck")}>
+      <Tooltip label={t("actionEditCheck")} closeOnScroll offset={lang == "ru" ? [-30, 0] : undefined}>
         <IconButton
           className={style.iconActionButton}
           ml="8px"

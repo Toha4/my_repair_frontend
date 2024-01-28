@@ -29,7 +29,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
         (is_active ? (
           <StarFillIcon {...size_icon} />
         ) : (
-          <Tooltip label={t("actionSetActive")}>
+          <Tooltip label={t("actionSetActive")} closeOnScroll>
             <IconButton
               className={style.iconActionButton}
               aria-label={t("actionSetActive")}
@@ -39,7 +39,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
             />
           </Tooltip>
         ))}
-      <Tooltip label={t("common:actionEdit")}>
+      <Tooltip label={t("common:actionEdit")} closeOnScroll>
         <IconButton
           className={style.iconActionButton}
           ml="8px"
@@ -49,7 +49,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
           onClick={() => onClickEdit(id)}
         />
       </Tooltip>
-      <Tooltip label={t("common:actionDelete")}>
+      <Tooltip label={t("common:actionDelete")} closeOnScroll>
         <IconButton
           className={style.iconActionButton}
           ml="8px"

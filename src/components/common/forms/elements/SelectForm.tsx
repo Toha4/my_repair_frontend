@@ -38,7 +38,7 @@ const SelectForm: React.FC<ISelectForm> = ({
             <FormLabel htmlFor={keyItem}>
               {name}
               {!!tooltip && (
-                <Tooltip label={tooltip} fontSize="md">
+                <Tooltip label={tooltip} fontSize="md" closeOnScroll>
                   <QuestionIcon className={style.formLabelTooltipIcon} />
                 </Tooltip>
               )}
