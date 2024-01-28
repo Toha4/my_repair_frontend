@@ -305,7 +305,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                     justifyContent="center"
                   >
                     <Box className={style.positionCount}>{i + 1}</Box>
-                    <Tooltip label={`${t("common:actionDelete")} ${t("actionPosition")}`}>
+                    <Tooltip label={`${t("common:actionDelete")} ${t("actionPosition")}`} closeOnScroll>
                       <IconButton
                         className={style.iconActionButton}
                         aria-label={t("common:actionDelete")}
@@ -314,7 +314,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                         onClick={() => handleRemovePosition(i)}
                       />
                     </Tooltip>
-                    <Tooltip label={`${t("common:actionCopy")} ${t("actionPosition")}`}>
+                    <Tooltip label={`${t("common:actionCopy")} ${t("actionPosition")}`} closeOnScroll>
                       <IconButton
                         className={style.iconActionButton}
                         aria-label={t("common:actionCopy")}

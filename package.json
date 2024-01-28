@@ -30,7 +30,7 @@
     "next-translate": "^2.6.2",
     "nookies": "^2.5.2",
     "react": "^18.2.0",
-    "react-datepicker": "^4.7.0",
+    "react-datepicker": "^5.0.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.28.0",
     "react-redux": "^8.0.1",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@types/node": "17.0.21",
     "@types/react": "17.0.39",
-    "@types/react-datepicker": "^4.4.1",
+    "@types/react-datepicker": "^4.19.5",
     "eslint": "8.10.0",
     "eslint-config-next": "^13.5.6",
     "next-translate-plugin": "^2.6.2",
