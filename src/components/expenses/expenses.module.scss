@@ -65,3 +65,16 @@
     opacity: unset;
   }
 }
+
+.expensesFilterBlock {
+  background: var(--brandGray);
+  margin-bottom: 1.25rem;
+  min-width: 240px;
+
+  .expensesFilterChengeModeBlock {
+    cursor: pointer;
+    border-top: solid 1px;
+    border-color: var(--brandBlue);
+  }
+}
+

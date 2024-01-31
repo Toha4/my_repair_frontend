@@ -11,4 +11,5 @@ export interface ITablePagination extends PaginationState {
 export interface ITableParams {
   pagination?: PaginationState;
   sorting?: SortingState;
+  filters?: {};
 }

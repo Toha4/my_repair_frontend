@@ -1,10 +1,10 @@
 import React from "react";
 import SelectForm from "./SelectForm";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { OurStore } from "../../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import { OurStore } from "../../../../../redux/store";
 import useTranslation from "next-translate/useTranslation";
-import { LoadingStatus } from "../../../../redux/types";
-import { fetchCategories } from "../../../../redux/slices/categorySlice";
+import { LoadingStatus } from "../../../../../redux/types";
+import { fetchCategories } from "../../../../../redux/slices/categorySlice";
 
 interface ICategorySelectForm {
   isRequired?: boolean;

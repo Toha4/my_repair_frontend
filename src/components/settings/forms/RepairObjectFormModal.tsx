@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { RepairObjectFormSchema } from "../validations";
 import InputForm from "../../common/forms/elements/InputForm";
 import InputNumberForm from "../../common/forms/elements/InputNumberForm";
-import SelectForm from "../../common/forms/elements/SelectForm";
+import SelectForm from "../../common/forms/elements/selects/SelectForm";
 import { RepairObjectTypesNames } from "../../../constants/object";
 import { capitalizeFirstLetter } from "../../../utils/DataConvert";
 import { Api } from "../../../utils/api";
