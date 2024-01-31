@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Flex, FormControl, FormHelperText, FormLabel, Select, Skeleton, Tooltip } from "@chakra-ui/react";
-import ConnectForm from "./ConnectForm";
+import ConnectForm from "../ConnectForm";
 import { QuestionIcon } from "@chakra-ui/icons";
-import style from "../form.module.scss";
+import style from "../../form.module.scss";
 
 interface ISelectForm {
   name?: string;

@@ -1,12 +1,12 @@
 import React from "react";
 import SelectForm from "./SelectForm";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { OurStore } from "../../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import { OurStore } from "../../../../../redux/store";
 import useTranslation from "next-translate/useTranslation";
-import { LoadingStatus } from "../../../../redux/types";
-import { fetchShops } from "../../../../redux/slices/shopsSlice";
+import { LoadingStatus } from "../../../../../redux/types";
+import { fetchShops } from "../../../../../redux/slices/shopsSlice";
 import { useDisclosure } from "@chakra-ui/react";
-import ShopFormModal from "../../../settings/forms/ShopFormModal";
+import ShopFormModal from "../../../../settings/forms/ShopFormModal";
 
 interface IShopSelectForm {
   isRequired?: boolean;

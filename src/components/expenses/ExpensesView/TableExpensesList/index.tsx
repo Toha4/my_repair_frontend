@@ -33,6 +33,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { OurStore } from "../../../../redux/store";
 import { RepairObjectTypes } from "../../../../redux/types";
 import TablePagination from "../../../common/TablePagination";
+import ExpensesFilter from "../ExpensesFilter";
 
 interface ITableExpensesList {
   onOpenEditCheckDialog: (id: number) => void;
@@ -67,7 +68,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
           params.sortOrder = sorting[0].desc ? "desc" : "asc";
         }
 
-        const result = await Api().purchase.getAllByPosition(params);
+        const result = await Api().purchase.getAllByPosition({...params, ...tableParams.filters});
 
         if (!ignore) {
           setPurchases(result.results);
@@ -283,7 +284,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
 
   return (
     <Flex direction="column" height={"calc(100vh - 115px)"}>
-      <Box style={{ background: "#EDF2F7", minHeight: "50px", marginBottom: "1.25rem" }}>Filter block</Box>
+      <ExpensesFilter tableParams={tableParams} setTableParams={setTableParams}></ExpensesFilter>
       <TableContainer
         className={style.tableContainer}
         style={{ flexGrow: 1, minHeight: "200px" }}

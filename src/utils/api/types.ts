@@ -41,6 +41,12 @@ export enum PositionType {
   DELIVERY = 2,
 }
 
+export const PositionTypeLocales = {
+  [PositionType.PURCHASE]: "purchase",
+  [PositionType.SERVICE]: "service",
+  [PositionType.DELIVERY]: "delivery"
+};
+
 export type PurchasePositionTypes = {
   pk: number;
   cash_check: number;

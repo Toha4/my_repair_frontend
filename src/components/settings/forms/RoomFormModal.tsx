@@ -15,7 +15,7 @@ import { useToast } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { OurStore } from "../../../redux/store";
 import { isCurrentLandMode } from "../../../utils/repairObjects";
-import BuildingSelectForm from "../../common/forms/elements/BuildingSelectForm";
+import BuildingSelectForm from "../../common/forms/elements/selects/BuildingSelectForm";
 import { RoomItemTypes } from "../../../utils/api/types";
 import { roomAdded, roomUpdated } from "../../../redux/slices/roomsSlice";
 import { IModalForm } from "../../common/forms/types";

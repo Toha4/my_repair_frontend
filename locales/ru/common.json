@@ -34,17 +34,23 @@
     "name": "Наименование",
     "date": "Дата",
     "shop": "Магазин",
+    "shops": "Магазины",
     "link": "Ссылка",
     "building": "Строение",
+    "buildings": "Строения",
     "object": "Объект",
     "type": "Тип",
     "check": "Чек",
     "price": "Цена",
     "room": "Комната",
+    "rooms": "Комнаты",
     "category": "Категория",
+    "categories": "Категории",
     "buildingAndRoom": "Строение и комната",
+    "positionTypes": "Типы затрат",
 
     "unitQuantity": "шт",
+    "purchase": "Покупка",
     "service": "Услуга",
     "delivery": "Доставка",
     "note": "Примечание",
@@ -53,5 +59,13 @@
     "confirmationCancel": "Отмена",
     "confirmationYes": "Да",
     "confirmationTextDelete": "Вы действительно хотите удалить {{name}}?",
-    "confirmationTextDeleteWithObject": "Вы действительно хотите удалить {{name}} “{{object}}”?"
+    "confirmationTextDeleteWithObject": "Вы действительно хотите удалить {{name}} “{{object}}”?",
+
+    "search": "Поиск",
+    "filters": "Фильтры",
+    "hide": "Скрыть",
+    "dateFrom": "Дата с",
+    "dateBy": "Дата по",
+    "apply": "Применить",
+    "reset": "Сбросить"
 }

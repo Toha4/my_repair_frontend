@@ -14,6 +14,7 @@ import Modal from './components/modal';
 import Tag from './components/tag';
 import colors from './colors';
 import styles from './styles';
+import { MultiSelectTheme } from 'chakra-multiselect';
 
 
 const overrides = {
@@ -24,6 +25,7 @@ const overrides = {
     brand: "3px"
   },
   components: {
+    MultiSelect: MultiSelectTheme,
     Button,
     Input,
     Textarea,

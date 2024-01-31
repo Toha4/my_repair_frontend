@@ -34,17 +34,23 @@
     "name": "Name",
     "date": "Date",
     "shop": "Shop",
+    "shops": "Shops",
     "link": "Link",
     "building": "Building",
+    "buildings": "Buildings",
     "object": "Object",
     "type": "Type",
     "check": "Check",
     "price": "Price",
     "room": "Room",
+    "rooms": "Rooms",
     "category": "Category",
+    "categories": "Categories",
     "buildingAndRoom": "Building and room",
+    "positionTypes": "Cost types",
 
     "unitQuantity": "pc",
+    "purchase": "Purchase",
     "service": "Service",
     "delivery": "Delivery",
     "note": "Note",
@@ -53,5 +59,13 @@
     "confirmationCancel": "Cancel",
     "confirmationYes": "Yes",
     "confirmationTextDelete": "Do you really want to delete {{name}}?",
-    "confirmationTextDeleteWithObject": "Do you really want to delete {{name}} “{{object}}”?"
+    "confirmationTextDeleteWithObject": "Do you really want to delete {{name}} “{{object}}”?",
+
+    "search": "Search",
+    "filters": "Filters",
+    "hide": "Hide",
+    "dateFrom": "Date from",
+    "dateBy": "Date by",
+    "apply": "Apply",
+    "reset": "Reset"
 }
