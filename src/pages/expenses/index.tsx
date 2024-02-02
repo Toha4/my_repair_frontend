@@ -53,7 +53,7 @@ const ExpensesPage: React.FC = () => {
           alignItems={{ base: "normal", md: "center" }}
           gap="2"
           direction={{ base: "column", md: "row" }}
-          style={{ marginBottom: "1.25rem" }}
+          marginBottom="15px"
         >
           <Button variant="brandSolid" onClick={handleAddCkeck}>
             {`${t("common:actionAdd")} ${t("common:check").toLowerCase()}`}

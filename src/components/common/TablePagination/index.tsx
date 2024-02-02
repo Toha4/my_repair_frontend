@@ -44,7 +44,7 @@ const TablePagination: React.FC<ITablePagination> = ({
   const { t } = useTranslation("common");
 
   return (
-    <Flex justifyContent="space-between" mt={4} mb={4} alignItems="center" flexWrap="wrap">
+    <Flex justifyContent="space-between" mt="10px" mb="10px" alignItems="center" flexWrap="wrap">
       <Flex>
         <Select
           minWidth="140px"

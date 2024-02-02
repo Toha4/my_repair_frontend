@@ -1,10 +1,10 @@
 import { AxiosInstance } from "axios";
-import { CheckType, PurchasePositionTypes } from "./types";
-import { Paginated } from "../../types/paginated";
+import { CheckType, PaginatedPurchaseWithTotal, PurchasePositionTypes } from "./types";
+
 
 export const PurchaseApi = (instance: AxiosInstance) => ({
   async getAllByPosition(params = {}) {
-    const { data } = await instance.get<Paginated<PurchasePositionTypes>>("/api/purchases/position/", { params });
+    const { data } = await instance.get<PaginatedPurchaseWithTotal<PurchasePositionTypes>>("/api/purchases/position/", { params });
     return data;
   },
   async getAllByChecks() {},

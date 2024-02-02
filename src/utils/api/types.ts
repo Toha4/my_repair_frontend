@@ -1,3 +1,5 @@
+import { Paginated } from "../../types/paginated";
+
 export type CategoryItemTypes = {
   pk?: number;
   name: string;
@@ -83,3 +85,12 @@ export type CheckType = {
   shop: number;
   positions: PositionCheckType[];
 };
+
+export interface ITotalPurchase {
+  total_number: number;
+  total_amount: number;
+}
+
+export interface PaginatedPurchaseWithTotal<T> extends Paginated<T> {
+  totals: ITotalPurchase;
+}
