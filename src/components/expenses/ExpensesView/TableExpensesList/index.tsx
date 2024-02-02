@@ -1,10 +1,11 @@
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { Api } from "../../../../utils/api";
-import { PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
+import { ITotalPurchase, PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
 import {
   Box,
   Flex,
+  Spacer,
   Spinner,
   Table,
   TableContainer,
@@ -47,6 +48,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
   const { user } = useAppSelector((state: OurStore) => state.authReducer);
 
   const [purchasses, setPurchases] = React.useState<PurchasePositionTypes[]>([]);
+  const [total, setTotal] = React.useState<ITotalPurchase>({ total_number: 0, total_amount: 0.0 });
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const [tableParams, setTableParams] = React.useState<ITableParams>({ pagination: { pageIndex: 0, pageSize: 50 } });
@@ -68,10 +70,11 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
           params.sortOrder = sorting[0].desc ? "desc" : "asc";
         }
 
-        const result = await Api().purchase.getAllByPosition({...params, ...tableParams.filters});
+        const result = await Api().purchase.getAllByPosition({ ...params, ...tableParams.filters });
 
         if (!ignore) {
           setPurchases(result.results);
+          setTotal(result.totals);
 
           // Обновляем pageCount у таблицы (через table.setPageCount() не работает)
           table.setOptions((old) => {
@@ -324,6 +327,18 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
           <Tbody>{getTableBody()}</Tbody>
         </Table>
       </TableContainer>
+
+      <Flex>
+        <Box>
+          <span>{t("totalPositions")}:</span>
+          <span className={style.totalRowValue}>{total.total_number}</span>
+        </Box>
+        <Spacer />
+        <Box>
+          <span>{t("totalAmount")}:</span>
+          <span className={style.totalRowValue}>{formatNumber(total.total_amount)}</span>
+        </Box>
+      </Flex>
 
       <TablePagination
         currentPageSize={table.getState().pagination.pageSize}
