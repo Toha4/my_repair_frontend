@@ -27,7 +27,7 @@ const InputForm: React.FC<IInputForm> = ({
     <ConnectForm>
       {({ register, formState: { errors } }) => (
         <div>
-          {!!name && <FormLabel htmlFor={keyItem}>{name}</FormLabel>}
+          {!!name && <FormLabel htmlFor={keyItem} whiteSpace="nowrap">{name}</FormLabel>}
           <Skeleton isLoaded={!loading}>
             <Input
               placeholder={placeholder}

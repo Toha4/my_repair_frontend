@@ -4,7 +4,9 @@ import MainLayout from "../../components/layouts/MainLayout";
 import { Box, Button, Flex, Radio, RadioGroup, Spacer, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import TableExpensesList from "../../components/expenses/ExpensesView/TableExpensesList";
 import TableExpensesCheck from "../../components/expenses/ExpensesView/TableExpensesCheck";
-import CheckFormModal from "../../components/expenses/forms/AddCheckModal";
+import CheckFormModal from "../../components/expenses/forms/CheckFormModal";
+import { PurchasePositionTypes } from "../../utils/api/types";
+import PositionUpdateFormModal from "../../components/expenses/forms/PositionEditFormModal";
 
 export enum ExpensesViewType {
   LIST = "1",
@@ -19,7 +21,7 @@ const ExpensesPage: React.FC = () => {
   const { isOpen: isOpenFormCheck, onOpen: onOpenFormCheck, onClose: onCloseFormCheck } = useDisclosure();
   const [idCheckEdit, setIdCheckEdit] = React.useState<number | null>(null);
 
-  const [updateCount, setUpdateCount] = React.useState(0);  // state для передачи в useEffect дочерней таблицы для обновлени данных
+  const [updateCount, setUpdateCount] = React.useState(0); // state для передачи в useEffect дочерней таблицы для обновлени данных
 
   const handleAddCkeck = () => {
     setIdCheckEdit(null);
@@ -27,14 +29,13 @@ const ExpensesPage: React.FC = () => {
   };
 
   const handleUpdateTable = () => {
-    console.log("Update table!");
-    setUpdateCount(current => current + 1);
+    setUpdateCount((current) => current + 1);
   };
 
   const handleEditCheck = (id: number) => {
     setIdCheckEdit(id);
     onOpenFormCheck();
-  }
+  };
 
   return (
     <MainLayout title={t("titleExpenses")}>

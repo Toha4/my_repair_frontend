@@ -21,5 +21,6 @@
   "fromPlan": "From plan",
  
   "totalPositions": "Total positions",
-  "totalAmount": "Total amount"
+  "totalAmount": "Total amount",
+  "positionUpdated": "Position updated - “{{name}}”"
 }

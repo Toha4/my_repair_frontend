@@ -51,7 +51,7 @@ export const PositionTypeLocales = {
 
 export type PurchasePositionTypes = {
   pk: number;
-  cash_check: number;
+  cash_check_id: number;
   name: string;
   room: number;
   room_name: string;
@@ -62,7 +62,7 @@ export type PurchasePositionTypes = {
   quantity: number;
   price: number;
   type: PositionType;
-  date: string;
+  cash_check_date: string;
   link: string;
   note: string;
 };

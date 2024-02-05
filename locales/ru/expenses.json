@@ -21,5 +21,6 @@
   "fromPlan": "Из плана",
 
   "totalPositions": "Всего позиций",
-  "totalAmount": "Всего сумма"
+  "totalAmount": "Всего сумма",
+  "positionUpdated": "Позиция обновлена - “{{name}}”"
 }

@@ -1,7 +1,7 @@
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { Api } from "../../../../utils/api";
-import { ITotalPurchase, PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
+import { ITotalPurchase, PositionCheckType, PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
 import {
   Box,
   Flex,
@@ -16,6 +16,8 @@ import {
   Thead,
   Tr,
   useColorMode,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import {
   Column,
@@ -35,6 +37,7 @@ import { OurStore } from "../../../../redux/store";
 import { RepairObjectTypes } from "../../../../redux/types";
 import TablePagination from "../../../common/TablePagination";
 import ExpensesFilter from "../ExpensesFilter";
+import PositionUpdateFormModal from "../../forms/PositionEditFormModal";
 
 interface ITableExpensesList {
   onOpenEditCheckDialog: (id: number) => void;
@@ -52,6 +55,15 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const [tableParams, setTableParams] = React.useState<ITableParams>({ pagination: { pageIndex: 0, pageSize: 50 } });
+
+  const {
+    isOpen: isOpenFormEditPosition,
+    onOpen: onOpenFormEditPosition,
+    onClose: onCloseFormEditPosition,
+  } = useDisclosure();
+  const [indexPositionEdit, setIndexPositionEdit] = React.useState<number | null>(null);
+
+  const toast = useToast();
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -130,8 +142,8 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
           );
         },
       }),
-      columnHelper.accessor("date", {
-        id: "date",
+      columnHelper.accessor("cash_check_date", {
+        id: "cash_check_date",
         header: () => <span>{t("purchase")}</span>,
         size: user?.settings?.current_repair_object_type == RepairObjectTypes.LAND ? 300 : 200,
         cell: (props: any) => {
@@ -139,8 +151,8 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
             <React.Fragment>
               <Box>{props.row.original.shop_name}</Box>
               <Box mt={1}>
-                <span className={style.tableCellPurchaseDate}>{props.row.original.date}</span>
-                <span className={style.tableCellPurchaseCheck}>#{props.row.original.cash_check}</span>
+                <span className={style.tableCellPurchaseDate}>{props.row.original.cash_check_date}</span>
+                <span className={style.tableCellPurchaseCheck}>#{props.row.original.cash_check_id}</span>
               </Box>
             </React.Fragment>
           );
@@ -193,12 +205,12 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
         enableSorting: false,
         cell: (props: any) => {
           const {
-            row: { original },
+            row: { original, index },
           } = props;
           return (
             <ActionTableRow
-              id={original.pk}
-              cash_check_id={original.cash_check}
+              index={index}
+              cashCheckId={original.cash_check}
               link={original.link}
               onClickEditPosition={handleEditPositon}
               onClickEditCheck={handleEditCheck}
@@ -210,12 +222,33 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
     [lang, purchasses]
   ) as Column<PurchasePositionTypes>[];
 
-  const handleEditPositon = (id: number) => {
-    console.log("Edit position: ", id);
+  const handleEditPositon = (index: number) => {
+    setIndexPositionEdit(index);
+    onOpenFormEditPosition();
   };
 
   const handleEditCheck = (id: number) => {
     onOpenEditCheckDialog(id);
+  };
+
+  const handleUpdatePosition = (position: PurchasePositionTypes) => {
+    // Обновим позицию точечно, чтоб не делать запрос для всей таблицы
+    if (indexPositionEdit !== null && !!position) {
+      let total_amount =
+        total.total_amount - purchasses[indexPositionEdit].price * purchasses[indexPositionEdit].quantity;
+
+      const newPurchasses = Array.from(purchasses);
+      newPurchasses[indexPositionEdit] = position;
+      setPurchases(newPurchasses);
+
+      // Чтобы не отправлять запрос для строки Итого, вычислим новое значение на фронте
+      total_amount += position.price * position.quantity;
+      setTotal({ ...total, total_amount });
+
+      toast({ title: t("positionUpdated", { name: position.name }), status: "success" });
+
+      setIndexPositionEdit(null);
+    }
   };
 
   const pagination = React.useMemo(
@@ -286,72 +319,83 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
   };
 
   return (
-    <Flex direction="column" height={"calc(100vh - 115px)"}>
-      <ExpensesFilter tableParams={tableParams} setTableParams={setTableParams}></ExpensesFilter>
-      <TableContainer
-        className={style.tableContainer}
-        style={{ flexGrow: 1, minHeight: "200px" }}
-        border={colorMode == "light" ? "1px solid" : undefined}
-        borderColor={colorMode == "light" ? "gray.200 !important" : undefined}
-        overflowY="auto"
-      >
-        <Table
-          variant="simple"
-          size="sm"
-          className={style.table}
-          overflowY="hidden"
-          __css={{ tableLayout: "fixed", width: "full" }}
+    <React.Fragment>
+      {isOpenFormEditPosition && indexPositionEdit !== null && (
+        <PositionUpdateFormModal
+          position={purchasses[indexPositionEdit]}
+          isOpen={isOpenFormEditPosition}
+          onClose={onCloseFormEditPosition}
+          updatePosition={handleUpdatePosition}
+        />
+      )}
+
+      <Flex direction="column" height={"calc(100vh - 115px)"}>
+        <ExpensesFilter tableParams={tableParams} setTableParams={setTableParams}></ExpensesFilter>
+        <TableContainer
+          className={style.tableContainer}
+          style={{ flexGrow: 1, minHeight: "200px" }}
+          border={colorMode == "light" ? "1px solid" : undefined}
+          borderColor={colorMode == "light" ? "gray.200 !important" : undefined}
+          overflowY="auto"
         >
-          <Thead position="sticky" top={0}>
-            {table.getHeaderGroups().map((headerGroup: any) => (
-              <Tr key={headerGroup.id}>
-                {headerGroup.headers.map((header: any) => (
-                  <Th
-                    width={header.getSize() !== 150 ? header.getSize() : undefined}
-                    key={header.id}
-                    {...{
-                      cursor: header.column.getCanSort() ? "pointer" : "",
-                      onClick: header.column.getToggleSortingHandler(),
-                    }}
-                  >
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    {{
-                      asc: <TriangleUpIcon aria-label="sorted ascending" className={style.sortIcon} />,
-                      desc: <TriangleDownIcon aria-label="sorted descending" className={style.sortIcon} />,
-                    }[header.column.getIsSorted() as string] ?? null}
-                  </Th>
-                ))}
-              </Tr>
-            ))}
-          </Thead>
-          <Tbody>{getTableBody()}</Tbody>
-        </Table>
-      </TableContainer>
+          <Table
+            variant="simple"
+            size="sm"
+            className={style.table}
+            overflowY="hidden"
+            __css={{ tableLayout: "fixed", width: "full" }}
+          >
+            <Thead position="sticky" top={0}>
+              {table.getHeaderGroups().map((headerGroup: any) => (
+                <Tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header: any) => (
+                    <Th
+                      width={header.getSize() !== 150 ? header.getSize() : undefined}
+                      key={header.id}
+                      {...{
+                        cursor: header.column.getCanSort() ? "pointer" : "",
+                        onClick: header.column.getToggleSortingHandler(),
+                      }}
+                    >
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      {{
+                        asc: <TriangleUpIcon aria-label="sorted ascending" className={style.sortIcon} />,
+                        desc: <TriangleDownIcon aria-label="sorted descending" className={style.sortIcon} />,
+                      }[header.column.getIsSorted() as string] ?? null}
+                    </Th>
+                  ))}
+                </Tr>
+              ))}
+            </Thead>
+            <Tbody>{getTableBody()}</Tbody>
+          </Table>
+        </TableContainer>
 
-      <Flex>
-        <Box>
-          <span>{t("totalPositions")}:</span>
-          <span className={style.totalRowValue}>{total.total_number}</span>
-        </Box>
-        <Spacer />
-        <Box>
-          <span>{t("totalAmount")}:</span>
-          <span className={style.totalRowValue}>{formatNumber(total.total_amount)}</span>
-        </Box>
+        <Flex>
+          <Box>
+            <span>{t("totalPositions")}:</span>
+            <span className={style.totalRowValue}>{total.total_number}</span>
+          </Box>
+          <Spacer />
+          <Box>
+            <span>{t("totalAmount")}:</span>
+            <span className={style.totalRowValue}>{formatNumber(total.total_amount)}</span>
+          </Box>
+        </Flex>
+
+        <TablePagination
+          currentPageSize={table.getState().pagination.pageSize}
+          currentPageIndex={table.getState().pagination.pageIndex}
+          pageCount={table.getPageCount()}
+          setPageSize={table.setPageSize}
+          setPageIndex={table.setPageIndex}
+          previousPage={table.previousPage}
+          nextPage={table.nextPage}
+          canPreviousPage={table.getCanPreviousPage()}
+          canNextPage={table.getCanNextPage()}
+        ></TablePagination>
       </Flex>
-
-      <TablePagination
-        currentPageSize={table.getState().pagination.pageSize}
-        currentPageIndex={table.getState().pagination.pageIndex}
-        pageCount={table.getPageCount()}
-        setPageSize={table.setPageSize}
-        setPageIndex={table.setPageIndex}
-        previousPage={table.previousPage}
-        nextPage={table.nextPage}
-        canPreviousPage={table.getCanPreviousPage()}
-        canNextPage={table.getCanNextPage()}
-      ></TablePagination>
-    </Flex>
+    </React.Fragment>
   );
 };
 

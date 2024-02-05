@@ -53,7 +53,7 @@ const InputNumberForm: React.FC<IFormInput> = ({
       <ConnectForm>
         {({ control, formState: { errors } }) => (
           <div>
-            {!!name && <FormLabel htmlFor={keyItem}>{name}</FormLabel>}
+            {!!name && <FormLabel htmlFor={keyItem} whiteSpace="nowrap">{name}</FormLabel>}
             <Controller
               control={control}
               name={keyItem}
