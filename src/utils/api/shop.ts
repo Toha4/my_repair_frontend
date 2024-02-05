@@ -11,12 +11,12 @@ export const ShopApi = (instance: AxiosInstance) => ({
     const { data } = await instance.get<ShopItemTypes>(`/api/shops/shop/${id}`);
     return data;
   },
-  async create(Shop: ShopItemTypes) {
-    const { data } = await instance.post<ShopItemTypes, { data: ShopItemTypes }>('/api/shops/shop/', Shop);
+  async create(shop: ShopItemTypes) {
+    const { data } = await instance.post<ShopItemTypes, { data: ShopItemTypes }>('/api/shops/shop/', shop);
     return data;
   },
-  async update(id: number, Shop: ShopItemTypes) {
-    const { data } = await instance.put<ShopItemTypes, { data: ShopItemTypes }>(`api/shops/shop/${id}`, Shop);
+  async update(id: number, shop: ShopItemTypes) {
+    const { data } = await instance.put<ShopItemTypes, { data: ShopItemTypes }>(`api/shops/shop/${id}`, shop);
     return data;
   },
   remove(id: number) {

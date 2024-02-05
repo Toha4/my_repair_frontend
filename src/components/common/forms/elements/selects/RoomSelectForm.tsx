@@ -14,6 +14,7 @@ interface IRoomSelectForm {
   keyItem?: string;
   placeholder?: string;
   isInvalid?: boolean;
+  name?: string;
 }
 
 const RoomSelectForm: React.FC<IRoomSelectForm> = ({
@@ -22,6 +23,7 @@ const RoomSelectForm: React.FC<IRoomSelectForm> = ({
   skipLabel = false,
   keyItem = "room",
   placeholder = " ",
+  name = "",
   isInvalid,
 }) => {
   const { t } = useTranslation("settings");
@@ -39,7 +41,7 @@ const RoomSelectForm: React.FC<IRoomSelectForm> = ({
 
   return (
     <SelectForm
-      name={!skipLabel ? t("common:room") : undefined}
+      name={!skipLabel ? (!!name ? name : t("common:room")) : undefined}
       keyItem={keyItem}
       isRequired={isRequired}
       placeholder={placeholder}

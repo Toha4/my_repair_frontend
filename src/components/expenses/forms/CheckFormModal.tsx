@@ -40,28 +40,10 @@ import moment from "moment";
 import { Api } from "../../../utils/api";
 import { CheckType, PositionType } from "../../../utils/api/types";
 import { IModalForm } from "../../common/forms/types";
+import { IFormCheck } from "./types";
 
 interface IAddCheckModalForm extends IModalForm {
   onUpdateTable(): void;
-}
-
-interface IFormCheckPosition {
-  pk?: number;
-  name: string;
-  room: number | undefined;
-  category: number | undefined;
-  link: string;
-  note: string;
-  price: number | undefined;
-  quantity: number;
-  is_service: boolean;
-  is_delivery: boolean;
-}
-
-interface IFormCheck {
-  date: Date | undefined;
-  shop: number;
-  positions: IFormCheckPosition[];
 }
 
 const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onUpdateTable }) => {
@@ -269,7 +251,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
       }
     >
       <FormProvider {...methodsForm}>
-        <form className={style.settingForm}>
+        <form>
           <Flex width="100%" wrap={{ base: "wrap", md: "nowrap" }} mb=".8rem">
             <Flex gap="10px">
               <Box width="165px" minWidth="106px">

@@ -11,12 +11,12 @@ export const RoomApi = (instance: AxiosInstance) => ({
     const { data } = await instance.get<RoomItemTypes>(`/api/homes/room/${id}`);
     return data;
   },
-  async create(Room: RoomItemTypes) {
-    const { data } = await instance.post<RoomItemTypes, { data: RoomItemTypes }>('/api/homes/room/', Room);
+  async create(room: RoomItemTypes) {
+    const { data } = await instance.post<RoomItemTypes, { data: RoomItemTypes }>('/api/homes/room/', room);
     return data;
   },
-  async update(id: number, Room: RoomItemTypes) {
-    const { data } = await instance.put<RoomItemTypes, { data: RoomItemTypes }>(`api/homes/room/${id}`, Room);
+  async update(id: number, room: RoomItemTypes) {
+    const { data } = await instance.put<RoomItemTypes, { data: RoomItemTypes }>(`api/homes/room/${id}`, room);
     return data;
   },
   remove(id: number) {

@@ -6,16 +6,16 @@ import style from "../../expenses.module.scss";
 import { EditCheckIcon, EditIcon, LinkIcon } from "../../../Icons";
 
 interface IActionTableRow {
-  id: number;
-  cash_check_id: number;
+  index: number;
+  cashCheckId: number;
   link: string;
   onClickEditPosition: Function;
   onClickEditCheck: Function;
 }
 
 const ActionTableRow: React.FC<IActionTableRow> = ({
-  id,
-  cash_check_id,
+  index,
+  cashCheckId,
   link,
   onClickEditPosition,
   onClickEditCheck,
@@ -45,7 +45,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
           aria-label={t("actionEditPosition")}
           variant="iconButton"
           icon={<EditIcon {...size_icon} />}
-          onClick={() => onClickEditPosition(id)}
+          onClick={() => onClickEditPosition(index)}
         />
       </Tooltip>
       <Tooltip label={t("actionEditCheck")} closeOnScroll offset={lang == "ru" ? [-30, 0] : undefined}>
@@ -55,7 +55,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
           aria-label={t("actionEditCheck")}
           variant="iconButton"
           icon={<EditCheckIcon {...size_icon} />}
-          onClick={() => onClickEditCheck(cash_check_id)}
+          onClick={() => onClickEditCheck(cashCheckId)}
         />
       </Tooltip>
     </Flex>
