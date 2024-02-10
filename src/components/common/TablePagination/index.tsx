@@ -41,7 +41,7 @@ const TablePagination: React.FC<ITablePagination> = ({
   canNextPage,
 }) => {
   const { colorMode } = useColorMode();
-  const { t } = useTranslation("common");
+  const { t, lang } = useTranslation("common");
 
   return (
     <Flex justifyContent="space-between" mt="10px" mb="10px" alignItems="center" flexWrap="wrap">
@@ -111,7 +111,10 @@ const TablePagination: React.FC<ITablePagination> = ({
             {currentPageIndex + 1} {t("paginationOf")} {pageCount}
           </strong>
         </Flex>
-        <Tooltip label={t("paginationNavigatePage", { navigate: t("paginationNext") })}>
+        <Tooltip
+          label={t("paginationNavigatePage", { navigate: t("paginationNext") })}
+          offset={lang == "ru" ? [-5, 8] : undefined}
+        >
           <IconButton
             aria-label="Next Page"
             onClick={() => nextPage()}
