@@ -20,7 +20,7 @@ import { ActionColumnType } from "../../types/types";
 
 const RepairObjectsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
-  
+
   const { user } = useAppSelector((state: OurStore) => state.authReducer);
 
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
@@ -137,10 +137,10 @@ const RepairObjectsSettings: React.FC = () => {
       {isOpenForm && <RepairObjectFormModal id={idEdit} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Box className={style.settingBox}>
+        <Text marginBottom=".6rem">{t("noteHomes")}</Text>
         <Button variant="brandSolid" onClick={handleAddRepairObject}>
           {`${t("common:actionAdd")} ${t("common:object").toLocaleLowerCase()}`}
         </Button>
-
         <Box mt="15px" mb="15px">
           <TableSettings
             columns={columns}
@@ -150,7 +150,6 @@ const RepairObjectsSettings: React.FC = () => {
             emptyPlaceholder={t("placeholderEmpty", { name: t("objectsEmpty") })}
           />
         </Box>
-        <Text>{t("noteHomes")}</Text>
       </Box>
     </>
   );

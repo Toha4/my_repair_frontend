@@ -5,6 +5,8 @@
     "email": "Email",
     "confirmPassword": "Confirm password",
 
+    "exit": "Sign out",
+
     "logo": "My repair",
     "titleExpenses": "Expenses",
     "titlePlans": "Plans",

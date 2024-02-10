@@ -10,6 +10,7 @@ import {
   IconButton,
   Spacer,
   Text,
+  Tooltip,
   useColorMode,
 } from "@chakra-ui/react";
 import style from "./Sidebar.module.scss";
@@ -150,13 +151,15 @@ const Sidebar: React.FC = () => {
             >
               <Text>{user?.username}</Text>
               <Spacer />
-              <IconButton
-                pr="6px"
-                aria-label="logout"
-                variant="iconButton"
-                icon={<LogoutIcon w="32px" h="32px" />}
-                onClick={handleLogout}
-              />
+              <Tooltip label={t('common:exit')}>
+                <IconButton
+                  pr="6px"
+                  aria-label="logout"
+                  variant="iconButton"
+                  icon={<LogoutIcon w="32px" h="32px" />}
+                  onClick={handleLogout}
+                />
+              </Tooltip>
             </Flex>
           </Flex>
         </Flex>
