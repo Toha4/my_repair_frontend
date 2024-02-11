@@ -5,8 +5,6 @@ import { Box, Button, Flex, Radio, RadioGroup, Spacer, Stack, Text, useDisclosur
 import TableExpensesList from "../../components/expenses/ExpensesView/TableExpensesList";
 import TableExpensesCheck from "../../components/expenses/ExpensesView/TableExpensesCheck";
 import CheckFormModal from "../../components/expenses/forms/CheckFormModal";
-import { PurchasePositionTypes } from "../../utils/api/types";
-import PositionUpdateFormModal from "../../components/expenses/forms/PositionEditFormModal";
 
 export enum ExpensesViewType {
   LIST = "1",

@@ -40,7 +40,8 @@ import moment from "moment";
 import { Api } from "../../../utils/api";
 import { CheckType, PositionType } from "../../../utils/api/types";
 import { IModalForm } from "../../common/forms/types";
-import { IFormCheck } from "./types";
+import { IFormCheck, IFormCheckPosition } from "./types";
+import QrCodeCheckScaner from "../../common/QrCodeCheckScaner";
 
 interface IAddCheckModalForm extends IModalForm {
   onUpdateTable(): void;
@@ -226,6 +227,35 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
     return formatNumber(totalAmount);
   };
 
+  const checkLoadFromQrCode = (decodedText: string) => {
+    console.log(decodedText);
+    Api()
+      .getReceipts.getReceiptByQrRow(decodedText)
+      .then((receipt) => {
+        const newPosition: IFormCheckPosition[] = receipt.items.map((item) => {
+          return {
+            name: item.name,
+            room: undefined,
+            category: undefined,
+            link: "",
+            note: "",
+            price: item.price,
+            quantity: item.quantity,
+            is_service: false,
+            is_delivery: false,
+          };
+        });
+
+        // TODO: Сделать установку даты и магазина
+        reset({ date: watch("date"), shop: watch("shop"), positions: newPosition });
+      })
+      .catch((err) => {
+        console.warn("Error get receipt", err);
+        // TODO: Изменить текст ошибки
+        toast({ title: t("unknownError"), status: "error" });
+      });
+  };
+
   return (
     <ModalForm
       isOpen={isOpen}
@@ -272,7 +302,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
               <Button variant="brandSolid" onClick={handleAddPosition}>
                 {`${t("common:actionAdd")} ${t("actionPosition")}`}
               </Button>
-              <Button variant="brandOutline">{t("fromPlan")}</Button>
+              <QrCodeCheckScaner qrCodeScanerSuccess={checkLoadFromQrCode}></QrCodeCheckScaner>
             </ButtonGroup>
           </Flex>
 
