@@ -94,3 +94,15 @@ export interface ITotalPurchase {
 export interface PaginatedPurchaseWithTotal<T> extends Paginated<T> {
   totals: ITotalPurchase;
 }
+
+export type ReceiptsItemTypes = {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export type ReceiptsTypes = {
+  shop_name: string;
+  date_time: string;
+  items: ReceiptsItemTypes[];
+}
