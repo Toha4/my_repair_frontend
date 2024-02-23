@@ -6,6 +6,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json ./
 COPY yarn*.lock ./
+
+RUN yarn config set network-timeout 300000
 RUN yarn install --frozen-lockfile
 
 # Stage 1, "builder".  Rebuild the source code only when needed
@@ -40,4 +42,3 @@ EXPOSE 3000
 ENV PORT 3000
 
 CMD ["node", "server.js"]
-
