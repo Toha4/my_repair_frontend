@@ -10,8 +10,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import { Html5Qrcode, Html5QrcodeCameraScanConfig, Html5QrcodeResult } from "html5-qrcode";
-import style from "./QrCodeCheckScaner.module.scss";
+import { Html5QrcodeCameraScanConfig, Html5QrcodeScanner } from "html5-qrcode";
 
 interface IQrCodeCheckScaner {
   qrCodeScanerSuccess: (decodedText: string) => void;
@@ -22,36 +21,29 @@ const QrCodeCheckScaner: React.FC<IQrCodeCheckScaner> = ({ qrCodeScanerSuccess }
 
   React.useEffect(() => {
     const config: Html5QrcodeCameraScanConfig = { fps: 10, qrbox: { width: 200, height: 200 } };
-    const html5QrCode = new Html5Qrcode("qrCodeContainer");
-
-    const qrScanerStop = () => {
-      if (html5QrCode && html5QrCode.isScanning) {
-        html5QrCode
-          .stop()
-          .then(() => console.log("Scaner stop"))
-          .catch(() => console.log("Scaner error"));
-      }
-    };
+    const scaner = new Html5QrcodeScanner("qrCodeReader", config, undefined);
 
     const qrCodeSuccess = (decodedText: string) => {
       qrCodeScanerSuccess(decodedText);
       setIsEnableScaner(false);
+      scaner.clear()
     };
 
     if (isEnableScaner) {
-      html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccess, undefined);
+      scaner.render(qrCodeSuccess, undefined)
     } else {
-      qrScanerStop();
+      scaner.clear();
     }
+    
 
     return () => {
-      qrScanerStop();
+      scaner.clear();
     };
   }, [isEnableScaner]);
 
   return (
     <React.Fragment>
-      <Popover isOpen={isEnableScaner} onClose={() => setIsEnableScaner(false)}>
+      <Popover isOpen={isEnableScaner}>
         <PopoverTrigger>
           <Button variant="brandOutline" onClick={() => setIsEnableScaner(!isEnableScaner)}>
             Scan QR-code
@@ -59,11 +51,11 @@ const QrCodeCheckScaner: React.FC<IQrCodeCheckScaner> = ({ qrCodeScanerSuccess }
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />
-          <PopoverCloseButton />
+          <PopoverCloseButton onClick={() => setIsEnableScaner(false)}/>
           <PopoverHeader>Scan the QR code from the check</PopoverHeader>
           <PopoverBody>
-            <Box className={style.scaner}>
-              <div id="qrCodeContainer"></div>
+            <Box>
+              <div id="qrCodeReader"></div>
             </Box>
           </PopoverBody>
         </PopoverContent>
