@@ -17,6 +17,7 @@ export interface IUserSettings {
   current_repair_object?: number;
   current_repair_object_name?: string;
   current_repair_object_type?: RepairObjectTypes;
+  is_proverka_cheka_integration?: boolean;
 };
 
 export interface IUser {
