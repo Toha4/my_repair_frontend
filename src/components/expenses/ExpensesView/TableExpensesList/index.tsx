@@ -210,7 +210,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
           return (
             <ActionTableRow
               index={index}
-              cashCheckId={original.cash_check}
+              cashCheckId={original.cash_check_id}
               link={original.link}
               onClickEditPosition={handleEditPositon}
               onClickEditCheck={handleEditCheck}
