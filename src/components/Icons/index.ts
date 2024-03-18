@@ -12,3 +12,6 @@ export { default as DeleteIcon } from "./DeleteIcon";
 export { default as LinkIcon } from "./LinkIcon";
 export { default as EditCheckIcon } from "./EditCheckIcon";
 export { default as FilterIcon } from "./FilterIcon";
+export { default as ReceiptIcon } from "./ReceiptIcon";
+export { default as QrCodeIcon } from "./QrCodeIcon";
+export { default as LinkedLackObjectIcon } from "./LinkedLackObjectIcon";

@@ -1,0 +1,30 @@
+.integrationSettingsBlock {
+  background: var(--brandGray);
+  padding: 15px;
+}
+
+.tableContainer {
+  border-radius: var(--chakra-radii-brand);
+  border-color: var(--brandGray);
+  margin-bottom: 10px;
+}
+
+.iconActionButton {
+  position: unset !important;
+
+  &:hover {
+    color: var(--brandBlue);
+  }
+}
+
+.receiptContainer {
+  background: var(--chakra-colors-chakra-body-bg);
+  padding: .6rem;
+  
+  font-family: helvetica neue,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+
+  img {
+    visibility: hidden;
+  }
+}

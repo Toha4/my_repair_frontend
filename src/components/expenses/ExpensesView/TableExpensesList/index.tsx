@@ -1,7 +1,7 @@
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { Api } from "../../../../utils/api";
-import { ITotalPurchase, PositionCheckType, PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
+import { ITotalPurchase, PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
 import {
   Box,
   Flex,

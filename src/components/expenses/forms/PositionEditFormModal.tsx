@@ -102,7 +102,7 @@ const PositionUpdateFormModal: React.FC<IPositionModalForm> = ({ position, isOpe
         });
     } catch (err) {
       console.warn("Error add or update category", err);
-      toast({ title: t("unknownError"), status: "error" });
+      toast({ title: t("common:unknownError"), status: "error" });
     } finally {
       setSubmitLoading(false);
     }

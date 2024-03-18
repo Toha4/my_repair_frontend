@@ -152,7 +152,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
       }
     } catch (err) {
       console.warn("Error add or update check", err);
-      toast({ title: t("unknownError"), status: "error" });
+      toast({ title: t("common:unknownError"), status: "error" });
     } finally {
       setSubmitLoading(false);
     }
@@ -228,9 +228,8 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
   };
 
   const checkLoadFromQrCode = (decodedText: string) => {
-    console.log(decodedText);
     Api()
-      .getReceipts.getReceiptByQrRow(decodedText)
+      .proverkaChekaIntegration.getReceiptByQrRow(decodedText)
       .then((receipt) => {
         const newPosition: IFormCheckPosition[] = receipt.items.map((item) => {
           return {
@@ -239,8 +238,8 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
             category: undefined,
             link: "",
             note: "",
-            price: item.price,
-            quantity: item.quantity,
+            price: Number(item.price),
+            quantity: Number(item.quantity),
             is_service: false,
             is_delivery: false,
           };
@@ -252,7 +251,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
       .catch((err) => {
         console.warn("Error get receipt", err);
         // TODO: Изменить текст ошибки
-        toast({ title: t("unknownError"), status: "error" });
+        toast({ title: t("common:unknownError"), status: "error" });
       });
   };
 
@@ -302,7 +301,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
               <Button variant="brandSolid" onClick={handleAddPosition}>
                 {`${t("common:actionAdd")} ${t("actionPosition")}`}
               </Button>
-              <QrCodeCheckScaner qrCodeScanerSuccess={checkLoadFromQrCode}></QrCodeCheckScaner>
+              <QrCodeCheckScaner qrCodeScanerSuccess={checkLoadFromQrCode} showOnlyIcon></QrCodeCheckScaner>
             </ButtonGroup>
           </Flex>
 

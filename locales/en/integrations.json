@@ -1,0 +1,23 @@
+{
+    "proverkaChekaName": "Proverka cheka",
+    "proverkaChekaDescription": "The integration allows you to scan receipts using a QR code and upload them to the system.",
+    "proverkaChekaEnabled": "Enabled",
+    "proverkaChekaApiKey": "API access token",
+    "proverkaChekaEnter": "Enter",
+    "proverkaChekaView": "View",
+
+    "proverkaChekaManualTitle": "How to get an access token",
+    "proverkaChekaManual_1": "1. Go to the website",
+    "proverkaChekaManual_2": "2. Register or log in to your personal account",
+    "proverkaChekaManual_3": "3. Go to the \"Profile\" tab",
+    "proverkaChekaManual_4": "4. Find the \"Токен доступа к API\" parameter",
+
+    "proverkaChekaReceiptsEmpty": "The list of receipts is empty",
+    "proverkaChekaReceipt": "Receipt",
+    "proverkaChekaReceiptFrom": "Receipt from {{date}}",
+
+    "proverkaChekaShopNotLinked": "The store was not found in the handbook (contact by INN)",
+
+    "proverkaChekaAdded": "Added"
+
+}

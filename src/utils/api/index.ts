@@ -8,7 +8,7 @@ import { RoomApi } from './room';
 import axiosApi from '../axiosApi';
 import { BuildingApi } from './buildings';
 import { PurchaseApi } from './purchase';
-import { GetReceiptsApi } from './getReceipts';
+import { ProverkaChekaIntegrationApi } from './proverkaChekaIntegration';
 
 
 export type ApiReturnType = {
@@ -19,7 +19,7 @@ export type ApiReturnType = {
   building: ReturnType<typeof BuildingApi>;
   room: ReturnType<typeof RoomApi>;
   purchase: ReturnType<typeof PurchaseApi>;
-  getReceipts: ReturnType<typeof GetReceiptsApi>;
+  proverkaChekaIntegration: ReturnType<typeof ProverkaChekaIntegrationApi>;
 };
 
 export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiReturnType => {
@@ -40,7 +40,7 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
     room: RoomApi,
     building: BuildingApi,
     purchase: PurchaseApi,
-    getReceipts: GetReceiptsApi,
+    proverkaChekaIntegration: ProverkaChekaIntegrationApi,
   };
 
   const result = Object.entries(apis).reduce((prev, [key, f]) => {

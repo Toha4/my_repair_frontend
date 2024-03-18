@@ -138,7 +138,7 @@ const RoomsSettings: React.FC = () => {
       })
       .catch((err) => {
         console.warn("Error delete room", err);
-        toast({ title: t("unknownError"), status: "error" });
+        toast({ title: t("common:unknownError"), status: "error" });
       });
   };
 

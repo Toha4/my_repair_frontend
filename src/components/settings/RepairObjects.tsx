@@ -123,7 +123,7 @@ const RepairObjectsSettings: React.FC = () => {
       })
       .catch((err) => {
         console.warn("Error delete repair object", err);
-        toast({ title: t("unknownError"), status: "error" });
+        toast({ title: t("common:unknownError"), status: "error" });
       });
   };
 

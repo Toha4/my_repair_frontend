@@ -3,3 +3,9 @@ export interface IModalForm {
   isOpen: boolean;
   onClose(): void;
 }
+
+export interface IModalFormReturned<T> {
+  isOpen: boolean;
+  onClose(): void;
+  onSubmit(form: T): void;
+}

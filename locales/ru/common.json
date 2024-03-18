@@ -12,6 +12,7 @@
     "titlePlans": "Планы",
     "titleBlog": "Блог",
     "titleStatistics": "Статистика",
+    "titleIntegrations": "Интеграции",
     "titleSettings": "Настройки",
 
     "paginationShow": "Показать",
@@ -31,6 +32,7 @@
     "actionSelect": "Выберите",
     "actionSelectDate": "Выберите дату",
     "actionCopy": "Копировать",
+    "actionClose": "Закрыть",
 
     "_comment": "Все поля",
     "name": "Наименование",
@@ -52,6 +54,7 @@
     "categories": "Категории",
     "buildingAndRoom": "Строение и комната",
     "positionTypes": "Типы затрат",
+    "action": "Действие",
 
     "unitQuantity": "шт",
     "purchase": "Покупка",
@@ -71,5 +74,9 @@
     "dateFrom": "Дата с",
     "dateBy": "Дата по",
     "apply": "Применить",
-    "reset": "Сбросить"
+    "reset": "Сбросить",
+
+    "unknownError": "Произошла неизвестная ошибка",
+    "ScanQrCode":  "Сканировать QR-код",
+    "ScanQrCodeTitle": "Отсканируйте QR-код с чека"
 }
