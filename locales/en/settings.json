@@ -26,7 +26,6 @@
 
     "profileUpdateSuccess": "Profile has been successfully updated",
     "profileUpdateError": "An error occurred while updating the profile",
-    "unknownError": "An unknown error has occurred",
 
     "typeDescription": "Land plot - allows you to add buildings. You can add your own rooms for each building. Apartment - this type allows you to add only rooms",
     "typeHelpText": "The type can only be specified when creating an object",

@@ -94,7 +94,7 @@ const BuildingsSettings: React.FC = () => {
       })
       .catch((err) => {
         console.warn("Error delete building", err);
-        toast({ title: t("unknownError"), status: "error" });
+        toast({ title: t("common:unknownError"), status: "error" });
       });
   };
 

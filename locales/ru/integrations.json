@@ -1,0 +1,23 @@
+{
+    "proverkaChekaName": "Проверка чека",
+    "proverkaChekaDescription": "Интеграция позволяет сканировать чеки с помощью QR-кода и загружать их в систему.",
+    "proverkaChekaEnabled": "Включена",
+    "proverkaChekaApiKey": "Токен доступа к API",
+    "proverkaChekaEnter": "Ввести",
+    "proverkaChekaView": "Просмотр",
+
+    "proverkaChekaManualTitle": "Как получить токен доступа",
+    "proverkaChekaManual_1": "1. Перейти на сайт",
+    "proverkaChekaManual_2": "2. Зарегистрироваться или войти в личный кабинет",
+    "proverkaChekaManual_3": "3. Перейти на вкладку \"Профиль\"",
+    "proverkaChekaManual_4": "4. Найти параметр \"Токен доступа к API\"",
+
+    "proverkaChekaReceiptsEmpty": "Список чеков пуст",
+    "proverkaChekaReceipt": "Чек",
+    "proverkaChekaReceiptFrom": "Чек от {{date}}",
+    
+    "proverkaChekaShopNotLinked": "Магазин не найден в справочнике (связь по ИНН)",
+
+    "proverkaChekaAdded": "Добавлен"
+
+}

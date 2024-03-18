@@ -12,6 +12,7 @@
     "titlePlans": "Plans",
     "titleBlog": "Blog",
     "titleStatistics": "Statistics",
+    "titleIntegrations": "Integrations",
     "titleSettings": "Settings",
 
     "paginationShow": "Show",
@@ -31,6 +32,7 @@
     "actionSelect": "Select",
     "actionSelectDate": "Select date",
     "actionCopy": "Copy",
+    "actionClose": "Close",
 
     "_comment": "Все поля",
     "name": "Name",
@@ -52,6 +54,7 @@
     "categories": "Categories",
     "buildingAndRoom": "Building and room",
     "positionTypes": "Cost types",
+    "action": "Action",
 
     "unitQuantity": "pc",
     "purchase": "Purchase",
@@ -71,5 +74,9 @@
     "dateFrom": "Date from",
     "dateBy": "Date by",
     "apply": "Apply",
-    "reset": "Reset"
+    "reset": "Reset",
+
+    "unknownError": "An unknown error has occurred",
+    "ScanQrCode":  "Scan QR-code",
+    "ScanQrCodeTitle": "Scan the QR code from the check"
 }

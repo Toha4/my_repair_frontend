@@ -90,7 +90,7 @@ const BuildingFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
       }
     } catch (err) {
       console.warn('Error add or update building', err);
-      toast({ title: t("unknownError"), status: "error" });
+      toast({ title: t("common:unknownError"), status: "error" });
     } finally {
       onClose();
     }

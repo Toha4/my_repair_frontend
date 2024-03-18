@@ -95,14 +95,49 @@ export interface PaginatedPurchaseWithTotal<T> extends Paginated<T> {
   totals: ITotalPurchase;
 }
 
-export type ReceiptsItemTypes = {
-  name: string;
-  price: number;
-  quantity: number;
+export type ProverkaChekaIntegrationSettingsType = {
+  is_enabled: boolean;
+  api_key: string;
 }
 
-export type ReceiptsTypes = {
-  shop_name: string;
-  date_time: string;
-  items: ReceiptsItemTypes[];
+export type ProverkaChekaIntegrationSettingsUpdateType = {
+  is_enabled?: boolean;
+  api_key?: string;
+}
+
+export type ReceiptsItemType = {
+  name: string;
+  price: string;
+  quantity: string;
+  sum: string;
+}
+
+export type ReceiptType = {
+  pk: number;
+  created: string;
+  qr_raw: string;
+  organization: string;
+  retail_place_addres: string;
+  organization_inn: string;
+  date: string | null;
+  request_number: number | null;
+  operator: string;
+  total_sum: string;
+  html: string;
+  shop_pk: number | null;
+  items: ReceiptsItemType[];
+}
+
+export type ReceiptListType = {
+  pk: number;
+  created: string;
+  organization: string;
+  retail_place_addres: string | null;
+  organization_inn: string;
+  date: string | null;
+  request_number: number | null;
+  operator: string;
+  total_sum: string;
+  is_added_check: boolean;
+  shop_pk: number | null;
 }

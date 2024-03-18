@@ -30,3 +30,43 @@ img {
   --minHeight: 490px;
   --minWidth: 360px;
 }
+
+
+/* Стили proverkacheka */
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  padding: 8px !important;
+}
+
+.b-check_table {
+  padding-bottom: 40px;
+  padding-right: 10px;
+}
+
+.b-check_center {
+  text-align: center;
+  word-break: break-word;
+  position: relative;
+}
+
+.b-check_vblock-last {
+  border-bottom: solid  2px var(--brandGray);
+}
+
+.b-check_item {
+  border-top: solid  2px var(--brandGray);
+  border-bottom: solid  2px var(--brandGray);
+}
+
+.b-check_itogo {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+/*  */

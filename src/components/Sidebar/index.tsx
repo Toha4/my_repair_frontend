@@ -29,6 +29,7 @@ import { getLocalStorage, setLocalStorage } from "../../utils/localStorage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { OurStore } from "../../redux/store";
 import { logout } from "../../redux/slices/authSlice";
+import IntegrationsIcon from "../Icons/IntegrationsIcon";
 
 export enum NavSize {
   LARGE = 1,
@@ -86,6 +87,11 @@ const Sidebar: React.FC = () => {
       href: "/statistics",
       title: t("titleStatistics"),
       icon: StatisticsIcon,
+    },
+    {
+      href: "/integrations",
+      title: t("titleIntegrations"),
+      icon: IntegrationsIcon,
     },
     {
       href: "/settings",

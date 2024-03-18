@@ -80,7 +80,7 @@ const CategoriesSettings: React.FC = () => {
       })
       .catch((err) => {
         console.warn("Error delete category", err);
-        toast({ title: t("unknownError"), status: "error" });
+        toast({ title: t("common:unknownError"), status: "error" });
       });
   };
 

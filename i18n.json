@@ -6,6 +6,7 @@
       "/login": ["login"],
       "/confirmation_email": ["login"],
       "/settings": ["settings"],
-      "/expenses": ["expenses"]
+      "/expenses": ["expenses"],
+      "/integrations": ["integrations"]
     }
   }
