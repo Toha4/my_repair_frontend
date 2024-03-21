@@ -14,5 +14,6 @@ export interface IFormCheckPosition {
 export interface IFormCheck {
   date: Date | undefined;
   shop: number;
+  receipt_scanning?: number | null;
   positions: IFormCheckPosition[];
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./QrCodeCheckScaner.module.scss";
 import {
   Box,
   Button,
@@ -19,12 +20,16 @@ interface IQrCodeCheckScaner {
   qrCodeScanerSuccess: (decodedText: string) => void;
   showOnlyIcon?: boolean;
   isLoading?: boolean;
+  widthMenuButtom?: boolean;
+  isDisabled?: boolean;
 }
 
 const QrCodeCheckScaner: React.FC<IQrCodeCheckScaner> = ({
   qrCodeScanerSuccess,
   showOnlyIcon = false,
   isLoading = false,
+  widthMenuButtom = false,
+  isDisabled = false,
 }) => {
   const { t } = useTranslation("common");
 
@@ -55,7 +60,13 @@ const QrCodeCheckScaner: React.FC<IQrCodeCheckScaner> = ({
     <React.Fragment>
       <Popover isOpen={isEnableScaner}>
         <PopoverTrigger>
-          <Button variant="brandSolid" isLoading={isLoading} onClick={() => setIsEnableScaner(!isEnableScaner)}>
+          <Button
+            className={widthMenuButtom ? style.buttonQrScanner : undefined}
+            variant="brandSolid"
+            isLoading={isLoading}
+            onClick={() => setIsEnableScaner(!isEnableScaner)}
+            isDisabled={isDisabled}
+          >
             <Flex alignItems="center" gap=".2rem">
               <QrCodeIcon w="24px" h="24px" marginBottom="-6px" marginRight={showOnlyIcon ? "-5px" : "-2px"} />
               {!showOnlyIcon && <span>{t("ScanQrCode")}</span>}

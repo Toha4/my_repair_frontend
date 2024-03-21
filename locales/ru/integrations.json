@@ -4,7 +4,6 @@
     "proverkaChekaEnabled": "Включена",
     "proverkaChekaApiKey": "Токен доступа к API",
     "proverkaChekaEnter": "Ввести",
-    "proverkaChekaView": "Просмотр",
 
     "proverkaChekaManualTitle": "Как получить токен доступа",
     "proverkaChekaManual_1": "1. Перейти на сайт",
@@ -13,11 +12,9 @@
     "proverkaChekaManual_4": "4. Найти параметр \"Токен доступа к API\"",
 
     "proverkaChekaReceiptsEmpty": "Список чеков пуст",
-    "proverkaChekaReceipt": "Чек",
-    "proverkaChekaReceiptFrom": "Чек от {{date}}",
     
     "proverkaChekaShopNotLinked": "Магазин не найден в справочнике (связь по ИНН)",
 
-    "proverkaChekaAdded": "Добавлен"
-
+    "proverkaChekaReceiptAdded" : "Расходы добавлены",
+    "proverkaChekaReceiptNotAdded" : "Расходы не добавлены"
 }

@@ -78,5 +78,12 @@
 
     "unknownError": "An unknown error has occurred",
     "ScanQrCode":  "Scan QR-code",
-    "ScanQrCodeTitle": "Scan the QR code from the check"
+    "ScanQrCodeTitle": "Scan the QR code from the check",
+
+    "open": "Open",
+    "receiptScanningOpen": "Open scanned receipt",
+    "receipt": "Receipt",
+    "receiptFrom": "Receipt from {{date}}",
+    "added": "Added"
+
 }

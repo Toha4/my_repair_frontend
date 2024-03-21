@@ -34,6 +34,7 @@ import QrCodeCheckScaner from "../../../common/QrCodeCheckScaner";
 import { LinkedLackObjectIcon } from "../../../Icons";
 import { useConfirmationModalContext } from "../../../../contexts/ModalDialogContext";
 import ReceiptModal from "./ReceiptModal";
+import { CheckIcon } from "@chakra-ui/icons";
 
 const ScanningReceiptsList: React.FC = () => {
   const { t, lang } = useTranslation("integrations");
@@ -115,11 +116,6 @@ const ScanningReceiptsList: React.FC = () => {
       });
   };
 
-  const handleOpenReceipt = (id: number) => {
-    setIdReceiptOpen(id);
-    onOpenModal();
-  };
-
   const handleDeleteReceipt = async (id: number) => {
     const receipt = receipts.find((item) => id === item.pk);
     const resultConfirm = await modalContext.showConfirmation(
@@ -147,6 +143,33 @@ const ScanningReceiptsList: React.FC = () => {
   const columnHelper = createColumnHelper<ReceiptListType & ActionColumnType>();
   const columns = React.useMemo(
     () => [
+      columnHelper.accessor("is_added_check", {
+        id: "is_added_check",
+        header: () => <span></span>,
+        enableSorting: false,
+        size: 25,
+        cell: (props: any) => {
+          return (
+            <Box>
+              <Tooltip
+                label={
+                  props.row.original.is_added_check ? t("proverkaChekaReceiptAdded") : t("proverkaChekaReceiptNotAdded")
+                }
+                closeOnScroll
+              >
+                <CheckIcon
+                  color={
+                    props.row.original.is_added_check
+                      ? "var(--chakra-colors-green-400)"
+                      : "var(--chakra-colors-gray-400)"
+                  }
+                  opacity={!props.row.original.is_added_check ? "25%" : undefined}
+                />
+              </Tooltip>
+            </Box>
+          );
+        },
+      }),
       columnHelper.accessor("date", {
         id: "date",
         header: () => <span>{t("common:date")}</span>,
@@ -187,13 +210,7 @@ const ScanningReceiptsList: React.FC = () => {
           const {
             row: { original, index },
           } = props;
-          return (
-            <ActionTableRow
-              id={original.pk}
-              onClickOpenReceipt={handleOpenReceipt}
-              onClickDelete={handleDeleteReceipt}
-            />
-          );
+          return <ActionTableRow id={original.pk} onClickDelete={handleDeleteReceipt} />;
         },
       }),
     ],
