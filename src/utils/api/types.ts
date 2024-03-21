@@ -83,6 +83,7 @@ export type CheckType = {
   pk?: number;
   date: string;
   shop: number;
+  receipt_scanning?: number | null;
   positions: PositionCheckType[];
 };
 
@@ -125,6 +126,7 @@ export type ReceiptType = {
   total_sum: string;
   html: string;
   shop_pk: number | null;
+  shop_name: string | null;
   items: ReceiptsItemType[];
 }
 

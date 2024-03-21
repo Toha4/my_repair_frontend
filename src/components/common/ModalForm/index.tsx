@@ -15,7 +15,7 @@ import style from "./ModalForm.module.scss";
 interface IModalForm {
   children: React.ReactNode;
   isOpen: boolean;
-  header: string;
+  header: string | React.ReactNode;
   onClose(): void;
   onOk(): void;
   okText?: string;

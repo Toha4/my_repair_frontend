@@ -4,7 +4,6 @@
     "proverkaChekaEnabled": "Enabled",
     "proverkaChekaApiKey": "API access token",
     "proverkaChekaEnter": "Enter",
-    "proverkaChekaView": "View",
 
     "proverkaChekaManualTitle": "How to get an access token",
     "proverkaChekaManual_1": "1. Go to the website",
@@ -13,11 +12,9 @@
     "proverkaChekaManual_4": "4. Find the \"Токен доступа к API\" parameter",
 
     "proverkaChekaReceiptsEmpty": "The list of receipts is empty",
-    "proverkaChekaReceipt": "Receipt",
-    "proverkaChekaReceiptFrom": "Receipt from {{date}}",
 
     "proverkaChekaShopNotLinked": "The store was not found in the handbook (contact by INN)",
 
-    "proverkaChekaAdded": "Added"
-
+    "proverkaChekaReceiptAdded" : "Expenses added",
+    "proverkaChekaReceiptNotAdded" : "Expenses not added"
 }

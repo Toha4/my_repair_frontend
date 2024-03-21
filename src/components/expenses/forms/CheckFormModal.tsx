@@ -17,6 +17,10 @@ import {
   Tooltip,
   useToast,
   Text,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import style from "../expenses.module.scss";
 import DatepickerForm from "../../common/forms/elements/DatepickerForm";
@@ -42,6 +46,8 @@ import { CheckType, PositionType } from "../../../utils/api/types";
 import { IModalForm } from "../../common/forms/types";
 import { IFormCheck, IFormCheckPosition } from "./types";
 import QrCodeCheckScaner from "../../common/QrCodeCheckScaner";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import IconButtonOpenReceipt from "../../integrations/ProverkaCheka/ScanningReceiptsList/IconButtonOpenReceipt";
 
 interface IAddCheckModalForm extends IModalForm {
   onUpdateTable(): void;
@@ -80,6 +86,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
         reset({
           date: result.date ? stringToDate(result.date) : undefined,
           shop: result.shop,
+          receipt_scanning: result.receipt_scanning,
           positions: result.positions.map((position) => ({
             pk: position.pk,
             name: position.name,
@@ -119,6 +126,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
     const data: CheckType = {
       date: value.date ? moment(value.date).format("YYYY-MM-DD") : "",
       shop: value.shop,
+      receipt_scanning: value.receipt_scanning,
       positions: value.positions.map((position) => ({
         pk: position.pk,
         name: position.name,
@@ -141,6 +149,14 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
           .then((_) => {
             onUpdateTable();
             onClose();
+          })
+          .catch((err: any) => {
+            // Выводим ошибку что такой сканнированы чек уже добавлен
+            if (err?.response?.data?.receipt_scanning) {
+              toast({ title: err?.response?.data?.receipt_scanning, status: "error" });
+            } else {
+              toast({ title: t("common:unknownError"), status: "error" });
+            }
           });
       } else {
         await Api()
@@ -148,6 +164,14 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
           .then((_) => {
             onUpdateTable();
             onClose();
+          })
+          .catch((err: any) => {
+            // Выводим ошибку что такой сканнированы чек уже добавлен
+            if (err?.response?.data?.receipt_scanning) {
+              toast({ title: err?.response?.data?.receipt_scanning, status: "error" });
+            } else {
+              toast({ title: t("common:unknownError"), status: "error" });
+            }
           });
       }
     } catch (err) {
@@ -245,8 +269,17 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
           };
         });
 
-        // TODO: Сделать установку даты и магазина
-        reset({ date: watch("date"), shop: watch("shop"), positions: newPosition });
+        // При редактировании чека не затираем все данные, а только привязываем чек
+        if (id) {
+          setValue("receipt_scanning", receipt.pk);
+        } else {
+          reset({
+            date: receipt.date ? stringToDate(receipt.date) : watch("date"),
+            shop: receipt.shop_pk ? receipt.shop_pk : watch("shop"),
+            receipt_scanning: receipt.pk,
+            positions: newPosition,
+          });
+        }
       })
       .catch((err) => {
         console.warn("Error get receipt", err);
@@ -255,10 +288,52 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
       });
   };
 
+  const handleSelectInScanningReceipts = () => {
+    console.log("Open modal select receipt");
+  };
+
+  const handleUnlinkReceipt = () => {
+    setValue("receipt_scanning", null);
+  };
+
+  const getMenuList = () => {
+    if (!!watch("receipt_scanning")) {
+      return (
+        <MenuList>
+          <MenuItem onClick={handleSelectInScanningReceipts} isDisabled>
+            Выбрать из ранее сканированных
+          </MenuItem>
+          <MenuItem onClick={handleUnlinkReceipt}>Отвязать сканированный чек</MenuItem>
+        </MenuList>
+      );
+    } else {
+      return (
+        <MenuList>
+          <MenuItem onClick={handleSelectInScanningReceipts}>Выбрать из ранее сканированных</MenuItem>
+        </MenuList>
+      );
+    }
+  };
+
+  const getHeader = () => {
+    const receipt_scanning = watch("receipt_scanning");
+
+    return (
+      <Flex alignItems="center">
+        <span>{`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:check").toLowerCase()}`}</span>
+        {!!receipt_scanning && (
+          <Box marginBottom="-.2rem">
+            <IconButtonOpenReceipt id={receipt_scanning} labelOpen={t("common:receiptScanningOpen")} />
+          </Box>
+        )}
+      </Flex>
+    );
+  };
+
   return (
     <ModalForm
       isOpen={isOpen}
-      header={`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:check").toLowerCase()}`}
+      header={getHeader()}
       onClose={onClose}
       okText={t(id ? "common:actionSave" : "common:actionAdd")}
       onOk={methodsForm.handleSubmit(handleSave)}
@@ -301,7 +376,26 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
               <Button variant="brandSolid" onClick={handleAddPosition}>
                 {`${t("common:actionAdd")} ${t("actionPosition")}`}
               </Button>
-              <QrCodeCheckScaner qrCodeScanerSuccess={checkLoadFromQrCode} showOnlyIcon></QrCodeCheckScaner>
+
+              {user?.settings?.is_proverka_cheka_integration && (
+                <Flex>
+                  <QrCodeCheckScaner
+                    qrCodeScanerSuccess={checkLoadFromQrCode}
+                    showOnlyIcon
+                    widthMenuButtom
+                    isDisabled={!!watch("receipt_scanning")}
+                  ></QrCodeCheckScaner>
+                  <Menu>
+                    <MenuButton
+                      className={style.buttonMenu}
+                      as={Button}
+                      variant="brandSolid"
+                      rightIcon={<ChevronDownIcon marginLeft="-10px" />}
+                    ></MenuButton>
+                    {getMenuList()}
+                  </Menu>
+                </Flex>
+              )}
             </ButtonGroup>
           </Flex>
 
