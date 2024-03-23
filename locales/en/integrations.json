@@ -16,5 +16,10 @@
     "proverkaChekaShopNotLinked": "The store was not found in the handbook (contact by INN)",
 
     "proverkaChekaReceiptAdded" : "Expenses added",
-    "proverkaChekaReceiptNotAdded" : "Expenses not added"
+    "proverkaChekaReceiptNotAdded" : "Expenses not added",
+
+    "proverkaChekaSelectPreviouslyScanned": "Select from previously scanned",
+    "proverkaChekaUnlinkScannedReceipt": "Unlink the scanned receipt",
+    "proverkaChekaReceiptSelectTitle": "Select scanned receipt",
+    "proverkaChekaReceiptNotSelected" : "Scanned receipt is not selected"
 }

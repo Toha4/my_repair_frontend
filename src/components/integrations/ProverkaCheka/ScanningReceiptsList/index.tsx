@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Box,
+  Checkbox,
   Flex,
   Spinner,
   Table,
@@ -19,6 +20,7 @@ import useTranslation from "next-translate/useTranslation";
 import style from "../../Integrations.module.scss";
 import {
   Column,
+  RowSelectionState,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
@@ -26,7 +28,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ReceiptListType } from "../../../../utils/api/types";
-import { ActionColumnType, ITableParams } from "../../../../types/types";
+import { ActionColumnType, ITableParams, SelectColumnType } from "../../../../types/types";
 import ActionTableRow from "./ActionTableRow";
 import { Api } from "../../../../utils/api";
 import TablePagination from "../../../common/TablePagination";
@@ -36,7 +38,17 @@ import { useConfirmationModalContext } from "../../../../contexts/ModalDialogCon
 import ReceiptModal from "./ReceiptModal";
 import { CheckIcon } from "@chakra-ui/icons";
 
-const ScanningReceiptsList: React.FC = () => {
+interface IScanningReceiptsList {
+  selectMode?: boolean;
+  rowSelection?: RowSelectionState;
+  setRowSelection?: React.Dispatch<React.SetStateAction<RowSelectionState>>;
+}
+
+const ScanningReceiptsList: React.FC<IScanningReceiptsList> = ({
+  selectMode = false,
+  rowSelection,
+  setRowSelection,
+}) => {
   const { t, lang } = useTranslation("integrations");
   const { colorMode } = useColorMode();
 
@@ -67,6 +79,7 @@ const ScanningReceiptsList: React.FC = () => {
         const result = await Api().proverkaChekaIntegration.getAllScannedReceipts({
           ...params,
           ...tableParams.filters,
+          is_added_check: selectMode ? false : undefined,
         });
 
         if (!ignore) {
@@ -140,36 +153,54 @@ const ScanningReceiptsList: React.FC = () => {
       });
   };
 
-  const columnHelper = createColumnHelper<ReceiptListType & ActionColumnType>();
+  const columnHelper = createColumnHelper<ReceiptListType & ActionColumnType & SelectColumnType>();
   const columns = React.useMemo(
     () => [
-      columnHelper.accessor("is_added_check", {
-        id: "is_added_check",
-        header: () => <span></span>,
-        enableSorting: false,
-        size: 25,
-        cell: (props: any) => {
-          return (
-            <Box>
-              <Tooltip
-                label={
-                  props.row.original.is_added_check ? t("proverkaChekaReceiptAdded") : t("proverkaChekaReceiptNotAdded")
-                }
-                closeOnScroll
-              >
-                <CheckIcon
-                  color={
-                    props.row.original.is_added_check
-                      ? "var(--chakra-colors-green-400)"
-                      : "var(--chakra-colors-gray-400)"
-                  }
-                  opacity={!props.row.original.is_added_check ? "25%" : undefined}
+      selectMode
+        ? columnHelper.accessor("selectCol", {
+            id: "select-col",
+            header: () => <span></span>,
+            enableSorting: false,
+            size: 25,
+            cell: (props: any) => {
+              return (
+                <Checkbox
+                  isChecked={props.row?.getIsSelected()}
+                  disabled={!props.row?.getCanSelect()}
+                  onChange={props.row.getToggleSelectedHandler()}
                 />
-              </Tooltip>
-            </Box>
-          );
-        },
-      }),
+              );
+            },
+          })
+        : columnHelper.accessor("is_added_check", {
+            id: "is_added_check",
+            header: () => <span></span>,
+            enableSorting: false,
+            size: 25,
+            cell: (props: any) => {
+              return (
+                <Box>
+                  <Tooltip
+                    label={
+                      props.row.original.is_added_check
+                        ? t("proverkaChekaReceiptAdded")
+                        : t("proverkaChekaReceiptNotAdded")
+                    }
+                    closeOnScroll
+                  >
+                    <CheckIcon
+                      color={
+                        props.row.original.is_added_check
+                          ? "var(--chakra-colors-green-400)"
+                          : "var(--chakra-colors-gray-400)"
+                      }
+                      opacity={!props.row.original.is_added_check ? "25%" : undefined}
+                    />
+                  </Tooltip>
+                </Box>
+              );
+            },
+          }),
       columnHelper.accessor("date", {
         id: "date",
         header: () => <span>{t("common:date")}</span>,
@@ -210,7 +241,13 @@ const ScanningReceiptsList: React.FC = () => {
           const {
             row: { original, index },
           } = props;
-          return <ActionTableRow id={original.pk} onClickDelete={handleDeleteReceipt} />;
+          return (
+            <ActionTableRow
+              id={original.pk}
+              onClickDelete={handleDeleteReceipt}
+              isAddedCheck={!!props.row.original.is_added_check}
+            />
+          );
         },
       }),
     ],
@@ -230,6 +267,7 @@ const ScanningReceiptsList: React.FC = () => {
     columns,
     state: {
       pagination,
+      rowSelection,
     },
     manualPagination: true,
     onPaginationChange: (updater) => {
@@ -240,6 +278,9 @@ const ScanningReceiptsList: React.FC = () => {
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    onRowSelectionChange: selectMode ? setRowSelection : undefined,
+    getRowId: (row) => row.pk.toString(),
+    enableMultiRowSelection: selectMode ? false : undefined,
   });
 
   const getTableBody = () => {
@@ -279,8 +320,16 @@ const ScanningReceiptsList: React.FC = () => {
       {isOpenForm && <ReceiptModal id={idReceiptOpen} isOpen={isOpenForm} onClose={onCloseForm} />}
 
       <Box marginTop="1rem">
-        <QrCodeCheckScaner qrCodeScanerSuccess={handleScanQRCode} isLoading={loadingScaning}></QrCodeCheckScaner>
-        <Flex direction="column" marginTop="1rem" height={"calc(100vh - 410px)"}>
+        {!selectMode && (
+          <Box marginBottom="1rem">
+            <QrCodeCheckScaner qrCodeScanerSuccess={handleScanQRCode} isLoading={loadingScaning}></QrCodeCheckScaner>
+          </Box>
+        )}
+        <Flex
+          direction="column"
+          height={!selectMode ? "calc(100vh - 410px)" : undefined}
+          maxHeight={selectMode ? "540px" : undefined}
+        >
           <TableContainer
             className={style.tableContainer}
             style={{ flexGrow: 1, minHeight: "200px" }}

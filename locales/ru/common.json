@@ -30,6 +30,7 @@
     "actionDelete": "Удалить",
     "actionSave": "Сохранить",
     "actionSelect": "Выберите",
+    "actionOnSelect": "Выбрать",
     "actionSelectDate": "Выберите дату",
     "actionCopy": "Копировать",
     "actionClose": "Закрыть",

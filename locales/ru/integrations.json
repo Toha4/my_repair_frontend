@@ -16,5 +16,11 @@
     "proverkaChekaShopNotLinked": "Магазин не найден в справочнике (связь по ИНН)",
 
     "proverkaChekaReceiptAdded" : "Расходы добавлены",
-    "proverkaChekaReceiptNotAdded" : "Расходы не добавлены"
+    "proverkaChekaReceiptNotAdded" : "Расходы не добавлены",
+
+    "proverkaChekaSelectPreviouslyScanned": "Выбрать из ранее сканированных",
+    "proverkaChekaUnlinkScannedReceipt": "Отвязать сканированный чек",
+    "proverkaChekaReceiptSelectTitle": "Выберите сканированный чек",
+    "proverkaChekaReceiptNotSelected" : "Сканированный чек не выбран"
+
 }

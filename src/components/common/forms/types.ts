@@ -9,3 +9,9 @@ export interface IModalFormReturned<T> {
   onClose(): void;
   onSubmit(form: T): void;
 }
+
+export interface IModalSelect {
+  isOpen: boolean;
+  onClose(): void;
+  onOk(select: number | number[]): void;
+}
