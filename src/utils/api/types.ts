@@ -9,6 +9,8 @@ export type ShopItemTypes = {
   pk?: number;
   name: string;
   link?: string;
+  inn?: string;
+  description?: string;
 };
 
 export type BuildingItemTypes = {

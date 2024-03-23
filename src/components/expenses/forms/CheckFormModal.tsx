@@ -208,7 +208,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
   const handleRemovePosition = async (index: number) => {
     if (!isEmptyPosition(index)) {
       const resultConfirm = await modalContext.showConfirmation(
-        t("common:confirmationTextDeleteWithObject", { name: t("actionPosition"), object: index + 1 })
+        t("common:confirmationTextDeleteWithObject", { name: t("actionPosition").toLowerCase(), object: index + 1 })
       );
 
       if (!resultConfirm) {

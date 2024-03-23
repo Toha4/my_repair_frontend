@@ -20,3 +20,11 @@
     margin-top: 5px;
   }
 }
+
+.iconActionButton {
+  position: unset !important;
+
+  &:hover {
+    color: var(--brandBlue);
+  }
+}

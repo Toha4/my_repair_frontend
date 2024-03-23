@@ -80,7 +80,7 @@ const BuildingsSettings: React.FC = () => {
   const handleDeleteBuilding = async (id: number) => {
     const nameBuilding = buildings.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("common:confirmationTextDeleteWithObject", { name: t("building"), object: nameBuilding })
+      t("common:confirmationTextDeleteWithObject", { name: t("building").toLowerCase(), object: nameBuilding })
     );
 
     if (!resultConfirm) {

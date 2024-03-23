@@ -34,6 +34,7 @@
     "actionSelectDate": "Select date",
     "actionCopy": "Copy",
     "actionClose": "Close",
+    "actionOpenLink": "Open link",
 
     "_comment": "Все поля",
     "name": "Name",
@@ -41,6 +42,7 @@
     "shop": "Shop",
     "shops": "Shops",
     "link": "Link",
+    "inn": "INN",
     "building": "Building",
     "buildings": "Buildings",
     "object": "Object",

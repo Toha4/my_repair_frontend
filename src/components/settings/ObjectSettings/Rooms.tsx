@@ -124,7 +124,7 @@ const RoomsSettings: React.FC = () => {
   const handleDeleteRoom = async (id: number) => {
     const nameRoom = rooms.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("common:confirmationTextDeleteWithObject", { name: t("room"), object: nameRoom })
+      t("common:confirmationTextDeleteWithObject", { name: t("room").toLowerCase(), object: nameRoom })
     );
 
     if (!resultConfirm) {

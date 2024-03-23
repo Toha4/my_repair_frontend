@@ -66,7 +66,7 @@ const CategoriesSettings: React.FC = () => {
   const handleDeleteCategory = async (id: number) => {
     const nameCategory = categories.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("common:confirmationTextDeleteWithObject", { name: t("category"), object: nameCategory })
+      t("common:confirmationTextDeleteWithObject", { name: t("category").toLowerCase(), object: nameCategory })
     );
 
     if (!resultConfirm) {

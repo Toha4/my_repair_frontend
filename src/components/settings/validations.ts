@@ -87,6 +87,8 @@ export const ShopFormSchema = (t: Function) => {
   return yup.object().shape({
     name: yup.string().required(),
     link: yup.string(),
+    inn: yup.string().max(12),
+    description: yup.string(),
   });
 };
 
