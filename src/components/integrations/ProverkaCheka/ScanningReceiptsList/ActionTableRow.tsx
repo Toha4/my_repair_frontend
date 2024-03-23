@@ -9,9 +9,10 @@ import IconButtonOpenReceipt from "./IconButtonOpenReceipt";
 interface IActionTableRow {
   id: number;
   onClickDelete: Function;
+  isAddedCheck?: boolean;
 }
 
-const ActionTableRow: React.FC<IActionTableRow> = ({ id, onClickDelete }) => {
+const ActionTableRow: React.FC<IActionTableRow> = ({ id, onClickDelete, isAddedCheck }) => {
   const { t } = useTranslation("integrations");
 
   const size_icon = { w: "24px", h: "24px" };
@@ -27,6 +28,7 @@ const ActionTableRow: React.FC<IActionTableRow> = ({ id, onClickDelete }) => {
           variant="iconButton"
           icon={<DeleteIcon {...size_icon} />}
           onClick={() => onClickDelete(id)}
+          isDisabled={isAddedCheck}
         />
       </Tooltip>
     </Flex>
