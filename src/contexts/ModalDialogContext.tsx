@@ -85,10 +85,10 @@ const ConfirmationModalContextProvider: React.FC<ConfirmationModalContextProvide
             <ModalBody>{content.message}</ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={handleCancel}>
+              <Button variant="brandOutline" mr={3} onClick={handleCancel}>
                 {t("common:confirmationCancel")}
               </Button>
-              <Button variant="ghost" onClick={handleOk}>
+              <Button variant="brandSolid" onClick={handleOk}>
                 {t("common:confirmationYes")}
               </Button>
             </ModalFooter>

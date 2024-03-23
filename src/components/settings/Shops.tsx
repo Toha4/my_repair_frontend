@@ -1,6 +1,6 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
-import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, IconButton, Tooltip, useDisclosure, useToast } from "@chakra-ui/react";
 import style from "./Settings.module.scss";
 import TableSettings from "./tables/TableSetting";
 import ActionTableRow from "./tables/ActionTableRow";
@@ -14,10 +14,11 @@ import { fetchShops, shopRemoved } from "../../redux/slices/shopsSlice";
 import { ShopItemTypes } from "../../utils/api/types";
 import { createColumnHelper } from "@tanstack/react-table";
 import { ActionColumnType } from "../../types/types";
+import { LinkIcon } from "../Icons";
 
 const ShopsSettings: React.FC = () => {
   const { t, lang } = useTranslation("settings");
-  
+
   const { isOpen: isOpenForm, onOpen: onOpenForm, onClose: onCloseForm } = useDisclosure();
   const [idEdit, setIdEdit] = React.useState<number | null>(null);
 
@@ -40,31 +41,43 @@ const ShopsSettings: React.FC = () => {
         id: "name",
         header: () => <span>{t("common:name")}</span>,
       }),
-      columnHelper.accessor("link", {
-        id: "link",
-        header: () => <span>{t("common:link")}</span>,
+      columnHelper.accessor("description", {
+        id: "description",
+        header: () => <span>{t("common:note")}</span>,
+        enableSorting: false,
+      }),
+      columnHelper.accessor("inn", {
+        id: "inn",
+        header: () => <span>{t("common:inn")}</span>,
+        size: 130,
+        enableSorting: false,
+      }),
+      columnHelper.accessor("action", {
+        id: "action",
+        header: () => <span>{t("action")}</span>,
+        size: 110,
         enableSorting: false,
         cell: (props: any) => {
           const {
             row: { original },
           } = props;
           return (
-            <a href={original.link} target="_blank">
-              {original.link}
-            </a>
+            <Flex justifyContent="end">
+              {!!original.link && (
+                <Tooltip label={original.link} closeOnScroll>
+                  <a target="_blank" href={original.link}>
+                    <IconButton
+                      className={style.iconActionButton}
+                      aria-label={t("common:actionOpenLink")}
+                      variant="iconButton"
+                      icon={<LinkIcon width="24px" height="24px" />}
+                    />
+                  </a>
+                </Tooltip>
+              )}
+              <ActionTableRow id={original.pk} onClickEdit={handleEditShop} onClickDelete={handleDeleteShop} />
+            </Flex>
           );
-        },
-      }),
-      columnHelper.accessor("action", {
-        id: "action",
-        header: () => <span>{t("action")}</span>,
-        size: 90,
-        enableSorting: false,
-        cell: (props: any) => {
-          const {
-            row: { original },
-          } = props;
-          return <ActionTableRow id={original.pk} onClickEdit={handleEditShop} onClickDelete={handleDeleteShop} />;
         },
       }),
     ],
@@ -79,7 +92,7 @@ const ShopsSettings: React.FC = () => {
   const handleDeleteShop = async (id: number) => {
     const nameShop = shops.find((item) => id === item.pk)?.name;
     const resultConfirm = await modalContext.showConfirmation(
-      t("common:confirmationTextDeleteWithObject", { name: t("common:shop"), object: nameShop })
+      t("common:confirmationTextDeleteWithObject", { name: t("common:shop").toLowerCase(), object: nameShop })
     );
 
     if (!resultConfirm) {

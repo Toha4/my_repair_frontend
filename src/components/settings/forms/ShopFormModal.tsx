@@ -13,10 +13,13 @@ import { shopAdded, shopUpdated } from "../../../redux/slices/shopsSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 import { capitalize } from "../../../utils/DataConvert";
 import { IModalForm } from "../../common/forms/types";
+import TextareaForm from "../../common/forms/elements/TextareaForm";
 
 interface IFormShop {
   name: string;
   link?: string;
+  inn?: string;
+  description?: string;
 }
 
 const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
@@ -30,7 +33,10 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
 
   const toast = useToast();
 
-  const { reset } = methodsForm;
+  const {
+    reset,
+    formState: { errors },
+  } = methodsForm;
 
   const [loading, setLoading] = React.useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = React.useState<boolean>(false);
@@ -43,7 +49,7 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
 
       const fetchData = async () => {
         const result = await Api().shop.get(id);
-        reset({ name: result.name, link: result.link });
+        reset({ name: result.name, link: result.link, inn: result.inn, description: result.description });
 
         setLoading(false);
       };
@@ -53,9 +59,11 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
   }, []);
 
   const handleSave = async (value: IFormShop) => {
-    const data = {
+    const data: ShopItemTypes = {
       name: value.name,
       link: value.link,
+      inn: value.inn,
+      description: value.description,
     };
 
     try {
@@ -97,6 +105,8 @@ const ShopFormModal: React.FC<IModalForm> = ({ id, isOpen, onClose }) => {
         <form className={style.settingForm}>
           <InputForm name={capitalize(t("common:name"))} keyItem="name" isRequired loading={loading} />
           <InputForm name={t("common:link")} keyItem="link" loading={loading} />
+          <InputForm name={t("common:inn")} keyItem="inn" loading={loading} isInvalid={!!errors.inn} />
+          <TextareaForm name={t("common:note")} keyItem="description" loading={loading} />
         </form>
       </FormProvider>
     </ModalForm>

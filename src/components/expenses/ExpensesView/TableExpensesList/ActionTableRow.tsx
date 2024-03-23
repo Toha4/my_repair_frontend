@@ -27,11 +27,11 @@ const ActionTableRow: React.FC<IActionTableRow> = ({
   return (
     <Flex justifyContent="end">
       {!!link && (
-        <Tooltip label={t("actionOpenLink")} closeOnScroll>
+        <Tooltip label={t("common:actionOpenLink")} closeOnScroll>
           <a target="_blank" href={link}>
             <IconButton
               className={style.iconActionButton}
-              aria-label={t("actionOpenLink")}
+              aria-label={t("common:actionOpenLink")}
               variant="iconButton"
               icon={<LinkIcon {...size_icon} />}
             />

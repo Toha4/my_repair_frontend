@@ -9,7 +9,8 @@ export const setYupLocale = (t: Function) => {
       required: ({ path }) => t("yup:mixedRequired", { path: t(`common:${path}`) }),
     },
     string: {
-      min: ({ min, path }) => t("yup:stringMin", { path: t(`common:${path}`), min })
+      min: ({ min, path }) => t("yup:stringMin", { path: t(`common:${path}`), min }),
+      max: ({ max, path }) => t("yup:stringMax", { path: t(`common:${path}`), max })
 
     },
     number: {
