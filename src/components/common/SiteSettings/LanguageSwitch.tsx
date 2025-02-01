@@ -7,10 +7,10 @@ import style from "./SiteSettings.module.scss";
 function RadioCard(props: any) {
   const styles = useStyleConfig('RadioCard', { variant: props.variant })
 
-  const { getInputProps, getCheckboxProps } = useRadio(props);
+  const { getInputProps, getRadioProps } = useRadio(props);
 
   const input = getInputProps();
-  const checkbox = getCheckboxProps();
+  const checkbox = getRadioProps();
 
   return (
     <Box as="label">

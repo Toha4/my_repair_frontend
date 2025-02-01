@@ -4,8 +4,7 @@ import { OurStore } from "../../../../../redux/store";
 import useTranslation from "next-translate/useTranslation";
 import { LoadingStatus } from "../../../../../redux/types";
 import { fetchRooms } from "../../../../../redux/slices/roomsSlice";
-import MultiSelectForm from "./MultiSelectForm";
-import { Option } from "chakra-multiselect";
+import MultiSelectForm, { IMultiselectOption } from "./MultiSelectForm";
 
 interface IRoomMultiselectForm {
   keyItem?: string;
@@ -34,13 +33,13 @@ const RoomMultiselectForm: React.FC<IRoomMultiselectForm> = ({
     }
   }, [roomsStatus, dispatch]);
 
-  const option: Option[] =
+  const option: IMultiselectOption[] =
     rooms.length > 0 ? rooms.map((room) => ({ label: room.name, value: room.pk!.toString() })) : [];
 
   return (
     <React.Fragment>
       <MultiSelectForm
-        option={option}
+        options={option}
         name={!skipLabel ? t("common:rooms") : undefined}
         keyItem={keyItem}
         isRequired={isRequired}

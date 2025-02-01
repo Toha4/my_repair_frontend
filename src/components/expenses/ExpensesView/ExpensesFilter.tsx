@@ -11,7 +11,6 @@ import { SearchIcon } from "@chakra-ui/icons";
 import DatepickerForm from "../../common/forms/elements/DatepickerForm";
 import moment from "moment";
 import ShopMultiselectForm from "../../common/forms/elements/multiselects/ShopMultiSelectForm";
-import { Option } from "chakra-multiselect";
 import RoomMultiselectForm from "../../common/forms/elements/multiselects/RoomMultiSelect";
 import BuildingMultiselectForm from "../../common/forms/elements/multiselects/BuildingMultiSelect";
 import { useAppSelector } from "../../../redux/hooks";
@@ -19,6 +18,7 @@ import { OurStore } from "../../../redux/store";
 import { isCurrentLandMode } from "../../../utils/repairObjects";
 import CategoryMultiselectForm from "../../common/forms/elements/multiselects/CategoryMultiSelect";
 import PositionTypeMultiselectForm from "../../common/forms/elements/multiselects/PositionTypeMultiSelect";
+import { IMultiselectOption } from "../../common/forms/elements/multiselects/MultiSelectForm";
 
 interface IExpensesFilter {
   tableParams: ITableParams;
@@ -34,11 +34,11 @@ interface IFormFilter {
   generalSearch: string;
   dateBegin: Date | null;
   dateEnd: Date | null;
-  shops: Option[];
-  buildings: Option[];
-  rooms: Option[];
-  categories: Option[];
-  positionTypes: Option[];
+  shops: IMultiselectOption[];
+  buildings: IMultiselectOption[];
+  rooms: IMultiselectOption[];
+  categories: IMultiselectOption[];
+  positionTypes: IMultiselectOption[];
 }
 
 const ExpensesFilter: React.FC<IExpensesFilter> = ({ tableParams, setTableParams }) => {

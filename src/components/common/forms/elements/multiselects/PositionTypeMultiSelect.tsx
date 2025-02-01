@@ -1,7 +1,6 @@
 import React from "react";
 import useTranslation from "next-translate/useTranslation";
-import MultiSelectForm from "./MultiSelectForm";
-import { Option } from "chakra-multiselect";
+import MultiSelectForm, { IMultiselectOption } from "./MultiSelectForm";
 import { PositionTypeLocales } from "../../../../../utils/api/types";
 
 interface IPositionTypeMultiselectForm {
@@ -20,7 +19,7 @@ const PositionTypeMultiselectForm: React.FC<IPositionTypeMultiselectForm> = ({
 }) => {
   const { t } = useTranslation("common");
 
-  let option: Option[] = [];
+  let option: IMultiselectOption[] = [];
 
   for (const [key, value] of Object.entries(PositionTypeLocales)) {
     option.push({ label: t(`common:${value}`), value: key.toString() });
@@ -29,7 +28,7 @@ const PositionTypeMultiselectForm: React.FC<IPositionTypeMultiselectForm> = ({
   return (
     <React.Fragment>
       <MultiSelectForm
-        option={option}
+        options={option}
         name={!skipLabel ? t("common:positionTypes") : undefined}
         keyItem={keyItem}
         isRequired={isRequired}
