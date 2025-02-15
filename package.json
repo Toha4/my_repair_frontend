@@ -16,7 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource-variable/inter": "^5.0.16",
     "@hookform/resolvers": "^2.8.8",
-    "@reduxjs/toolkit": "^1.8.1",
+    "@reduxjs/toolkit": "2.5.1",
     "@tanstack/react-table": "^8.11.2",
     "@types/cookie": "^0.6.0",
     "axios": "^0.27.2",
@@ -27,13 +27,13 @@
     "framer-motion": "^11.0.3",
     "html5-qrcode": "^2.3.8",
     "moment": "^2.29.3",
-    "next": "^13.5.6",
+    "next": "15.1.7",
     "next-redux-wrapper": "^7.0.5",
     "next-translate": "^2.6.2",
     "nookies": "^2.5.2",
-    "react": "^18.2.0",
+    "react": "19.0.0",
     "react-datepicker": "^5.0.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "19.0.0",
     "react-hook-form": "^7.28.0",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
@@ -44,14 +44,14 @@
   },
   "devDependencies": {
     "@types/node": "17.0.21",
-    "@types/react": "17.0.39",
+    "@types/react": "19.0.8",
     "@types/react-datepicker": "^4.19.5",
     "eslint": "8.10.0",
-    "eslint-config-next": "^13.5.6",
+    "eslint-config-next": "15.1.7",
     "next-translate-plugin": "^2.6.2",
     "typescript": "4.6.2"
   },
   "resolutions": {
-    "@types/react": "<18.0.0"
+    "@types/react": "19.0.8"
   }
 }
