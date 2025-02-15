@@ -26,7 +26,7 @@ const DatepickerForm: React.FC<IFormInput> = ({ name, keyItem, isRequired, place
                 <Skeleton isLoaded={!loading}>
                   <DatePicker
                     placeholderText={placeholder}
-                    onChange={(date) => field.onChange(date)}
+                    onChange={(date: any) => field.onChange(date)}
                     selected={field.value}
                     isClearable={!isRequired}
                   />
