@@ -39,7 +39,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "sass": "^1.85.0",
-    "yup": "^0.32.11"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@types/node": "17.0.21",
