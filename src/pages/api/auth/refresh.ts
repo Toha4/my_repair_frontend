@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { parseCookies } from "nookies";
 
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const { data, status: returnedStatus, headers: returnedHeaders, } = await axios.post(
@@ -24,11 +24,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       res.status(200).send(data);
-    } catch ({ response: { status, data } }) {
-      res.status(typeof status === "number" ? status : 500).json(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        const data = error.response?.data;
+        res.status(typeof status === "number" ? status : 500).json(data);
+      } else {
+        res.status(500).json({ error: "Internal Server Error" });
+      }
     }
   } else {
     res.setHeader("Allow", ["GET"]);
     return res.status(405).json({ "error": `Method ${req.method} not allowed` });
   }
 };
+
+export default handler;

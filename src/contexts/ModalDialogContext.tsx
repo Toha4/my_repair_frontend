@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { JSX, useContext, useRef, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -46,7 +46,7 @@ const ConfirmationModalContextProvider: React.FC<ConfirmationModalContextProvide
   const { t } = useTranslation("settings");
   const { setShow, show, onHide } = useModalShow();
   const [content, setContent] = useState<{ message: string | JSX.Element } | null>();
-  const resolver = useRef<Function>();
+  const resolver = useRef<Function>(null);
 
   const handleShow = (message: string | JSX.Element): Promise<boolean> => {
     setContent({

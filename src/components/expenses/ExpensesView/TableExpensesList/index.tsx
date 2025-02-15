@@ -20,7 +20,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import {
-  Column,
+  ColumnDef,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
@@ -220,7 +220,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
       }),
     ],
     [lang, purchasses]
-  ) as Column<PurchasePositionTypes>[];
+  ) as ColumnDef<PurchasePositionTypes>[];
 
   const handleEditPositon = (index: number) => {
     setIndexPositionEdit(index);

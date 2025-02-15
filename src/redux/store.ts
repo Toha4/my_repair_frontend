@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, combineReducers, UnknownAction } from "@reduxjs/toolkit";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 import { authReducer } from "./slices/authSlice";
@@ -17,8 +17,19 @@ const combinedReducer = combineReducers({
   categoriesReducer,
 });
 
-const rootReducer: typeof combinedReducer = (state, action) => {
-  if (action.type === HYDRATE) {
+type RootState = ReturnType<typeof combinedReducer>;
+
+type HydrateAction = UnknownAction & {
+  type: typeof HYDRATE;
+  payload: RootState;
+};
+
+const isHydrateAction = (action: UnknownAction): action is HydrateAction => {
+  return action.type === HYDRATE && typeof (action as HydrateAction).payload === "object";
+};
+
+const rootReducer = (state: RootState | undefined, action: UnknownAction) => {
+  if (isHydrateAction(action)) {
     const nextState = {
       ...state,
       ...action.payload,
