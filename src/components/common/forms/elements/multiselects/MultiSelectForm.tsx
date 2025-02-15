@@ -3,11 +3,18 @@ import { Flex, FormControl, FormHelperText, FormLabel, Skeleton, Tooltip } from 
 import ConnectForm from "../ConnectForm";
 import { QuestionIcon } from "@chakra-ui/icons";
 import style from "../../form.module.scss";
-import { MultiSelect, Option } from "chakra-multiselect";
+import { Select, OptionBase } from "chakra-react-select";
+
 import { Controller } from "react-hook-form";
 
+
+export interface IMultiselectOption extends OptionBase {
+  label: string;
+  value: string;
+}
+
 interface IMultiSelectForm {
-  option: Option[];
+  options: IMultiselectOption[];
   name?: string;
   keyItem: string;
   isRequired?: boolean;
@@ -20,7 +27,7 @@ interface IMultiSelectForm {
 }
 
 const MultiSelectForm: React.FC<IMultiSelectForm> = ({
-  option,
+  options,
   name,
   keyItem,
   isRequired,
@@ -52,14 +59,22 @@ const MultiSelectForm: React.FC<IMultiSelectForm> = ({
               return (
                 <Flex width="100%">
                   <Skeleton isLoaded={!loading}>
-                    <MultiSelect
-                      options={option}
+                    <Select
+                      options={options}
                       placeholder={placeholder}
                       value={field.value}
-                      onChange={(value) => field.onChange(value)}
-                      borderColor={isInvalid ? "red" : undefined}
+                      onChange={(value: any) => {field.onChange(value)}}
+                      chakraStyles={{
+                        control: (baseStyles: any, state: any) => ({
+                          ...baseStyles,
+                          borderColor: isInvalid ? "red" : baseStyles.borderColor,
+                        }),
+                      }}
+                      isInvalid
                       disabled={disabled}
                       size="sm"
+                      isMulti
+                      tagVariant="solid"
                     />
                   </Skeleton>
                 </Flex>

@@ -4,8 +4,7 @@ import { OurStore } from "../../../../../redux/store";
 import useTranslation from "next-translate/useTranslation";
 import { LoadingStatus } from "../../../../../redux/types";
 import { fetchBuildings } from "../../../../../redux/slices/buildingsSlice";
-import MultiSelectForm from "./MultiSelectForm";
-import { Option } from "chakra-multiselect";
+import MultiSelectForm, { IMultiselectOption } from "./MultiSelectForm";
 
 interface IBuildingMultiselectForm {
   keyItem?: string;
@@ -34,13 +33,13 @@ const BuildingMultiselectForm: React.FC<IBuildingMultiselectForm> = ({
     }
   }, [buildingsStatus, dispatch]);
 
-  const option: Option[] =
+  const option: IMultiselectOption[] =
     buildings.length > 0 ? buildings.map((building) => ({ label: building.name, value: building.pk!.toString() })) : [];
 
   return (
     <React.Fragment>
       <MultiSelectForm
-        option={option}
+        options={option}
         name={!skipLabel ? t("common:buildings") : undefined}
         keyItem={keyItem}
         isRequired={isRequired}

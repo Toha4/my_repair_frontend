@@ -4,8 +4,7 @@ import { OurStore } from "../../../../../redux/store";
 import useTranslation from "next-translate/useTranslation";
 import { LoadingStatus } from "../../../../../redux/types";
 import { fetchCategories } from "../../../../../redux/slices/categorySlice";
-import MultiSelectForm from "./MultiSelectForm";
-import { Option } from "chakra-multiselect";
+import MultiSelectForm, { IMultiselectOption } from "./MultiSelectForm";
 
 interface ICategoryMultiselectForm {
   keyItem?: string;
@@ -34,13 +33,13 @@ const CategoryMultiselectForm: React.FC<ICategoryMultiselectForm> = ({
     }
   }, [categoriesStatus, dispatch]);
 
-  const option: Option[] =
+  const option: IMultiselectOption[] =
     categories.length > 0 ? categories.map((category) => ({ label: category.name, value: category.pk!.toString() })) : [];
 
   return (
     <React.Fragment>
       <MultiSelectForm
-        option={option}
+        options={option}
         name={!skipLabel ? t("common:categories") : undefined}
         keyItem={keyItem}
         isRequired={isRequired}

@@ -4,8 +4,7 @@ import { OurStore } from "../../../../../redux/store";
 import useTranslation from "next-translate/useTranslation";
 import { LoadingStatus } from "../../../../../redux/types";
 import { fetchShops } from "../../../../../redux/slices/shopsSlice";
-import MultiSelectForm from "./MultiSelectForm";
-import { Option } from "chakra-multiselect";
+import MultiSelectForm, { IMultiselectOption } from "./MultiSelectForm";
 
 interface IShopMultiselectForm {
   keyItem?: string;
@@ -34,13 +33,13 @@ const ShopMultiselectForm: React.FC<IShopMultiselectForm> = ({
     }
   }, [shopsStatus, dispatch]);
 
-  const option: Option[] =
+  const option: IMultiselectOption[] =
     shops.length > 0 ? shops.map((shop) => ({ label: shop.name, value: shop.pk!.toString() })) : [];
 
   return (
     <React.Fragment>
       <MultiSelectForm
-        option={option}
+        options={option}
         name={!skipLabel ? t("common:shops") : undefined}
         keyItem={keyItem}
         isRequired={isRequired}
