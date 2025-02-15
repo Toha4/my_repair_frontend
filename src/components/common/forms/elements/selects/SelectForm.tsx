@@ -15,6 +15,7 @@ interface ISelectForm {
   loading?: boolean;
   onAddItem?: () => void;
   isInvalid?: boolean;
+  children?: React.ReactNode;
 }
 
 const SelectForm: React.FC<ISelectForm> = ({

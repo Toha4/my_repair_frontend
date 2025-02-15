@@ -71,7 +71,7 @@ const MultiSelectForm: React.FC<IMultiSelectForm> = ({
                         }),
                       }}
                       isInvalid
-                      disabled={disabled}
+                      isDisabled={disabled}
                       size="sm"
                       isMulti
                       tagVariant="solid"

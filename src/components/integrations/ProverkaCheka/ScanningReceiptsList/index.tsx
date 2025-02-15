@@ -19,7 +19,7 @@ import {
 import useTranslation from "next-translate/useTranslation";
 import style from "../../Integrations.module.scss";
 import {
-  Column,
+  ColumnDef,
   RowSelectionState,
   createColumnHelper,
   flexRender,
@@ -252,7 +252,7 @@ const ScanningReceiptsList: React.FC<IScanningReceiptsList> = ({
       }),
     ],
     [lang, receipts]
-  ) as Column<ReceiptListType>[];
+  ) as ColumnDef<ReceiptListType>[];
 
   const pagination = React.useMemo(
     () => ({
