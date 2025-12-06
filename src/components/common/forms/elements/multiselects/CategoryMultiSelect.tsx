@@ -12,6 +12,7 @@ interface ICategoryMultiselectForm {
   loading?: boolean;
   skipLabel?: boolean;
   placeholder?: string;
+  isInvalid?: boolean;
 }
 
 const CategoryMultiselectForm: React.FC<ICategoryMultiselectForm> = ({
@@ -20,6 +21,7 @@ const CategoryMultiselectForm: React.FC<ICategoryMultiselectForm> = ({
   loading = false,
   skipLabel = false,
   placeholder = "",
+  isInvalid,
 }) => {
   const { t } = useTranslation("common");
 
@@ -45,6 +47,7 @@ const CategoryMultiselectForm: React.FC<ICategoryMultiselectForm> = ({
         isRequired={isRequired}
         placeholder={placeholder}
         loading={loading || categoriesStatus === LoadingStatus.LOADING}
+        isInvalid={isInvalid}
       />
     </React.Fragment>
   );

@@ -4,7 +4,7 @@ import { setYupLocale } from "../../../utils/validations";
 const PositionFormNestedSchema = {
   name: yup.string().required(),
   room: yup.number().required(),
-  category: yup.number().required(),
+  categories: yup.array().of(yup.number().required()).min(1).required(),
   link: yup.string(),
   note: yup.string(),
   price: yup.number().required().transform((v) => (v === '' || Number.isNaN(v) ? undefined : v)).min(0),
@@ -29,7 +29,7 @@ export const PositionFormSchema = (t: Function) => {
   return yup.object().shape({
     name: yup.string().required(),
     room: yup.number().required(),
-    category: yup.number().required(),
+    categories: yup.array().of(yup.number().required()).min(1).required(),
     link: yup.string(),
     note: yup.string(),
     price: yup.number().required().transform((v) => (v === '' || Number.isNaN(v) ? undefined : v)).min(0),

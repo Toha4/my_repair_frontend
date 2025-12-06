@@ -1,7 +1,7 @@
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { Api } from "../../../../utils/api";
-import { ITotalPurchase, PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
+import { CategoryItemTypes, ITotalPurchase, PositionType, PurchasePositionTypes } from "../../../../utils/api/types";
 import {
   Box,
   Flex,
@@ -167,9 +167,20 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
           return (
             <React.Fragment>
               <Box>{props.row.original.room_name}</Box>
-              <Box mt={1} className={style.tableCellPurposeCategory}>
-                {props.row.original.category_name}
-              </Box>
+            </React.Fragment>
+          );
+        },
+      }),
+      columnHelper.accessor("categories", {
+        id: "categories",
+        header: () => <span>{t("categories")}</span>,
+        size: 200,
+        cell: (props: any) => {
+          const categoriesName = props.row.original.categories.map((category: CategoryItemTypes) => category.name).join(", ");
+
+          return (
+            <React.Fragment>
+              <Box>{categoriesName}</Box>
             </React.Fragment>
           );
         },

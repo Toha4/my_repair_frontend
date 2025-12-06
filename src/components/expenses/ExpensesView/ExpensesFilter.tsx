@@ -18,7 +18,6 @@ import { OurStore } from "../../../redux/store";
 import { isCurrentLandMode } from "../../../utils/repairObjects";
 import CategoryMultiselectForm from "../../common/forms/elements/multiselects/CategoryMultiSelect";
 import PositionTypeMultiselectForm from "../../common/forms/elements/multiselects/PositionTypeMultiSelect";
-import { IMultiselectOption } from "../../common/forms/elements/multiselects/MultiSelectForm";
 
 interface IExpensesFilter {
   tableParams: ITableParams;
@@ -34,11 +33,11 @@ interface IFormFilter {
   generalSearch: string;
   dateBegin: Date | null;
   dateEnd: Date | null;
-  shops: IMultiselectOption[];
-  buildings: IMultiselectOption[];
-  rooms: IMultiselectOption[];
-  categories: IMultiselectOption[];
-  positionTypes: IMultiselectOption[];
+  shops: number[];
+  buildings: number[];
+  rooms: number[];
+  categories: number[];
+  positionTypes: number[];
 }
 
 const ExpensesFilter: React.FC<IExpensesFilter> = ({ tableParams, setTableParams }) => {
@@ -79,22 +78,23 @@ const ExpensesFilter: React.FC<IExpensesFilter> = ({ tableParams, setTableParams
       setHasFilters(false);
     }
 
+    const getValidIds = (items: number[] | undefined) => {
+      if (!items || items.length === 0) return undefined;
+      const validIds = items.filter((num) => !isNaN(num) && num !== null && num !== undefined);
+      return validIds.length > 0 ? validIds.toString() : undefined;
+    };
+
     setTableParams({
       ...tableParams,
       filters: {
         general_search: value.generalSearch?.length > 0 ? value.generalSearch : undefined,
         date_begin: value.dateBegin ? moment(value.dateBegin).format("DD.MM.YYYY") : undefined,
         date_end: value.dateEnd ? moment(value.dateEnd).format("DD.MM.YYYY") : undefined,
-        shops: value.shops?.length > 0 ? value.shops.map((item) => Number(item.value)).toString() : undefined,
-        rooms: value.rooms?.length > 0 ? value.rooms.map((item) => Number(item.value)).toString() : undefined,
-        buildings:
-          value.buildings?.length > 0 ? value.buildings.map((item) => Number(item.value)).toString() : undefined,
-        categories:
-          value.categories?.length > 0 ? value.categories.map((item) => Number(item.value)).toString() : undefined,
-        position_types:
-          value.positionTypes?.length > 0
-            ? value.positionTypes.map((item) => Number(item.value)).toString()
-            : undefined,
+        shops: getValidIds(value.shops),
+        rooms: getValidIds(value.rooms),
+        buildings: getValidIds(value.buildings),
+        categories: getValidIds(value.categories),
+        position_types: getValidIds(value.positionTypes),
       },
     });
   };

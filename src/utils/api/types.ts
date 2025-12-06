@@ -57,8 +57,7 @@ export type PurchasePositionTypes = {
   name: string;
   room: number;
   room_name: string;
-  category: number;
-  category_name: string;
+  categories: CategoryItemTypes[];
   shop: number;
   shop_name: string;
   quantity: number;
@@ -73,7 +72,7 @@ export type PositionCheckType = {
   pk?: number;
   name: string;
   room?: number;
-  category?: number;
+  categories: number[];
   link: string;
   note: string;
   price: number;

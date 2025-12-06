@@ -2,7 +2,7 @@ export interface IFormCheckPosition {
   pk?: number;
   name: string;
   room: number | undefined;
-  category: number | undefined;
+  categories: number[];
   link: string;
   note: string;
   price: number | undefined;
