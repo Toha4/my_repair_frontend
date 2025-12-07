@@ -14,7 +14,7 @@ import { PositionFormSchema } from "./validations";
 import CheckboxIconForm from "../../common/forms/elements/CheckboxIconForm";
 import ServiceIcon from "../../Icons/ServiceIcon";
 import InputNumberForm from "../../common/forms/elements/InputNumberForm";
-import CategorySelectForm from "../../common/forms/elements/selects/CategorySelectForm";
+import CategoryMultiselectForm from "../../common/forms/elements/multiselects/CategoryMultiSelect";
 import RoomSelectForm from "../../common/forms/elements/selects/RoomSelectForm";
 import { isCurrentLandMode } from "../../../utils/repairObjects";
 import TextareaForm from "../../common/forms/elements/TextareaForm";
@@ -45,7 +45,7 @@ const PositionUpdateFormModal: React.FC<IPositionModalForm> = ({ position, isOpe
     defaultValues: {
       name: position.name,
       room: position.room,
-      category: position.category,
+      categories: position.categories?.map((cat) => cat.pk).filter((pk): pk is number => pk !== undefined && pk !== null) || [],
       link: position.link,
       note: position.note,
       price: position.price,
@@ -82,7 +82,7 @@ const PositionUpdateFormModal: React.FC<IPositionModalForm> = ({ position, isOpe
     const data: PositionCheckType = {
       name: value.name,
       room: value.room,
-      category: value.category,
+      categories: value.categories,
       link: value.link,
       note: value.note,
       price: value.price || 0.0,
@@ -181,16 +181,13 @@ const PositionUpdateFormModal: React.FC<IPositionModalForm> = ({ position, isOpe
               alignItems="center"
               mt="10px"
             >
-              <GridItem colSpan={{ base: 7, md: 8 }}>
+              <GridItem colSpan={{ base: 12, md: 14 }}>
                 <RoomSelectForm
                   name={isCurrentLandMode(user) ? t("common:buildingAndRoom") : t("common:room")}
                   keyItem={"room"}
                   isRequired
                   isInvalid={!!errors.room}
                 />
-              </GridItem>
-              <GridItem colSpan={{ base: 5, md: 6 }}>
-                <CategorySelectForm keyItem={"category"} isRequired isInvalid={!!errors.category} />
               </GridItem>
               <GridItem colSpan={{ base: 4, md: 3 }}>
                 <InputForm
@@ -224,9 +221,20 @@ const PositionUpdateFormModal: React.FC<IPositionModalForm> = ({ position, isOpe
               </GridItem>
             </Grid>
 
-            <Grid templateColumns={"repeat(12, 1fr)"} mt="10px">
-              <GridItem colSpan={12}>
-                <TextareaForm name={t("common:note")} keyItem={`note`} isInvalid={!!errors.note} />
+            <Grid templateColumns={"repeat(12, 1fr)"} gap="10px" mt="10px">
+              <GridItem colSpan={{ base: 12, md: 6 }}>
+                <CategoryMultiselectForm
+                  keyItem={"categories"}
+                  isRequired
+                  isInvalid={!!errors.categories}
+                />
+              </GridItem>
+              <GridItem colSpan={{ base: 12, md: 6 }}>
+                <TextareaForm
+                  name={t("common:note")}
+                  keyItem={`note`}
+                  isInvalid={!!errors.note}
+                />
               </GridItem>
             </Grid>
           </Box>

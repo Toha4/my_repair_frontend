@@ -50,6 +50,7 @@ import QrCodeCheckScaner from "../../common/QrCodeCheckScaner";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import IconButtonOpenReceipt from "../../integrations/ProverkaCheka/ScanningReceiptsList/IconButtonOpenReceipt";
 import ScanningReceiptListModal from "../../integrations/ProverkaCheka/ScanningReceiptListModal";
+import CategoryMultiselectForm from "../../common/forms/elements/multiselects/CategoryMultiSelect";
 
 interface IAddCheckModalForm extends IModalForm {
   onUpdateTable(): void;
@@ -96,7 +97,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
             pk: position.pk,
             name: position.name,
             room: position.room,
-            category: position.category,
+            categories: position.categories,
             link: position.link,
             note: position.note,
             price: position.price,
@@ -136,7 +137,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
         pk: position.pk,
         name: position.name,
         room: position.room,
-        category: position.category,
+        categories: position.categories,
         link: position.link,
         note: position.note,
         price: position.price || 0.0,
@@ -191,11 +192,11 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
     addPosition();
   };
 
-  const addPosition = (room: number | undefined = undefined, category: number | undefined = undefined) => {
+  const addPosition = (room: number | undefined = undefined, categories: number[] = []) => {
     append({
       name: "",
       room: room,
-      category: category,
+      categories: categories,
       link: "",
       note: "",
       price: undefined,
@@ -225,13 +226,13 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
 
   const handleCopyPosition = (index: number) => {
     const position = watch("positions")[index];
-    addPosition(position.room, position.category);
+    addPosition(position.room, position.categories);
   };
 
   const isEmptyPosition = (index: number): boolean => {
     const position = watch("positions")[index];
     return (
-      !position.name && !position.price && !position.room && !position.category && !position.link && !position.note
+      !position.name && !position.price && !position.room && !(position.categories.length > 0) && !position.link && !position.note
     );
   };
 
@@ -301,7 +302,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
       return {
         name: item.name,
         room: undefined,
-        category: undefined,
+        categories: [],
         link: "",
         note: "",
         price: Number(item.price),
@@ -354,7 +355,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
 
     return (
       <Flex alignItems="center">
-        <span>{`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:check").toLowerCase()}`}</span>
+        <span>{`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:check").toLowerCase()}${id ? ` #${id}` : ""}`}</span>
         {!!receipt_scanning && (
           <Box marginBottom="-.2rem">
             <IconButtonOpenReceipt id={receipt_scanning} labelOpen={t("common:receiptScanningOpen")} />
@@ -534,7 +535,7 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                         pl="10px"
                         alignItems="center"
                       >
-                        <GridItem colSpan={{ base: 7, md: 8 }}>
+                        <GridItem colSpan={{ base: 12, md: 14 }}>
                           <RoomSelectForm
                             placeholder={
                               isCurrentLandMode(user) ? `${t("common:buildingAndRoom")} *` : `${t("common:room")} *`
@@ -544,16 +545,6 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                             isRequired
                             loading={loading}
                             isInvalid={!!errors.positions?.[i]?.room}
-                          />
-                        </GridItem>
-                        <GridItem colSpan={{ base: 5, md: 6 }}>
-                          <CategorySelectForm
-                            placeholder={`${t("common:category")} *`}
-                            keyItem={`positions.${i}.category`}
-                            skipLabel
-                            isRequired
-                            loading={loading}
-                            isInvalid={!!errors.positions?.[i]?.category}
                           />
                         </GridItem>
                         <GridItem colSpan={{ base: 4, md: 3 }}>
@@ -587,7 +578,16 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
                       </Grid>
 
                       <Grid templateColumns={"repeat(12, 1fr)"} gap="10px" pt="10px" pl="10px" pb="10px">
-                        <GridItem colSpan={12}>
+                        <GridItem colSpan={{ base: 12, md: 6 }}>
+                          <CategoryMultiselectForm
+                            placeholder={`${t("common:categories")} *`}
+                            keyItem={`positions.${i}.categories`}
+                            skipLabel
+                            loading={loading}
+                            isInvalid={!!errors.positions?.[i]?.categories}
+                          />
+                        </GridItem>
+                        <GridItem colSpan={{ base: 12, md: 6 }}>
                           <TextareaForm
                             placeholder={t("common:note")}
                             keyItem={`positions.${i}.note`}

@@ -3,7 +3,7 @@ import { Flex, FormControl, FormHelperText, FormLabel, Skeleton, Tooltip } from 
 import ConnectForm from "../ConnectForm";
 import { QuestionIcon } from "@chakra-ui/icons";
 import style from "../../form.module.scss";
-import { Select, OptionBase } from "chakra-react-select";
+import { Select, OptionBase, MultiValue, ActionMeta } from "chakra-react-select";
 
 import { Controller } from "react-hook-form";
 
@@ -58,12 +58,36 @@ const MultiSelectForm: React.FC<IMultiSelectForm> = ({
             render={({ field }) => {
               return (
                 <Flex width="100%">
-                  <Skeleton isLoaded={!loading}>
+                  <Skeleton isLoaded={!loading} width="100%">
                     <Select
                       options={options}
                       placeholder={placeholder}
-                      value={field.value}
-                      onChange={(value: any) => {field.onChange(value)}}
+                      menuPortalTarget={document.body}
+                      styles={{
+                        menuPortal: (provided) => ({
+                          ...provided,
+                          // This is the z-index of the normal select in Chakra.
+                          zIndex: 1500,
+                        }),
+                      }}
+                      value={
+                        // Преобразуем `number[]` (из формы) → `IMultiselectOption[]` (для Select)
+                        options.filter(opt => 
+                          Array.isArray(field.value) 
+                            ? field.value.includes(Number(opt.value))  // string → number
+                            : false
+                        )
+                      }
+                      onChange={(
+                        newValue: MultiValue<IMultiselectOption>,
+                        _actionMeta: ActionMeta<IMultiselectOption>
+                      ) => {
+                        // Преобразуем `MultiValue<IMultiselectOption>` → `number[]`
+                        const selectedValues = newValue 
+                          ? newValue.map(opt => Number(opt.value))  // string → number
+                          : [];
+                        field.onChange(selectedValues);
+                      }}
                       chakraStyles={{
                         control: (baseStyles: any, state: any) => ({
                           ...baseStyles,
