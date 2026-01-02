@@ -54,6 +54,7 @@ export const PositionTypeLocales = {
 export type PurchasePositionTypes = {
   pk: number;
   cash_check_id: number;
+  cash_check_sequence_number: number;
   name: string;
   room: number;
   room_name: string;
@@ -82,6 +83,7 @@ export type PositionCheckType = {
 
 export type CheckType = {
   pk?: number;
+  sequence_number?: number;
   date: string;
   shop: number;
   receipt_scanning?: number | null;
