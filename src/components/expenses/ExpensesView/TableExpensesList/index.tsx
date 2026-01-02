@@ -152,7 +152,7 @@ const TableExpensesList: React.FC<ITableExpensesList> = ({ onOpenEditCheckDialog
               <Box>{props.row.original.shop_name}</Box>
               <Box mt={1}>
                 <span className={style.tableCellPurchaseDate}>{props.row.original.cash_check_date}</span>
-                <span className={style.tableCellPurchaseCheck}>#{props.row.original.cash_check_id}</span>
+                <span className={style.tableCellPurchaseCheck}>#{props.row.original.cash_check_sequence_number}</span>
               </Box>
             </React.Fragment>
           );

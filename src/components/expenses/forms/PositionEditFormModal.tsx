@@ -53,7 +53,7 @@ const PositionUpdateFormModal: React.FC<IPositionModalForm> = ({ position, isOpe
       is_service: position.type === PositionType.SERVICE,
       is_delivery: position.type === PositionType.DELIVERY,
       check_date: position.cash_check_date,
-      check_number: position.cash_check_id,
+      check_number: position.cash_check_sequence_number,
       shop_name: position.shop_name,
     },
   });
@@ -135,7 +135,7 @@ const PositionUpdateFormModal: React.FC<IPositionModalForm> = ({ position, isOpe
               <Input
                 disabled
                 width="12rem"
-                value={`${position.cash_check_date} ${t("common:check").toLowerCase()} #${position.cash_check_id}`}
+                value={`${position.cash_check_date} ${t("common:check").toLowerCase()} #${position.cash_check_sequence_number}`}
               />
               <Input disabled value={position.shop_name} />
             </Flex>

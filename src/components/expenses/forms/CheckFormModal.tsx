@@ -82,10 +82,12 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
   const [loading, setLoading] = React.useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = React.useState<boolean>(false);
   const [receiptScanningLoading, setReceiptScanningLoading] = React.useState<boolean>(false);
+  const [checkSequenceNumber, setCheckSequenceNumber] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     if (id) {
       setLoading(true);
+      setCheckSequenceNumber(null);
 
       const fetchData = async () => {
         const result = await Api().purchase.getCheck(id);
@@ -106,17 +108,18 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
             is_delivery: position.type === PositionType.DELIVERY,
           })),
         });
-
+        setCheckSequenceNumber(result.sequence_number ?? null);
         setLoading(false);
       };
       fetchData();
     } else {
+      setCheckSequenceNumber(null);
       // При добавлении сразу добавляем 1 позицию
       if (methodsForm.getValues("positions").length === 0) {
         handleAddPosition();
       }
     }
-  }, []);
+  }, [id]);
 
   const handleSave = async (value: IFormCheck) => {
     const getType = (is_service: boolean, is_delivery: boolean) => {
@@ -352,10 +355,11 @@ const CheckFormModal: React.FC<IAddCheckModalForm> = ({ id, isOpen, onClose, onU
 
   const getHeader = () => {
     const receipt_scanning = watch("receipt_scanning");
+    const displayNumber = checkSequenceNumber !== null ? ` #${checkSequenceNumber}` : "";
 
     return (
       <Flex alignItems="center">
-        <span>{`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:check").toLowerCase()}${id ? ` #${id}` : ""}`}</span>
+        <span>{`${t(id ? "common:actionEdit" : "common:actionAdd")} ${t("common:check").toLowerCase()}${displayNumber}`}</span>
         {!!receipt_scanning && (
           <Box marginBottom="-.2rem">
             <IconButtonOpenReceipt id={receipt_scanning} labelOpen={t("common:receiptScanningOpen")} />
